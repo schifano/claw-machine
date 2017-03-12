@@ -3,7 +3,7 @@ import PlaygroundSupport
 
 public class Container {
 
-    let viewController = UIViewController()
+    public let viewController = UIViewController()
     
     public init() { } // needs to be public to be accessible from main playground
     
