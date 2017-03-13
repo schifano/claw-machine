@@ -5,21 +5,48 @@ import PlaygroundSupport
 
 let container = Container()
 container.setup()
-container.getContainerSize()
+//container.getContainerSize()
 
 // TODO: Generate multiple items on screen
 // TODO: Physics drop items
 
+
+
+
 // UIKit Dynamics - drop things
+let containerView = container.viewController.view
 
 let square = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
 square.backgroundColor = UIColor.purple
 
-container.viewController.view.addSubview(square)
+let stuffedAnimalNames = ["bear.jpg", "unicorn.jpg", "duck.jpg"]
+let images = stuffedAnimalNames.map { UIImage(named: $0) }
 
+let bear = UIImageView(image: images[0])
+bear.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
+
+let ooni = UIImageView(image: images[1])
+ooni.frame = CGRect(x: 180, y: 120, width: 100, height: 100)
+
+let quacky = UIImageView(image: images[2])
+quacky.frame = CGRect(x: 200, y: 105, width: 100, height: 100)
+
+containerView?.addSubview(bear)
+containerView?.addSubview(ooni)
+containerView?.addSubview(quacky)
+
+// FIXME: Can I make these optional
 var animator: UIDynamicAnimator!
 var gravity: UIGravityBehavior!
+var collision: UICollisionBehavior!
 
-animator = UIDynamicAnimator(referenceView: container.viewController.view)
-gravity = UIGravityBehavior(items: [square])
+let dynamicItems = [bear, ooni, quacky]
+
+animator = UIDynamicAnimator(referenceView: containerView!)
+gravity = UIGravityBehavior(items: dynamicItems)
 animator.addBehavior(gravity)
+
+collision = UICollisionBehavior(items: dynamicItems)
+// translates uses the bounds of the reference view, aka container
+collision.translatesReferenceBoundsIntoBoundary = true
+animator.addBehavior(collision)
