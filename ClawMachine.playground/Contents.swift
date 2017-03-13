@@ -5,7 +5,7 @@ import PlaygroundSupport
 
 let container = Container()
 container.setup()
-//container.getContainerSize()
+container.getContainerSize()
 
 // TODO: Generate multiple items on screen
 // TODO: Add overlap behavior
@@ -13,7 +13,9 @@ container.setup()
 
 
 // UIKit Dynamics - drop things
-let containerView = container.viewController.view!
+//let containerView = container.viewController.view!
+
+let containerView = container.container
 
 let square = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
 square.backgroundColor = UIColor.purple
@@ -48,11 +50,11 @@ animator.addBehavior(gravity)
 
 
 // claw machine mouth barrier
-let barrierMouthLeft = UIView(frame: CGRect(x: 100, y: 300, width: 5, height: 100))
+let barrierMouthLeft = UIView(frame: CGRect(x: 60, y: 300, width: 5, height: 100))
 barrierMouthLeft.backgroundColor = UIColor.gray
 
 containerView.addSubview(barrierMouthLeft)
-let barrierMouthRight = UIView(frame: CGRect(x: 240, y: 300, width: 5, height: 100))
+let barrierMouthRight = UIView(frame: CGRect(x: 200, y: 300, width: 5, height: 100))
 barrierMouthRight.backgroundColor = UIColor.gray
 containerView.addSubview(barrierMouthRight)
 
@@ -63,4 +65,7 @@ animator.addBehavior(collision)
 
 collision.addBoundary(withIdentifier: "barrierMouthLeft" as NSCopying, for: UIBezierPath(rect: barrierMouthLeft.frame))
 collision.addBoundary(withIdentifier: "barrierMouthright" as NSCopying, for: UIBezierPath(rect: barrierMouthRight.frame))
+
+let window = container.gameWindow
+collision.addBoundary(withIdentifier: "window" as NSCopying, for: UIBezierPath(rect: window.frame))
 
