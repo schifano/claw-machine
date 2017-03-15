@@ -20,7 +20,7 @@ public class Container {
         clawMachineContainer.backgroundColor = UIColor.green
         gameWindow.backgroundColor = UIColor.cyan
         
-        gameWindowLeft.backgroundColor = UIColor.black
+        gameWindowLeft.backgroundColor = UIColor.darkGray
         gameWindowRight.backgroundColor = UIColor.brown
         
         

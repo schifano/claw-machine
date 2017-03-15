@@ -17,7 +17,7 @@ container.setup()
 
 let containerView = container.clawMachineContainer
 
-let square = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+let square = UIView(frame: CGRect(x: 100,  y: 100, width: 100, height: 100))
 square.backgroundColor = UIColor.purple
 
 let stuffedAnimalNames = ["bear.jpg", "unicorn.jpg", "duck.jpg"]
