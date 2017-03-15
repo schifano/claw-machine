@@ -12,7 +12,9 @@ public class Container {
     
 //    public let clawMachineContainer = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 700))
     public let gameWindow = UIView(frame: CGRect(x: 20, y: 90, width: 460, height: 300))
-//
+
+    public let clawMachineBottom = UIView(frame: CGRect(x: 0, y: 300, width: 460, height: 175))
+    
 //    public let gameWindowLeft = UIView(frame: CGRect(x: 20, y: 90, width: 150, height: 300))
 //    public let gameWindowRight = UIView(frame: CGRect(x: 170, y: 90, width: 310, height: 300))
 //    
@@ -31,6 +33,9 @@ public class Container {
         // Set autoreizingMask for compatibility in iPad Playgrounds
         // This adjusts only the gameWindow, other views need adjusting - try bottom eventually
         // 432 is the min root view width for iPad
+        
+        clawMachineBottom.backgroundColor = UIColor.black
+//        physicsContainerView.addSubview(clawMachineBottom)
         
         clawMachineContainerView.backgroundColor = UIColor(red: 127/255, green: 0/255, blue: 255/255, alpha: 1.0)
         

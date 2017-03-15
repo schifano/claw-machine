@@ -24,10 +24,15 @@ path.addLines(between: [
     CGPoint(x: 0, y: container.physicsContainerView.frame.height),
     CGPoint(x: container.physicsContainerView.frame.width, y: container.physicsContainerView.frame.height),
     CGPoint(x: container.physicsContainerView.frame.width, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
-    CGPoint(x: 140, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
-    CGPoint(x: 140, y: 0),
+    CGPoint(x: 130, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
+    CGPoint(x: 130, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
+    CGPoint(x: 120, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
+    CGPoint(x: 120, y: 0),
     CGPoint(x: 20, y: 0),
-    CGPoint(x: 20, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
+    CGPoint(x: 20, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
+    CGPoint(x: 10, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
+    CGPoint(x: 10, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
+    
     CGPoint(x: 0, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height)
 //    CGPoint(x: 460, y: 390),
 //    CGPoint(x: 150, y: 300),
@@ -120,11 +125,11 @@ for _ in 1 ... 10 {
 //
 //
 //// claw machine mouth barrier
-let barrierMouthLeft = UIView(frame: CGRect(x: 50, y: 300, width: 5, height: 100))
+let barrierMouthLeft = UIView(frame: CGRect(x: 40, y: 300, width: 5, height: 100))
 barrierMouthLeft.backgroundColor = UIColor.gray
 
 containerView.addSubview(barrierMouthLeft)
-let barrierMouthRight = UIView(frame: CGRect(x: 150, y: 300, width: 5, height: 100))
+let barrierMouthRight = UIView(frame: CGRect(x: 140, y: 300, width: 5, height: 100))
 barrierMouthRight.backgroundColor = UIColor.gray
 containerView.addSubview(barrierMouthRight)
 
