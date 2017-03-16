@@ -4,61 +4,56 @@ import PlaygroundSupport
 
 public class Container {
 
-    public let clawMachineContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 700))
+    /// Main view of the claw machine that all other views are added to
+    /// width 432 max is used for iPad Playgrounds
+    public let clawMachineCabinetContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 432, height: 600))
     
-    public let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 460, height: 550))
-    public let scene = SKScene(size: CGSize(width: 460, height: 550))
+    /// View where all physics occurs
+    public let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 450))
+    public let scene = SKScene(size: CGSize(width: 392, height: 450))
     
+    public let gameWindow = UIView(frame: CGRect(x: 20, y: 90, width: 392, height: 225))
+    public let gamePanel = UIView(frame: CGRect(x: 120, y: 350, width: 50, height: 50))
+    // TODO: Add gamePanel and dispenserWindow
     
-//    public let clawMachineContainer = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 700))
-    public let gameWindow = UIView(frame: CGRect(x: 20, y: 90, width: 460, height: 300))
-
-    public let clawMachineBottom = UIView(frame: CGRect(x: 0, y: 300, width: 460, height: 175))
-    
-//    public let gameWindowLeft = UIView(frame: CGRect(x: 20, y: 90, width: 150, height: 300))
-//    public let gameWindowRight = UIView(frame: CGRect(x: 170, y: 90, width: 310, height: 300))
-//    
-    
-//    public let gameWindow = UIView(frame: CGRect(x: 20, y: 90, width: 392, height: 300))    // iPad
+    /// Colors
+    let cabinetColor = UIColor(red: 152/255, green: 227/255, blue: 212/255, alpha: 1.0) // pale robin egg blue: #98E3D4
+//    let cabinetColor = UIColor.black
+    let gameWindowColor = UIColor(red: 212/255, green: 152/255, blue: 227/255, alpha: 1.0) // soft magenta #d498e3
+    // TODO: consider making a blurry transparent background for window effect
+    let gamePanelColor = UIColor.purple
     
     public init() { } // needs to be public to be accessible from main playground
     
     public func setup() {
 
-//
-//        gameWindowLeft.backgroundColor = UIColor.darkGray
-//        gameWindowRight.backgroundColor = UIColor.brown
-//        
-        
+        // FIXME: Adjust views to be resizable on iPad
         // Set autoreizingMask for compatibility in iPad Playgrounds
         // This adjusts only the gameWindow, other views need adjusting - try bottom eventually
         // 432 is the min root view width for iPad
         
-        clawMachineBottom.backgroundColor = UIColor.black
-//        physicsContainerView.addSubview(clawMachineBottom)
+        gameWindow.backgroundColor = gameWindowColor
+        gamePanel.backgroundColor = gamePanelColor
+        clawMachineCabinetContainerView.backgroundColor = cabinetColor
         
-        clawMachineContainerView.backgroundColor = UIColor(red: 127/255, green: 0/255, blue: 255/255, alpha: 1.0)
+        gamePanel.layer.cornerRadius = 25
+        gamePanel.layer.masksToBounds = true
         
-        gameWindow.backgroundColor = UIColor.cyan
-        gameWindow.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
+        clawMachineCabinetContainerView.addSubview(gameWindow)
+        clawMachineCabinetContainerView.addSubview(gamePanel)
+        clawMachineCabinetContainerView.addSubview(physicsContainerView)
         
-//        clawMachineContainer.addSubview(gameWindow)
         
-//        clawMachineContainer.addSubview(gameWindowLeft)
-//        clawMachineContainer.addSubview(gameWindowRight)
-//        PlaygroundPage.current.liveView = clawMachineContainer
+        physicsContainerView.allowsTransparency = true
+        physicsContainerView.showsPhysics = true    // debug
+        physicsContainerView.showsFields = true     // debug
         
-        physicsContainerView.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 128/255, alpha: 1.0)
+        scene.backgroundColor = UIColor.clear
         scene.scaleMode = SKSceneScaleMode.aspectFit
-        scene.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 128/255, alpha: 1.0)
+        
         physicsContainerView.presentScene(scene)
         
-        physicsContainerView.showsPhysics = true
-        physicsContainerView.showsFields = true
-        
-        clawMachineContainerView.addSubview(physicsContainerView)
-        
-        PlaygroundPage.current.liveView = clawMachineContainerView
+        PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
     }
 
