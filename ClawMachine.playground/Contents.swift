@@ -35,7 +35,7 @@ container.scene.addChild(fullBoundary)
 let bearTexture = SKTexture(image: #imageLiteral(resourceName: "bear3.png"))
 for _ in 1 ... 5 {
     let bear = SKSpriteNode(texture: bearTexture)
-    bear.size = CGSize(width: 50, height: 50)
+    bear.size = CGSize(width: 60, height: 60)
 //    bear.position = CGPoint(x: Int(arc4random_uniform(141)+200), y: Int(arc4random_uniform(251) + 250))
     
     bear.position = CGPoint(
@@ -50,7 +50,7 @@ for _ in 1 ... 5 {
 let duckTexture = SKTexture(image: #imageLiteral(resourceName: "duck.png"))
 for _ in 1 ... 5 {
     let duck = SKSpriteNode(texture: duckTexture)
-    duck.size = CGSize(width: 50, height: 40)
+    duck.size = CGSize(width: 60, height: 50)
     duck.position = CGPoint(x: Int(arc4random_uniform(141)+200), y: Int(arc4random_uniform(251) + 250))
     duck.physicsBody = SKPhysicsBody(texture: duckTexture, size: CGSize(width: 40, height: 30))
     duck.physicsBody?.affectedByGravity = true

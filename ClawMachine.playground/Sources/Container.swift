@@ -38,6 +38,9 @@ public class Container {
         button.position = CGPoint(x: 250, y: 150)
         
         
+        let crane = Crane.init(defaultCraneImage: "crane.png")
+        crane.position = CGPoint(x: 55, y: 410)
+        
         gameWindow.backgroundColor = gameWindowColor
         gamePanel.backgroundColor = gamePanelColor
         clawMachineCabinetContainerView.backgroundColor = cabinetColor
@@ -57,7 +60,14 @@ public class Container {
         scene.backgroundColor = UIColor.clear
         scene.scaleMode = SKSceneScaleMode.aspectFit
         
-        scene.addChild(button) // BUTTON
+        
+        
+        
+        scene.addChild(button)  // BUTTON
+        scene.addChild(crane)   // CRANE
+        
+        
+        
         
         
         physicsContainerView.presentScene(scene)
