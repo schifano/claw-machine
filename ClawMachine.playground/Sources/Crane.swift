@@ -1,11 +1,11 @@
 import SpriteKit
 
-class Crane: SKNode {
+public class Crane: SKNode {
     
     var crane: SKSpriteNode
     
     // TODO: Create a path for the crane to follow and reverse to?
-    init(defaultCraneImage: String) {
+    public init(defaultCraneImage: String) {
         crane = SKSpriteNode(imageNamed: defaultCraneImage)
         
         super.init()
@@ -13,7 +13,7 @@ class Crane: SKNode {
         addChild(crane)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

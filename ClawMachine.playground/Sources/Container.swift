@@ -24,6 +24,10 @@ public class Container {
     // TODO: consider making a blurry transparent background for window effect
     let gamePanelColor = UIColor(red: 152/255, green: 227/255, blue: 212/255, alpha: 1.0)
     
+    
+    
+    public let crane = Crane.init(defaultCraneImage: "crane.png")
+    
     public init() { } // needs to be public to be accessible from main playground
     
     public func setup() {
@@ -38,7 +42,7 @@ public class Container {
         button.position = CGPoint(x: 250, y: 150)
         
         
-        let crane = Crane.init(defaultCraneImage: "crane.png")
+//        let crane = Crane.init(defaultCraneImage: "crane.png")
         crane.position = CGPoint(x: 55, y: 410)
         
         gameWindow.backgroundColor = gameWindowColor
@@ -74,12 +78,48 @@ public class Container {
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
+        
+        
+//        let cranePath = CGMutablePath()
+//        cranePath.move(to: CGPoint(x: 55, y: 300))
+//        cranePath.addLine(to: CGPoint(x: 150, y: 300))
+//        let followCraneLine = SKAction.follow(cranePath, duration: 3.0)
+
+//        let moveNodeRight = SKAction.moveBy(x: 150.0,
+//                                         y: 0.0,
+//                                         duration: 1.0)
+//        let moveNodeDown = SKAction.moveBy(x: 0.0,
+//                                            y: -100.0,
+//                                            duration: 1.0)
+//        
+//        let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
+//        crane.run(sequence)
     }
     
     func doSomething() {
+        let moveNodeRight = SKAction.moveBy(x: 150.0,
+                                            y: 0.0,
+                                            duration: 1.0)
+        let moveNodeDown = SKAction.moveBy(x: 0.0,
+                                           y: -100.0,
+                                           duration: 1.0)
         
+        let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
+        crane.run(sequence)
     }
-
+//        let path = CGMutablePath()
+//        path.move(to: CGPoint(x: 55, y: 410))
+//        path.addLine(to: CGPoint(x: 200, y: 410))
+//        
+//        let followCraneLine = SKAction.follow(path, speed: 3.0)
+//        
+//        crane.run(followCraneLine)
+//        crane.run(followCraneLine.reversed())
+    
+    
+    
+    
+    
 //    public func getContainerSize() {
 //        // DEBUG
 //        print("Container Width: \(clawMachineContainer.frame.size.width)")

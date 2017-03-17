@@ -45,10 +45,19 @@ for _ in 1 ... 5 {
     bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 40, height: 40))
     bear.physicsBody?.affectedByGravity = true
     container.scene.addChild(bear)
+    
+//    let cranePath = CGMutablePath()
+//    cranePath.move(to: CGPoint(x: 55, y: 100))
+//    cranePath.addLine(to: CGPoint(x: 200, y: 100))
+//    
+//    let followCraneLine = SKAction.follow(cranePath, speed: 5.0)
+//    
+//    bear.run(followCraneLine)
+//    bear.run(followCraneLine.reversed())
 }
 
 let duckTexture = SKTexture(image: #imageLiteral(resourceName: "duck.png"))
-for _ in 1 ... 5 {
+for _ in 1 ... 2 {
     let duck = SKSpriteNode(texture: duckTexture)
     duck.size = CGSize(width: 60, height: 50)
     duck.position = CGPoint(x: Int(arc4random_uniform(141)+200), y: Int(arc4random_uniform(251) + 250))
@@ -56,6 +65,20 @@ for _ in 1 ... 5 {
     duck.physicsBody?.affectedByGravity = true
     container.scene.addChild(duck)
 }
+
+// FIXME: Move crane machine
+//let cranePath = CGMutablePath()
+//cranePath.move(to: CGPoint(x: 55, y: 300))
+//cranePath.addLine(to: CGPoint(x: 150, y: 300))
+//
+//let followCraneLine = SKAction.follow(cranePath, speed: 3.0)
+//
+//let crane = Crane.init(defaultCraneImage: "unicorn.jpg")
+//container.scene.addChild(crane)
+//crane.position = CGPoint(x: 400, y: 300)
+//crane.run(followCraneLine)
+//crane.run(followCraneLine.reversed())
+
 
 //// claw machine mouth barrier
 //let barrierMouthLeft = UIView(frame: CGRect(x: 40, y: 220, width: 5, height: 100))
