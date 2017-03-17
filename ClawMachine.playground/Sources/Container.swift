@@ -64,42 +64,23 @@ public class Container {
         scene.backgroundColor = UIColor.clear
         scene.scaleMode = SKSceneScaleMode.aspectFit
         
-        
-        
-        
         scene.addChild(button)  // BUTTON
         scene.addChild(crane)   // CRANE
         
-        
-        
-        
+        drawBoundaries()
         
         physicsContainerView.presentScene(scene)
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
-        
-        
-//        let cranePath = CGMutablePath()
-//        cranePath.move(to: CGPoint(x: 55, y: 300))
-//        cranePath.addLine(to: CGPoint(x: 150, y: 300))
-//        let followCraneLine = SKAction.follow(cranePath, duration: 3.0)
 
-//        let moveNodeRight = SKAction.moveBy(x: 150.0,
-//                                         y: 0.0,
-//                                         duration: 1.0)
-//        let moveNodeDown = SKAction.moveBy(x: 0.0,
-//                                            y: -100.0,
-//                                            duration: 1.0)
-//        
-//        let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
-//        crane.run(sequence)
     }
     
+    // FIXME: Moves crane in designated path
     func doSomething() {
         let moveNodeRight = SKAction.moveBy(x: 150.0,
                                             y: 0.0,
-                                            duration: 1.0)
+                                            duration: 2.0)
         let moveNodeDown = SKAction.moveBy(x: 0.0,
                                            y: -100.0,
                                            duration: 1.0)
@@ -107,6 +88,36 @@ public class Container {
         let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
         crane.run(sequence)
     }
+    
+    func drawBoundaries() {
+        let physicsHeight = physicsContainerView.frame.height
+        let physicsWidth = physicsContainerView.frame.width
+        let windowHeight = gameWindow.frame.height
+        
+        let path = CGMutablePath()
+        path.addLines(between: [
+            CGPoint(x: 0, y: physicsHeight),
+            CGPoint(x: physicsWidth, y: physicsHeight),
+            CGPoint(x: physicsWidth, y: physicsHeight - windowHeight),
+            CGPoint(x: 105, y: physicsHeight - windowHeight),
+            CGPoint(x: 105, y: physicsHeight - windowHeight + 100),
+            CGPoint(x: 100, y: physicsHeight - windowHeight + 100),
+            CGPoint(x: 100, y: 0),
+            CGPoint(x: 15, y: 0),
+            CGPoint(x: 15, y: physicsHeight - windowHeight + 100),
+            CGPoint(x: 10, y: physicsHeight - windowHeight + 100),
+            CGPoint(x: 10, y: physicsHeight - windowHeight),
+            
+            CGPoint(x: 0, y: physicsHeight - windowHeight)
+            ])
+        path.closeSubpath()
+        
+        let fullBoundary = SKNode()
+        fullBoundary.physicsBody = SKPhysicsBody(edgeLoopFrom: path)
+        scene.addChild(fullBoundary)
+    }
+    
+// FIXME: Broken path for crane
 //        let path = CGMutablePath()
 //        path.move(to: CGPoint(x: 55, y: 410))
 //        path.addLine(to: CGPoint(x: 200, y: 410))

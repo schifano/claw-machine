@@ -9,29 +9,6 @@ container.setup()
 
 let containerView = container.clawMachineCabinetContainerView
 
-let path = CGMutablePath()
-path.addLines(between: [
-    CGPoint(x: 0, y: container.physicsContainerView.frame.height),
-    CGPoint(x: container.physicsContainerView.frame.width, y: container.physicsContainerView.frame.height),
-    CGPoint(x: container.physicsContainerView.frame.width, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
-    CGPoint(x: 105, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
-    CGPoint(x: 105, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
-    CGPoint(x: 100, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
-    CGPoint(x: 100, y: 0),
-    CGPoint(x: 15, y: 0),
-    CGPoint(x: 15, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
-    CGPoint(x: 10, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height + 100),
-    CGPoint(x: 10, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height),
-    
-    CGPoint(x: 0, y: container.physicsContainerView.frame.height - container.gameWindow.frame.height)
-    ])
-path.closeSubpath()
-
-let fullBoundary = SKNode()
-fullBoundary.physicsBody = SKPhysicsBody(edgeLoopFrom: path)
-container.scene.addChild(fullBoundary)
-
-
 let bearTexture = SKTexture(image: #imageLiteral(resourceName: "bear3.png"))
 for _ in 1 ... 5 {
     let bear = SKSpriteNode(texture: bearTexture)
@@ -65,19 +42,6 @@ for _ in 1 ... 2 {
     duck.physicsBody?.affectedByGravity = true
     container.scene.addChild(duck)
 }
-
-// FIXME: Move crane machine
-//let cranePath = CGMutablePath()
-//cranePath.move(to: CGPoint(x: 55, y: 300))
-//cranePath.addLine(to: CGPoint(x: 150, y: 300))
-//
-//let followCraneLine = SKAction.follow(cranePath, speed: 3.0)
-//
-//let crane = Crane.init(defaultCraneImage: "unicorn.jpg")
-//container.scene.addChild(crane)
-//crane.position = CGPoint(x: 400, y: 300)
-//crane.run(followCraneLine)
-//crane.run(followCraneLine.reversed())
 
 
 //// claw machine mouth barrier
