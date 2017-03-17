@@ -19,26 +19,17 @@ for _ in 1 ... 5 {
         x: Int(arc4random_uniform(340)),
         y: Int(arc4random_uniform(226) + 190))
     
-    bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 40, height: 40))
+    bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 50, height: 50))
     bear.physicsBody?.affectedByGravity = true
     container.scene.addChild(bear)
-    
-//    let cranePath = CGMutablePath()
-//    cranePath.move(to: CGPoint(x: 55, y: 100))
-//    cranePath.addLine(to: CGPoint(x: 200, y: 100))
-//    
-//    let followCraneLine = SKAction.follow(cranePath, speed: 5.0)
-//    
-//    bear.run(followCraneLine)
-//    bear.run(followCraneLine.reversed())
 }
 
 let duckTexture = SKTexture(image: #imageLiteral(resourceName: "duck.png"))
-for _ in 1 ... 2 {
+for _ in 1 ... 5 {
     let duck = SKSpriteNode(texture: duckTexture)
     duck.size = CGSize(width: 60, height: 50)
     duck.position = CGPoint(x: Int(arc4random_uniform(141)+200), y: Int(arc4random_uniform(251) + 250))
-    duck.physicsBody = SKPhysicsBody(texture: duckTexture, size: CGSize(width: 40, height: 30))
+    duck.physicsBody = SKPhysicsBody(texture: duckTexture, size: CGSize(width: 50, height: 40))
     duck.physicsBody?.affectedByGravity = true
     container.scene.addChild(duck)
 }

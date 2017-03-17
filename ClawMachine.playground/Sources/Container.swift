@@ -32,6 +32,9 @@ public class Container {
     
     public func setup() {
 
+        
+        clawMachineCabinetContainerView.contentMode = .scaleAspectFit
+        
         // FIXME: Adjust views to be resizable on iPad
         // Set autoreizingMask for compatibility in iPad Playgrounds
         // This adjusts only the gameWindow, other views need adjusting - try bottom eventually

@@ -28,10 +28,7 @@ class Button: SKNode {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         activeButton.isHidden = false
         defaultButton.isHidden = true
-    }
-    
-    /// Determine if the user has moved finger on or off the button
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         guard let touch = touches.first else {
             print("There is no touch object")
             return
@@ -41,9 +38,11 @@ class Button: SKNode {
         if defaultButton.contains(location) {
             action() // begin action
         }
-        
-        activeButton.isHidden = true
-        defaultButton.isHidden = false
+    }
+    
+    /// Determine if the user has moved finger on or off the button
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+
     }
 }
 
