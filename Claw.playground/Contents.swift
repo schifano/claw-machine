@@ -57,7 +57,7 @@ rightClaw.physicsBody?.isDynamic = true
 
 
 //motor.anchorPoint = CGPoint(x: 0, y: 0)
-
+//motor.anchorPoint = CGPoint(x: motor.frame.maxX, y: 0)
 
 // SET POSITION OF CLAWS
 let leftClawPosition = leftClaw.position
@@ -83,23 +83,39 @@ scene.addChild(rightClaw)
 
 
 // Reverse bodies
-let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: leftClawPosition)
+//let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: leftClawPosition)
 
+
+print(leftClaw.frame.maxX)
+print(motor.frame.minX)
+print(motor.frame.minY)
+let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: CGPoint(x: leftClaw.frame.maxX, y: motor.frame.minY))
+
+
+let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: rightClaw.physicsBody!,
+                                             anchor: CGPoint(x: rightClaw.frame.minX, y: motor.frame.minY))
 
 leftClawJoint.shouldEnableLimits = true
 //leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
 //leftClawJoint.upperAngleLimit = 45
 
-leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(-90))
-leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-45))
 
-let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: rightClaw.physicsBody!,
-                                             anchor: rightClawPosition)
+//leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(90))
+//leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+
+
+//let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: rightClaw.physicsBody!,
+//                                             anchor: rightClawPosition)
+
 
 rightClawJoint.shouldEnableLimits = true
-rightClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
-rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-45))
+rightClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(45))
+rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
 
+//rightClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(-180))
+//rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-90))
 
 scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
 scene.physicsWorld.add(leftClawJoint)
@@ -116,7 +132,7 @@ for _ in 1 ... 5 {
     
     bear.position = CGPoint(
         x: Int(arc4random_uniform(300)),
-        y: Int(arc4random_uniform(180)))
+        y: Int(arc4random_uniform(100)))
     
     bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 50, height: 50))
     bear.physicsBody?.affectedByGravity = true
@@ -129,7 +145,7 @@ for _ in 1 ... 5 {
     duck.size = CGSize(width: 60, height: 50)
     duck.position = CGPoint(
         x: Int(arc4random_uniform(300)),
-        y: Int(arc4random_uniform(180)))
+        y: Int(arc4random_uniform(100)))
     duck.physicsBody = SKPhysicsBody(texture: duckTexture, size: CGSize(width: 50, height: 40))
     duck.physicsBody?.affectedByGravity = true
     scene.addChild(duck)
@@ -164,9 +180,14 @@ func moveClaw() {
                                        y: -100.0,
                                        duration: 3.0)
     
-    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed()])
+    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
 //    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
     motor.run(sequence)
+    
+//    let moveLeft = SKAction.moveBy(x: -10.0,
+//                                        y: 0.0,
+//                                        duration: 2.0)
+//    leftClaw.run(moveLeft)
 }
 
 moveClaw()
