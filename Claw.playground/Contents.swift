@@ -4,10 +4,10 @@ import UIKit
 import SpriteKit
 import PlaygroundSupport
 
-let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 450))
-let scene = SKScene(size: CGSize(width: 392, height: 450))
+let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
+let scene = SKScene(size: CGSize(width: 392, height: 200))
 
-//physicsContainerView.showsPhysics = true
+physicsContainerView.showsPhysics = true
 physicsContainerView.showsFields = true
 
 scene.backgroundColor = UIColor(red: 152/255, green: 227/255, blue: 212/255, alpha: 1.0) // pale robin egg blue: #98E3D4
@@ -24,7 +24,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 let motorTexture = SKTexture(image: #imageLiteral(resourceName: "claw-motor.png"))
 let motor = SKSpriteNode(texture: motorTexture)
 motor.size = CGSize(width: 28, height: 41)
-motor.position = CGPoint(x: 100, y: 300)
+motor.position = CGPoint(x: 100, y: 150)
 motor.physicsBody = SKPhysicsBody(texture: motorTexture, size: CGSize(width: 28, height: 41))
 motor.physicsBody?.affectedByGravity = false
 motor.physicsBody?.isDynamic = false
@@ -55,6 +55,10 @@ rightClaw.physicsBody?.isDynamic = true
 //rightClaw.physicsBody?.affectedByGravity = false
 //rightClaw.physicsBody?.isDynamic = false
 
+
+//motor.anchorPoint = CGPoint(x: 0, y: 0)
+
+
 // SET POSITION OF CLAWS
 let leftClawPosition = leftClaw.position
 let rightClawPosition = rightClaw.position
@@ -65,22 +69,65 @@ scene.addChild(leftClaw)
 scene.addChild(rightClaw)
 
 
-
-
 //let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: CGPoint(x: motor.frame.maxX, y: leftClaw.frame.minY))
-
-let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor:
-    CGPoint(x:leftClawPosition.x, y: leftClawPosition.y+30))
 
 //let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: rightClaw.physicsBody!, anchor: rightClawPosition)
 
+
+
+
+//let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor:
+//    CGPoint(x:leftClawPosition.x, y: leftClawPosition.y+30))
+//let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: rightClaw.physicsBody!,
+//anchor: CGPoint(x: rightClawPosition.x, y: rightClawPosition.y+30))
+
+
+// Reverse bodies
+let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: leftClawPosition)
+
+
+leftClawJoint.shouldEnableLimits = true
+//leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+//leftClawJoint.upperAngleLimit = 45
+
+leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(-90))
+leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+
 let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: rightClaw.physicsBody!,
-anchor: CGPoint(x: rightClawPosition.x, y: rightClawPosition.y+30))
+                                             anchor: rightClawPosition)
+
+rightClawJoint.shouldEnableLimits = true
+rightClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-90))
 
 
 scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
 scene.physicsWorld.add(leftClawJoint)
 scene.physicsWorld.add(rightClawJoint)
+
+
+scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
+
+let bearTexture = SKTexture(image: #imageLiteral(resourceName: "bear3.png"))
+//for _ in 1 ... 5 {
+//    let bear = SKSpriteNode(texture: bearTexture)
+//    bear.size = CGSize(width: 60, height: 60)
+//    bear.position = CGPoint(
+//        x: 140, y: 150)
+//    
+//    bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 50, height: 50))
+//    bear.physicsBody?.affectedByGravity = true
+//    scene.addChild(bear)
+//}
+
+let bear = SKSpriteNode(texture: bearTexture)
+bear.size = CGSize(width: 60, height: 60)
+bear.position = CGPoint(
+    x: 260, y: 0)
+
+bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 20, height: 20))
+bear.physicsBody?.affectedByGravity = true
+scene.addChild(bear)
 
 
 // Movement of claw
@@ -90,9 +137,10 @@ func moveClaw() {
                                         duration: 2.0)
     let moveNodeDown = SKAction.moveBy(x: 0.0,
                                        y: -100.0,
-                                       duration: 1.0)
+                                       duration: 3.0)
     
-    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
+    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed()])
+//    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
     motor.run(sequence)
 }
 
