@@ -98,7 +98,7 @@ let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, body
 
 rightClawJoint.shouldEnableLimits = true
 rightClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
-rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-90))
+rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-45))
 
 
 scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
@@ -125,9 +125,18 @@ bear.size = CGSize(width: 60, height: 60)
 bear.position = CGPoint(
     x: 260, y: 0)
 
-bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 20, height: 20))
+bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 30, height: 30))
 bear.physicsBody?.affectedByGravity = true
 scene.addChild(bear)
+
+let bear2 = SKSpriteNode(texture: bearTexture)
+bear2.size = CGSize(width: 60, height: 60)
+bear2.position = CGPoint(
+    x: 250, y: 0)
+
+bear2.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 30, height: 30))
+bear2.physicsBody?.affectedByGravity = true
+scene.addChild(bear2)
 
 
 // Movement of claw
