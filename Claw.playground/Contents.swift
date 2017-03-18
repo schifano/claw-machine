@@ -109,34 +109,50 @@ scene.physicsWorld.add(rightClawJoint)
 scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
 
 let bearTexture = SKTexture(image: #imageLiteral(resourceName: "bear3.png"))
-//for _ in 1 ... 5 {
-//    let bear = SKSpriteNode(texture: bearTexture)
-//    bear.size = CGSize(width: 60, height: 60)
-//    bear.position = CGPoint(
-//        x: 140, y: 150)
-//    
-//    bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 50, height: 50))
-//    bear.physicsBody?.affectedByGravity = true
-//    scene.addChild(bear)
-//}
+for _ in 1 ... 5 {
+    let bear = SKSpriteNode(texture: bearTexture)
+    bear.size = CGSize(width: 60, height: 60)
+    //    bear.position = CGPoint(x: Int(arc4random_uniform(141)+200), y: Int(arc4random_uniform(251) + 250))
+    
+    bear.position = CGPoint(
+        x: Int(arc4random_uniform(300)),
+        y: Int(arc4random_uniform(180)))
+    
+    bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 50, height: 50))
+    bear.physicsBody?.affectedByGravity = true
+    scene.addChild(bear)
+}
 
-let bear = SKSpriteNode(texture: bearTexture)
-bear.size = CGSize(width: 60, height: 60)
-bear.position = CGPoint(
-    x: 260, y: 0)
+let duckTexture = SKTexture(image: #imageLiteral(resourceName: "duck.png"))
+for _ in 1 ... 5 {
+    let duck = SKSpriteNode(texture: duckTexture)
+    duck.size = CGSize(width: 60, height: 50)
+    duck.position = CGPoint(
+        x: Int(arc4random_uniform(300)),
+        y: Int(arc4random_uniform(180)))
+    duck.physicsBody = SKPhysicsBody(texture: duckTexture, size: CGSize(width: 50, height: 40))
+    duck.physicsBody?.affectedByGravity = true
+    scene.addChild(duck)
+}
 
-bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 30, height: 30))
-bear.physicsBody?.affectedByGravity = true
-scene.addChild(bear)
 
-let bear2 = SKSpriteNode(texture: bearTexture)
-bear2.size = CGSize(width: 60, height: 60)
-bear2.position = CGPoint(
-    x: 250, y: 0)
-
-bear2.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 30, height: 30))
-bear2.physicsBody?.affectedByGravity = true
-scene.addChild(bear2)
+//let bear = SKSpriteNode(texture: bearTexture)
+//bear.size = CGSize(width: 60, height: 60)
+//bear.position = CGPoint(
+//    x: 260, y: 0)
+//
+//bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 30, height: 30))
+//bear.physicsBody?.affectedByGravity = true
+//scene.addChild(bear)
+//
+//let bear2 = SKSpriteNode(texture: bearTexture)
+//bear2.size = CGSize(width: 60, height: 60)
+//bear2.position = CGPoint(
+//    x: 250, y: 0)
+//
+//bear2.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 30, height: 30))
+//bear2.physicsBody?.affectedByGravity = true
+//scene.addChild(bear2)
 
 
 // Movement of claw
