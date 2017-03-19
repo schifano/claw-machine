@@ -12,7 +12,7 @@ public class Container {
     public let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 450))
     public let scene = SKScene(size: CGSize(width: 392, height: 450))
     
-    public let gameWindow = UIView(frame: CGRect(x: 20, y: 90, width: 392, height: 225))
+    public let gameWindow = UIView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
     public let gamePanel = UIView(frame: CGRect(x: 120, y: 350, width: 50, height: 50))
     // TODO: Add gamePanel and dispenserWindow
     
@@ -32,7 +32,7 @@ public class Container {
     
     public func setup() {
 
-        
+        // FIXME: lol this doesn't work
         clawMachineCabinetContainerView.contentMode = .scaleAspectFit
         
         // FIXME: Adjust views to be resizable on iPad
