@@ -39,11 +39,6 @@ class Button: SKNode {
             action() // begin action
         }
     }
-    
-    /// Determine if the user has moved finger on or off the button
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
 }
 
 
