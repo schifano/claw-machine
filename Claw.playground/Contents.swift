@@ -4,12 +4,37 @@ import UIKit
 import SpriteKit
 import PlaygroundSupport
 
+
+// bitmasks to set collide detection for sprites
+public let contactDetectorCategory: UInt32 =  0x1 << 0
+public let stuffedAnimalCategory: UInt32 =  0x1 << 1
+public let clawCategory: UInt32 = 0x1 << 2
+public let groundCategory: UInt32 = 0x1 << 3
+
 class Collision: NSObject, SKPhysicsContactDelegate {
     
+//    weak var contactDelegate: SKPhysicsContactDelegate?
+//    
+//    override init() {
+//        super.init()
+//        contactDelegate = self
+//    }
+    
+    
+
     func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "detector" {
-            print("THE DETECTOR WAS HIT")
+        print("didBegin?")
+        
+        let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
+        
+        if (collision == (contactDetectorCategory | stuffedAnimalCategory)) {
+            print("Kittens")
         }
+        
+//        print("KITTENS")
+//        if contact.bodyA.node?.name == "detector" || contact.bodyB.node?.name == "stuffedAnimal" {
+//            print("THE DETECTOR WAS HIT")
+//        }
     }
 }
 
@@ -18,9 +43,6 @@ let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height
 let scene = SKScene(size: CGSize(width: 392, height: 200))
 
 
-// bitmasks to set collide detection for sprites
-let contactDetectorCategory: UInt32 =  0x1 << 0
-let stuffedAnimalCategory: UInt32 =  0x1 << 1
 
 
 physicsContainerView.showsPhysics = true
@@ -31,8 +53,12 @@ scene.scaleMode = SKSceneScaleMode.aspectFit
 
 physicsContainerView.presentScene(scene)
 
+
 PlaygroundPage.current.liveView = physicsContainerView
 PlaygroundPage.current.needsIndefiniteExecution = true
+
+
+
 
 
 
@@ -50,9 +76,9 @@ motor.physicsBody?.isDynamic = false
 
 
 // Detector
-let contactDetector = SKShapeNode(rectOf: CGSize(width: motor.frame.width/2, height: 5))
-contactDetector.fillColor = UIColor.green
-contactDetector.position = CGPoint(x: motor.position.x, y: motor.position.y-25)
+let contactDetector = SKShapeNode(rectOf: CGSize(width: motor.frame.width/2, height: 15))
+contactDetector.fillColor = UIColor.clear
+contactDetector.position = CGPoint(x: motor.position.x, y: motor.position.y-20)
 
 contactDetector.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: contactDetector.frame.width, height: contactDetector.frame.height))
 
@@ -63,6 +89,9 @@ contactDetector.physicsBody?.categoryBitMask = contactDetectorCategory
 contactDetector.physicsBody?.contactTestBitMask = stuffedAnimalCategory
 contactDetector.physicsBody?.collisionBitMask = 0
 contactDetector.name = "detector"
+
+contactDetector.physicsBody?.allowsRotation = false
+contactDetector.physicsBody?.angularVelocity = 0
 
 
 
@@ -77,6 +106,12 @@ leftClaw.physicsBody = SKPhysicsBody(texture: leftClawTexture, size: CGSize(widt
 leftClaw.physicsBody?.affectedByGravity = true
 leftClaw.physicsBody?.isDynamic = true
 
+
+leftClaw.physicsBody?.categoryBitMask = clawCategory
+leftClaw.physicsBody?.contactTestBitMask = stuffedAnimalCategory
+leftClaw.physicsBody?.collisionBitMask = stuffedAnimalCategory | groundCategory
+
+
 //leftClaw.physicsBody?.affectedByGravity = false
 //leftClaw.physicsBody?.isDynamic = false
 
@@ -89,6 +124,11 @@ rightClaw.physicsBody = SKPhysicsBody(texture: rightClawTexture, size: CGSize(wi
 
 rightClaw.physicsBody?.affectedByGravity = true
 rightClaw.physicsBody?.isDynamic = true
+
+
+rightClaw.physicsBody?.categoryBitMask = clawCategory
+rightClaw.physicsBody?.contactTestBitMask = stuffedAnimalCategory
+rightClaw.physicsBody?.collisionBitMask = stuffedAnimalCategory | groundCategory
 
 //rightClaw.physicsBody?.affectedByGravity = false
 //rightClaw.physicsBody?.isDynamic = false
@@ -131,22 +171,27 @@ rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
 // detector joint
 let contactDetectorJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: contactDetector.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
 
-contactDetectorJoint.shouldEnableLimits = true
-contactDetectorJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
-contactDetectorJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+//contactDetectorJoint.shouldEnableLimits = true
+//contactDetectorJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+//contactDetectorJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
 
 
-
-scene.physicsWorld.contactDelegate = Collision()
+let delegate = Collision()
+scene.physicsWorld.contactDelegate = delegate
 scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
 scene.physicsWorld.add(leftClawJoint)
 scene.physicsWorld.add(rightClawJoint)
 scene.physicsWorld.add(contactDetectorJoint)
 
 
-scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
+let boundary = SKPhysicsBody(edgeLoopFrom: scene.frame)
+boundary.categoryBitMask = groundCategory
+scene.physicsBody = boundary
+//scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
 
-let bearTexture = SKTexture(image: #imageLiteral(resourceName: "bear3.png"))
+
+
+let bearTexture = SKTexture(image: #imageLiteral(resourceName: "duck.png"))
 for _ in 1 ... 1 {
     let bear = SKSpriteNode(texture: bearTexture)
     bear.size = CGSize(width: 60, height: 60)
@@ -156,7 +201,7 @@ for _ in 1 ... 1 {
 //        x: Int(arc4random_uniform(300)),
 //        y: Int(arc4random_uniform(50)))
 
-        x: 205,
+        x: 175,
         y: 50)
     
     bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 50, height: 50))
@@ -165,8 +210,8 @@ for _ in 1 ... 1 {
     bear.physicsBody?.isDynamic = true
     bear.physicsBody?.categoryBitMask = stuffedAnimalCategory
     bear.physicsBody?.contactTestBitMask = contactDetectorCategory
-//    bear.physicsBody?.collisionBitMask = 0
-    bear.physicsBody?.usesPreciseCollisionDetection = true
+    bear.physicsBody?.collisionBitMask = groundCategory | clawCategory
+//    bear.physicsBody?.usesPreciseCollisionDetection = true
     bear.name = "stuffedAnimal"
     
     scene.addChild(bear)
