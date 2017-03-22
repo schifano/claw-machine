@@ -11,23 +11,53 @@ public let stuffedAnimalCategory: UInt32 =  0x1 << 1
 public let clawCategory: UInt32 = 0x1 << 2
 public let groundCategory: UInt32 = 0x1 << 3
 
-class Collision: NSObject, SKPhysicsContactDelegate {
+
+public var hasReturnedToStart = false
+
+
+// Motor
+let motorTexture = SKTexture(image: #imageLiteral(resourceName: "claw-motor.png"))
+let motor = SKSpriteNode(texture: motorTexture)
+motor.size = CGSize(width: 28, height: 41)
+motor.position = CGPoint(x: 100, y: 150)
+motor.physicsBody = SKPhysicsBody(texture: motorTexture, size: CGSize(width: 28, height: 41))
+motor.physicsBody?.affectedByGravity = false
+motor.physicsBody?.isDynamic = false
+
+motor.physicsBody?.collisionBitMask = 0
+
+
+let moveNodeLeft = SKAction.moveBy(x: -100.0,
+                                   y: 20.0,
+                                   duration: 2.0)
+
+
+let openLeftClaw = SKAction.moveBy(x: -5.0,
+                                   y: 0.0,
+                                   duration: 2.0)
+
+let moveNodeDown = SKAction.moveBy(x: 0.0,
+                                   y: -100.0,
+                                   duration: 3.0)
+
+let wait = SKAction.wait(forDuration: 1.5)
+
+
+public func pauseAction() {
+    motor.removeAllActions()
+    let sequence = SKAction.sequence([wait, moveNodeDown.reversed()])
+    motor.run(sequence)
+    //    motor.run(wait)
+    //    motor.run(moveNodeDown.reversed())
     
-    func didBegin(_ contact: SKPhysicsContact) {
-        print("didBegin?")
-        
-        let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
-        
-        if (collision == (contactDetectorCategory | stuffedAnimalCategory)) {
-            print("bear")
-            pauseAction()
-        }
-    }
+    hasReturnedToStart = true
+    
 }
 
 
+
 let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
-let scene = SKScene(size: CGSize(width: 392, height: 200))
+public let scene = SKScene(size: CGSize(width: 392, height: 200))
 
 
 
@@ -49,15 +79,6 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 // CLAW SPRITES
-// Motor
-let motorTexture = SKTexture(image: #imageLiteral(resourceName: "claw-motor.png"))
-let motor = SKSpriteNode(texture: motorTexture)
-motor.size = CGSize(width: 28, height: 41)
-motor.position = CGPoint(x: 100, y: 150)
-motor.physicsBody = SKPhysicsBody(texture: motorTexture, size: CGSize(width: 28, height: 41))
-motor.physicsBody?.affectedByGravity = false
-motor.physicsBody?.isDynamic = false
-
 
 // Detector
 let contactDetector = SKShapeNode(rectOf: CGSize(width: motor.frame.width/2+5, height: 5))
@@ -71,7 +92,7 @@ contactDetector.physicsBody?.isDynamic = true
 
 contactDetector.physicsBody?.categoryBitMask = contactDetectorCategory
 contactDetector.physicsBody?.contactTestBitMask = stuffedAnimalCategory
-contactDetector.physicsBody?.collisionBitMask = 0
+contactDetector.physicsBody?.collisionBitMask = stuffedAnimalCategory
 contactDetector.name = "detector"
 
 contactDetector.physicsBody?.allowsRotation = false
@@ -135,6 +156,8 @@ scene.addChild(rightClaw)
 print(leftClaw.frame.maxX)
 print(motor.frame.minX)
 print(motor.frame.minY)
+
+
 let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: CGPoint(x: leftClaw.frame.maxX, y: motor.frame.minY))
 
 
@@ -144,6 +167,7 @@ let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, body
 leftClawJoint.shouldEnableLimits = true
 rightClawJoint.shouldEnableLimits = true
 
+// change 0 to 5 for a shakier claw
 leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
 leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-45))
 
@@ -151,23 +175,70 @@ rightClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(45))
 rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
 
 
-
 // detector joint
 let contactDetectorJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: contactDetector.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
 
-//contactDetectorJoint.shouldEnableLimits = true
-//contactDetectorJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
-//contactDetectorJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
+
+
+
+
+// remove spring from claw
+public var springs = [SKPhysicsJointSpring]()
+
+class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        print("didBegin?")
+        
+        let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
+        
+        if (collision == (contactDetectorCategory | stuffedAnimalCategory)) {
+            print("bear")
+            pauseAction()
+        }
+    }
+    
+    
+    func update(_ currentTime: TimeInterval, for scene: SKScene) {
+        if hasReturnedToStart {
+            for spring in springs {
+                print("#####SPRING: \(spring)")
+                scene.physicsWorld.remove(spring)
+                if let index = springs.index(of: spring) {
+                    springs.remove(at: index)
+                    
+                    let clawSpringJoint = SKPhysicsJointSpring.joint(withBodyA: leftClaw.physicsBody!, bodyB: rightClaw.physicsBody!, anchorA: CGPoint(x: leftClaw.position.x+25, y: leftClaw.position.y-15), anchorB: CGPoint(x: rightClaw.position.x-25, y: rightClaw.position.y-15))
+                    clawSpringJoint.frequency = 9.0
+                    clawSpringJoint.damping = 1.0
+                    
+                    scene.physicsWorld.add(clawSpringJoint)
+                }
+            }
+        }
+    }
+}
+
+
+
+let clawSpringJoint = SKPhysicsJointSpring.joint(withBodyA: leftClaw.physicsBody!, bodyB: rightClaw.physicsBody!, anchorA: CGPoint(x: leftClaw.position.x+25, y: leftClaw.position.y-15), anchorB: CGPoint(x: rightClaw.position.x-25, y: rightClaw.position.y-15))
+clawSpringJoint.frequency = 9.0
+clawSpringJoint.damping = 1.0
 
 
 // the delegate must be owned by something
 // setting contactDelegate = Collision() will not work without first creating a variable
 let delegate = Collision()
+
 scene.physicsWorld.contactDelegate = delegate
+scene.delegate = delegate
+
 scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
 scene.physicsWorld.add(leftClawJoint)
 scene.physicsWorld.add(rightClawJoint)
 scene.physicsWorld.add(contactDetectorJoint)
+scene.physicsWorld.add(clawSpringJoint)
+
+springs.append(clawSpringJoint)
 
 
 let boundary = SKPhysicsBody(edgeLoopFrom: scene.frame)
@@ -177,18 +248,19 @@ scene.physicsBody = boundary
 
 
 
+//let bearTexture = SKTexture(image: #imageLiteral(resourceName: "bear3.png"))
 let bearTexture = SKTexture(image: #imageLiteral(resourceName: "bear3.png"))
-for _ in 1 ... 1 {
+for _ in 1 ... 5 {
     let bear = SKSpriteNode(texture: bearTexture)
     bear.size = CGSize(width: 60, height: 60)
     //    bear.position = CGPoint(x: Int(arc4random_uniform(141)+200), y: Int(arc4random_uniform(251) + 250))
     
     bear.position = CGPoint(
-//        x: Int(arc4random_uniform(300)),
-//        y: Int(arc4random_uniform(50)))
+        x: Int(arc4random_uniform(300)),
+        y: Int(arc4random_uniform(50)))
 
-        x: 200,
-        y: 50)
+//        x: 175,
+//        y: 50)
     
     bear.physicsBody = SKPhysicsBody(texture: bearTexture, size: CGSize(width: 50, height: 50))
     bear.physicsBody?.affectedByGravity = true
@@ -203,17 +275,25 @@ for _ in 1 ... 1 {
     scene.addChild(bear)
 }
 
-//let duckTexture = SKTexture(image: #imageLiteral(resourceName: "duck.png"))
-//for _ in 1 ... 5 {
-//    let duck = SKSpriteNode(texture: duckTexture)
-//    duck.size = CGSize(width: 60, height: 50)
-//    duck.position = CGPoint(
-//        x: Int(arc4random_uniform(300)),
-//        y: Int(arc4random_uniform(50)))
-//    duck.physicsBody = SKPhysicsBody(texture: duckTexture, size: CGSize(width: 50, height: 40))
-//    duck.physicsBody?.affectedByGravity = true
-//    scene.addChild(duck)
-//}
+let duckTexture = SKTexture(image: #imageLiteral(resourceName: "duck.png"))
+for _ in 1 ... 5 {
+    let duck = SKSpriteNode(texture: duckTexture)
+    duck.size = CGSize(width: 60, height: 50)
+    duck.position = CGPoint(
+        x: Int(arc4random_uniform(300)),
+        y: Int(arc4random_uniform(50)))
+    duck.physicsBody = SKPhysicsBody(texture: duckTexture, size: CGSize(width: 50, height: 40))
+    duck.physicsBody?.affectedByGravity = true
+    
+    duck.physicsBody?.isDynamic = true
+    duck.physicsBody?.categoryBitMask = stuffedAnimalCategory
+    duck.physicsBody?.contactTestBitMask = contactDetectorCategory
+    duck.physicsBody?.collisionBitMask = groundCategory | clawCategory
+    //    duck.physicsBody?.usesPreciseCollisionDetection = true
+    duck.name = "stuffedAnimal"
+    
+    scene.addChild(duck)
+}
 
 
 
@@ -243,15 +323,15 @@ for _ in 1 ... 1 {
 
 
 // Movement of claw
+
+let moveNodeRight = SKAction.moveBy(x: 100.0,
+                                    y: 0.0,
+                                    duration: 2.0)
+
+
+
 func moveClaw() {
-    let moveNodeRight = SKAction.moveBy(x: 100.0,
-                                        y: 0.0,
-                                        duration: 2.0)
-    let moveNodeDown = SKAction.moveBy(x: 0.0,
-                                       y: -100.0,
-                                       duration: 3.0)
-    
-    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
+    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, wait, moveNodeDown.reversed(), moveNodeRight.reversed()])
 //    let sequence = SKAction.sequence([moveNodeRight, moveNodeDown, moveNodeDown.reversed(), moveNodeRight.reversed()])
     motor.run(sequence)
     
@@ -262,9 +342,5 @@ func moveClaw() {
 }
 
 moveClaw()
-
-public func pauseAction() {
-    motor.isPaused = true
-}
 
 
