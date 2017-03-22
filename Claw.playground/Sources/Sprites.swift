@@ -12,7 +12,7 @@ public class Sprites {
     
     /// Methods used for creating sprites that make up the entire claw
     // Motor
-    public static func createMotorSprite() -> SKSpriteNode {
+    static func createMotorSprite() -> SKSpriteNode {
         let motorTexture = SKTexture(image: UIImage(named: "/Users/schifano/claw-machine/Claw.playground/Resources/claw-motor.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
         motor.size = CGSize(width: 28, height: 41)
@@ -26,7 +26,7 @@ public class Sprites {
     }
     
     // Left claw
-    public static func createLeftClawSprite(motor: SKSpriteNode) -> SKSpriteNode {
+    static func createLeftClawSprite(motor: SKSpriteNode) -> SKSpriteNode {
         let leftClawTexture = SKTexture(image: UIImage(named: "/Users/schifano/claw-machine/Claw.playground/Resources/claw-left.png")!)
         let leftClaw = SKSpriteNode(texture: leftClawTexture)
         
@@ -45,7 +45,7 @@ public class Sprites {
     }
     
     // Right claw
-    public static func createRightClawSprite(motor: SKSpriteNode) -> SKSpriteNode {
+    static func createRightClawSprite(motor: SKSpriteNode) -> SKSpriteNode {
         let rightClawTexture = SKTexture(image: UIImage(named: "/Users/schifano/claw-machine/Claw.playground/Resources/claw-right.png")!)
         let rightClaw = SKSpriteNode(texture: rightClawTexture)
         
@@ -64,7 +64,7 @@ public class Sprites {
     }
     
     // Contact detector that serves somewhat as a pressure plate
-    public static func createContactDetectorSprite(motor: SKSpriteNode) -> SKShapeNode {
+    static func createContactDetectorSprite(motor: SKSpriteNode) -> SKShapeNode {
         let contactDetector = SKShapeNode(rectOf: CGSize(width: motor.frame.width/2+5, height: 5))
         contactDetector.fillColor = UIColor.clear
         contactDetector.position = CGPoint(x: motor.position.x, y: motor.position.y-20)
