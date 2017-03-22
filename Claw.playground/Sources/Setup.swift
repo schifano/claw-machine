@@ -42,11 +42,18 @@ public class Setup {
         let contactDetectorJoint = Joints.createContactDetectorJoint(motor: motor, contactDetector: contactDetector)
         let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: leftClaw, rightClaw: rightClaw)
         let barJoint = Joints.createBarJoint(motor: motor, bar: bar)
+        
+        let leftSpringJoint = Joints.createLeftSpringJoint(leftClaw: leftClaw, bar: bar)
+        let rightSpringJoint = Joints.createRightSpringJoint(rightClaw: rightClaw, bar: bar)
+        
         scene.physicsWorld.add(leftClawJoint)
         scene.physicsWorld.add(rightClawJoint)
         scene.physicsWorld.add(contactDetectorJoint)
-        scene.physicsWorld.add(clawSpringJoint)
+//        scene.physicsWorld.add(clawSpringJoint)
         scene.physicsWorld.add(barJoint)
+        
+        scene.physicsWorld.add(leftSpringJoint)
+        scene.physicsWorld.add(rightSpringJoint)
         
         // the delegate must be owned by something
         // setting contactDelegate = Collision() will not work without first creating a variable

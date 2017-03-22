@@ -86,7 +86,7 @@ public class Sprites {
     
     // Invisible bar used to mount two springs to open the claws
     static func createBarSprite(motor: SKSpriteNode) -> SKShapeNode {
-        let barSize = CGSize(width: 100, height: 5)
+        let barSize = CGSize(width: 110, height: 5)
         let bar = SKShapeNode(rectOf: barSize) // test size
         bar.fillColor = UIColor.purple
         bar.position = CGPoint(x: motor.position.x, y: motor.position.y+20)
