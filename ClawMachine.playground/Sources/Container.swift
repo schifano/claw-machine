@@ -6,9 +6,12 @@ public class Container {
 
     /// Main view of the claw machine that all other views are added to
     /// width 432 max is used for iPad Playgrounds
-    public let clawMachineCabinetContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 432, height: 600))
+//    public let clawMachineCabinetContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 432, height: 600))
     
-    /// View where all physics occurs
+    
+    public let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: 432, height: 600))
+    
+//    /// View where all physics occurs
     public let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 450))
     public let scene = SKScene(size: CGSize(width: 392, height: 450))
     
@@ -57,22 +60,24 @@ public class Container {
         
         clawMachineCabinetContainerView.addSubview(gameWindow)
 //        clawMachineCabinetContainerView.addSubview(gamePanel)
-        clawMachineCabinetContainerView.addSubview(physicsContainerView)
+//        clawMachineCabinetContainerView.addSubview(physicsContainerView)
         
         
+//        clawMachineCabinetContainerView.addSubview(physicsContainerView)
         physicsContainerView.allowsTransparency = true
         physicsContainerView.showsPhysics = true    // debug
         physicsContainerView.showsFields = true     // debug
         
         scene.backgroundColor = UIColor.clear
         scene.scaleMode = SKSceneScaleMode.aspectFit
+        physicsContainerView.contentMode = .scaleAspectFit
         
         scene.addChild(button)  // BUTTON
         scene.addChild(crane)   // CRANE
         
         drawBoundaries()
         
-        physicsContainerView.presentScene(scene)
+        clawMachineCabinetContainerView.presentScene(scene)
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
