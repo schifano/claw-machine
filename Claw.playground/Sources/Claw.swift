@@ -20,7 +20,7 @@ public class Claw {
         hasReturnedToStart = true
     }
     
-    func moveClaw(motor: SKSpriteNode) {
+    public static func moveClaw(motor: SKSpriteNode) {
         let sequence = SKAction.sequence([Actions.moveMotorRight, Actions.moveMotorDown, Actions.wait, Actions.moveMotorDown.reversed(), Actions.moveMotorRight.reversed()])
         motor.run(sequence)
     }

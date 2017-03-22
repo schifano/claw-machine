@@ -104,6 +104,8 @@ public class Sprites {
             stuffedAnimal.physicsBody?.categoryBitMask = Category.stuffedAnimalCategory
             stuffedAnimal.physicsBody?.contactTestBitMask = Category.contactDetectorCategory
             stuffedAnimal.physicsBody?.collisionBitMask = Category.groundCategory | Category.clawCategory
+            
+            Setup.scene.addChild(stuffedAnimal)
         }
     }
 }

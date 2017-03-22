@@ -3,7 +3,12 @@
 import UIKit
 import Claw_Sources
 
+// setup scene
+Setup.setupContainer()
 
 // create sprites
-// setup scene
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"))
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"))
 
+// move motor
+Claw.moveClaw(motor: Sprites.createMotorSprite())

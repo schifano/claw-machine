@@ -3,10 +3,10 @@ import PlaygroundSupport
 
 public class Setup {
     
-    let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
-    let scene = SKScene(size: CGSize(width: 392, height: 200))
+    static let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
+    static let scene = SKScene(size: CGSize(width: 392, height: 200))
     
-    func setupContainer() {
+    public static func setupContainer() {
         
         // the delegate must be owned by something
         // setting contactDelegate = Collision() will not work without first creating a variable
