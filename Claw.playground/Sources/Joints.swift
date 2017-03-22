@@ -4,7 +4,7 @@ public class Joints {
     
     public static var springs = [SKPhysicsJointSpring]()
     
-    public static func createLeftClawJoint(motor: SKSpriteNode, leftClaw: SKSpriteNode) -> SKPhysicsJointPin {
+    static func createLeftClawJoint(motor: SKSpriteNode, leftClaw: SKSpriteNode) -> SKPhysicsJointPin {
         let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: CGPoint(x: leftClaw.frame.maxX, y: motor.frame.minY))
         leftClawJoint.shouldEnableLimits = true
         leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0)) // change 0 to 5 for a shakier claw
@@ -12,7 +12,7 @@ public class Joints {
         return leftClawJoint
     }
     
-    public static func createRightClawJoint(motor: SKSpriteNode, rightClaw: SKSpriteNode) -> SKPhysicsJointPin {
+    static func createRightClawJoint(motor: SKSpriteNode, rightClaw: SKSpriteNode) -> SKPhysicsJointPin {
         let rightClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: rightClaw.physicsBody!,
                                                      anchor: CGPoint(x: rightClaw.frame.minX, y: motor.frame.minY))
         rightClawJoint.shouldEnableLimits = true
@@ -22,7 +22,7 @@ public class Joints {
         
     }
     
-    public static func createClawSpringJoint(leftClaw: SKSpriteNode, rightClaw: SKSpriteNode) -> SKPhysicsJointSpring {
+    static func createClawSpringJoint(leftClaw: SKSpriteNode, rightClaw: SKSpriteNode) -> SKPhysicsJointSpring {
         let clawSpringJoint = SKPhysicsJointSpring.joint(withBodyA: leftClaw.physicsBody!, bodyB: rightClaw.physicsBody!, anchorA: CGPoint(x: leftClaw.position.x+25, y: leftClaw.position.y-15), anchorB: CGPoint(x: rightClaw.position.x-25, y: rightClaw.position.y-15))
         clawSpringJoint.frequency = 9.0
         clawSpringJoint.damping = 1.0
@@ -30,12 +30,12 @@ public class Joints {
         return clawSpringJoint
     }
     
-    public static func createContactDetectorJoint(motor: SKSpriteNode, contactDetector: SKShapeNode) -> SKPhysicsJointPin {
+    static func createContactDetectorJoint(motor: SKSpriteNode, contactDetector: SKShapeNode) -> SKPhysicsJointPin {
         let contactDetectorJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: contactDetector.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
         return contactDetectorJoint
     }
     
-    public static func createBarJoint(motor: SKSpriteNode, bar: SKShapeNode) -> SKPhysicsJoint {
+    static func createBarJoint(motor: SKSpriteNode, bar: SKShapeNode) -> SKPhysicsJoint {
         let barJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: bar.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
         return barJoint
     }
