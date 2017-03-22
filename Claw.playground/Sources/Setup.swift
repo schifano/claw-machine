@@ -7,7 +7,6 @@ public class Setup {
     static let scene = SKScene(size: CGSize(width: 392, height: 200))
     
     public static func setupContainer() {
-        
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         
         physicsContainerView.showsPhysics = true
