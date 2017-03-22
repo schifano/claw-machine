@@ -34,4 +34,12 @@ public class Joints {
         let contactDetectorJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: contactDetector.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
         return contactDetectorJoint
     }
+    
+    public static func createBarJoint(motor: SKSpriteNode, bar: SKShapeNode) -> SKPhysicsJoint {
+        let barJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: bar.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
+        return barJoint
+    }
+    
+    // Joints used on outside of claws
+    
 }

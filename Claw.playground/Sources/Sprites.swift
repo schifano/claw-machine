@@ -84,6 +84,24 @@ public class Sprites {
         return contactDetector
     }
     
+    // Invisible bar used to mount two springs to open the claws
+    static func createBarSprite(motor: SKSpriteNode) -> SKShapeNode {
+        let barSize = CGSize(width: 100, height: 5)
+        let bar = SKShapeNode(rectOf: barSize) // test size
+        bar.fillColor = UIColor.purple
+        bar.position = CGPoint(x: motor.position.x, y: motor.position.y+20)
+        bar.name = "bar"
+        
+        bar.physicsBody = SKPhysicsBody(rectangleOf: barSize)
+        bar.physicsBody?.affectedByGravity = false
+        bar.physicsBody?.isDynamic = true
+        bar.physicsBody?.allowsRotation = false
+        bar.physicsBody?.angularVelocity = 0
+        
+        return bar
+    }
+    
+    
     /// Methods used to create stuffed animal sprites
     public static func createStuffedAnimal(image: UIImage, quantity: Int) {
         let stuffedAnimalSize = CGSize(width: 60, height: 60)
