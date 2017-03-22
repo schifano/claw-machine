@@ -3,7 +3,7 @@
 import UIKit
 
 // setup scene
-Setup.setupContainer()
+Setup.clawMachine()
 
 // create sprites
 Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 2)

@@ -6,7 +6,7 @@ public class Setup {
     static let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
     static let scene = SKScene(size: CGSize(width: 392, height: 200))
     
-    public static func setupContainer() {
+    public static func clawMachine() {
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         
         physicsContainerView.showsPhysics = true
