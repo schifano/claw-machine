@@ -85,10 +85,10 @@ public class Sprites {
     }
     
     /// Methods used to create stuffed animal sprites
-    public static func createStuffedAnimal(image: UIImage) {
+    public static func createStuffedAnimal(image: UIImage, quantity: Int) {
         let stuffedAnimalSize = CGSize(width: 60, height: 60)
         let stuffedAnimalTexture = SKTexture(image: image)
-        for _ in 1 ... 5 {
+        for _ in 1 ... quantity {
             let stuffedAnimal = SKSpriteNode(texture: stuffedAnimalTexture)
             // TODO: Can we make this the size of the image?
             stuffedAnimal.size = stuffedAnimalSize

@@ -7,8 +7,10 @@ import Claw_Sources
 Setup.setupContainer()
 
 // create sprites
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"))
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"))
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 2)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"), quantity: 5)
 
-// move motor
-Claw.moveClaw(motor: Sprites.createMotorSprite())
+
+// TODO: Customize strength of claw
+// TODO: Customize speed of claw
+// TODO: Customize skin of machine

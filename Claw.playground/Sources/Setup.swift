@@ -8,12 +8,6 @@ public class Setup {
     
     public static func setupContainer() {
         
-        // the delegate must be owned by something
-        // setting contactDelegate = Collision() will not work without first creating a variable
-        let delegate = Collision()
-        scene.physicsWorld.contactDelegate = delegate
-        scene.delegate = delegate
-        
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         
         physicsContainerView.showsPhysics = true
@@ -54,5 +48,14 @@ public class Setup {
         scene.physicsWorld.add(rightClawJoint)
         scene.physicsWorld.add(contactDetectorJoint)
         scene.physicsWorld.add(clawSpringJoint)
+        
+        // the delegate must be owned by something
+        // setting contactDelegate = Collision() will not work without first creating a variable
+        let delegate = Collision()
+        scene.physicsWorld.contactDelegate = delegate
+        scene.delegate = delegate
+        
+        // Initiate movement
+        Claw.moveClaw(motor: motor)
     }
 }
