@@ -23,28 +23,29 @@ public class Setup {
         scene.physicsBody = boundary
         
         // SETUP claw
-        let motor = Sprites.createMotorSprite()
-        let leftClaw = Sprites.createLeftClawSprite(motor: motor)
-        let rightClaw = Sprites.createRightClawSprite(motor: motor)
-        let contactDetector = Sprites.createContactDetectorSprite(motor: motor)
-        let bar = Sprites.createBarSprite(motor: motor)
+//        let motor = Sprites.createMotorSprite()
+//        let leftClaw = Sprites.createLeftClawSprite(motor: motor)
+//        let rightClaw = Sprites.createRightClawSprite(motor: motor)
+//        let contactDetector = Sprites.createContactDetectorSprite(motor: motor)
+//        let bar = Sprites.createBarSprite(motor: motor)
+        
         // add sprites to scene before joints
-        scene.addChild(motor)
-        scene.addChild(leftClaw)
-        scene.addChild(rightClaw)
-        scene.addChild(contactDetector)
-        scene.addChild(bar)
+        scene.addChild(ClawSprites.motor)
+        scene.addChild(ClawSprites.leftClaw)
+        scene.addChild(ClawSprites.rightClaw)
+        scene.addChild(ClawSprites.contactDetector)
+        scene.addChild(ClawSprites.bar)
         
         
         // SETUP joints
-        let leftClawJoint = Joints.createLeftClawJoint(motor: motor, leftClaw: leftClaw)
-        let rightClawJoint = Joints.createRightClawJoint(motor: motor, rightClaw: rightClaw)
-        let contactDetectorJoint = Joints.createContactDetectorJoint(motor: motor, contactDetector: contactDetector)
-        let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: leftClaw, rightClaw: rightClaw)
-        let barJoint = Joints.createBarJoint(motor: motor, bar: bar)
+        let leftClawJoint = Joints.createLeftClawJoint(motor: ClawSprites.motor, leftClaw: ClawSprites.leftClaw)
+        let rightClawJoint = Joints.createRightClawJoint(motor: ClawSprites.motor, rightClaw: ClawSprites.rightClaw)
+        let contactDetectorJoint = Joints.createContactDetectorJoint(motor: ClawSprites.motor, contactDetector: ClawSprites.contactDetector)
+        let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: ClawSprites.leftClaw, rightClaw: ClawSprites.rightClaw)
+        let barJoint = Joints.createBarJoint(motor: ClawSprites.motor, bar: ClawSprites.bar)
         
-        let leftSpringJoint = Joints.createLeftSpringJoint(leftClaw: leftClaw, bar: bar)
-        let rightSpringJoint = Joints.createRightSpringJoint(rightClaw: rightClaw, bar: bar)
+        let leftSpringJoint = Joints.createLeftSpringJoint(leftClaw: ClawSprites.leftClaw, bar: ClawSprites.bar)
+        let rightSpringJoint = Joints.createRightSpringJoint(rightClaw: ClawSprites.rightClaw, bar: ClawSprites.bar)
         
         scene.physicsWorld.add(leftClawJoint)
         scene.physicsWorld.add(rightClawJoint)
@@ -66,7 +67,18 @@ public class Setup {
         PlaygroundPage.current.needsIndefiniteExecution = true
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         // Initiate movement
-        Claw.moveClaw(motor: motor)
+        Claw.moveClaw(motor: ClawSprites.motor)
     }
 }

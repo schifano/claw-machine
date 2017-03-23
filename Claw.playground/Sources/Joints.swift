@@ -1,8 +1,8 @@
 import SpriteKit
 
-public class Joints {
+struct Joints {
     
-    public static var springs = [SKPhysicsJointSpring]()
+    static var springs = [SKPhysicsJointSpring]()
     
     static func createLeftClawJoint(motor: SKSpriteNode, leftClaw: SKSpriteNode) -> SKPhysicsJointPin {
         let leftClawJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: leftClaw.physicsBody!, anchor: CGPoint(x: leftClaw.frame.maxX, y: motor.frame.minY))

@@ -15,7 +15,7 @@ public class Container {
     public let physicsContainerView = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 450))
     public let scene = SKScene(size: CGSize(width: 392, height: 450))
     
-    public let gameWindow = UIView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
+    public let gameWindow = SKView(frame: CGRect(x: 20, y: 90, width: 392, height: 200))
     public let gamePanel = UIView(frame: CGRect(x: 120, y: 350, width: 50, height: 50))
     // TODO: Add gamePanel and dispenserWindow
     
@@ -38,9 +38,11 @@ public class Container {
         // FIXME: lol this doesn't work
         clawMachineCabinetContainerView.contentMode = .scaleAspectFit
         
+        
+        
+        
+        
         // FIXME: Adjust views to be resizable on iPad
-        // Set autoreizingMask for compatibility in iPad Playgrounds
-        // This adjusts only the gameWindow, other views need adjusting - try bottom eventually
         // 432 is the min root view width for iPad
         
         // TODO: CREATE WORKING BUTTONS
@@ -124,17 +126,6 @@ public class Container {
         fullBoundary.physicsBody = SKPhysicsBody(edgeLoopFrom: path)
         scene.addChild(fullBoundary)
     }
-    
-// FIXME: Broken path for crane
-//        let path = CGMutablePath()
-//        path.move(to: CGPoint(x: 55, y: 410))
-//        path.addLine(to: CGPoint(x: 200, y: 410))
-//        
-//        let followCraneLine = SKAction.follow(path, speed: 3.0)
-//        
-//        crane.run(followCraneLine)
-//        crane.run(followCraneLine.reversed())
-    
     
     
     
