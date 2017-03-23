@@ -34,32 +34,4 @@ struct Joints {
         let contactDetectorJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: contactDetector.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
         return contactDetectorJoint
     }
-    
-    static func createBarJoint(motor: SKSpriteNode, bar: SKShapeNode) -> SKPhysicsJoint {
-        let barJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: bar.physicsBody!, anchor: CGPoint(x: motor.position.x, y: motor.position.y))
-        return barJoint
-    }
-    
-    // Joints used on outside of claws
-    static func createLeftSpringJoint(leftClaw: SKSpriteNode, bar: SKShapeNode) -> SKPhysicsJointSpring {
-        let leftSpringJoint = SKPhysicsJointSpring.joint(withBodyA: leftClaw.physicsBody!, bodyB: bar.physicsBody!,
-            anchorA: CGPoint(x: leftClaw.frame.minX, y: leftClaw.frame.maxY),
-            anchorB: CGPoint(x: bar.frame.minX, y: bar.frame.minY))
-        
-        leftSpringJoint.frequency = 9.0
-        leftSpringJoint.damping = 1.0
-        
-        return leftSpringJoint
-    }
-    
-    static func createRightSpringJoint(rightClaw: SKSpriteNode, bar: SKShapeNode) -> SKPhysicsJointSpring {
-        let rightSpringJoint = SKPhysicsJointSpring.joint(withBodyA: rightClaw.physicsBody!, bodyB: bar.physicsBody!,
-            anchorA: CGPoint(x: rightClaw.frame.maxX, y: rightClaw.frame.maxY),
-            anchorB: CGPoint(x: bar.frame.maxX, y: bar.frame.minY))
-        
-        rightSpringJoint.frequency = 9.0
-        rightSpringJoint.damping = 1.0
-        
-        return rightSpringJoint
-    }
 }
