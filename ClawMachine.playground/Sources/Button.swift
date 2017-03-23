@@ -38,7 +38,16 @@ class Button: SKNode {
         if defaultButton.contains(location) {
             action() // begin action
         }
+        
+        print("touches began")
     }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        activeButton.isHidden = true
+        defaultButton.isHidden = false
+    }
+    
+    // TODO: Check for continuous press
 }
 
 
