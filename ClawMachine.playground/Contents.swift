@@ -4,10 +4,7 @@ import UIKit
 import SpriteKit
 import PlaygroundSupport
 
-let container = Container()
-container.setup()
-
-let containerView = container.clawMachineCabinetContainerView
+Container.setup()
 
 
 
