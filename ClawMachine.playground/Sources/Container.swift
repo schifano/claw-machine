@@ -34,6 +34,8 @@ public class Container {
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width, height: prizeShootShape.frame.width))
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png", buttonAction: buttonIsPressed)
     
+    static let delegate = Collision()
+    
     public static func setup() {
         clawMachineCabinetContainerView.backgroundColor = Colors.gray
         clawMachineCabinetContainerView.showsFields = true
@@ -42,7 +44,12 @@ public class Container {
         // Scene
         scene.backgroundColor = Colors.magenta
         scene.scaleMode = SKSceneScaleMode.aspectFit
-
+        scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+        // the delegate must be owned by something
+        // setting contactDelegate = Collision() will not work without first creating a variable
+        scene.physicsWorld.contactDelegate = delegate
+        scene.delegate = delegate
+        
         // game window
         gameWindowShape.fillColor = UIColor.blue
         scene.addChild(gameWindowShape)
@@ -65,10 +72,30 @@ public class Container {
         let boundary = drawBoundaries()
         scene.addChild(boundary)
         
+        // MARK: Sprites - add before joints
+        scene.addChild(ClawSprites.motor)
+        scene.addChild(ClawSprites.leftClaw)
+        scene.addChild(ClawSprites.rightClaw)
+        scene.addChild(ClawSprites.contactDetector)
+        
+        // SETUP joints
+        let leftClawJoint = Joints.createLeftClawJoint(motor: ClawSprites.motor, leftClaw: ClawSprites.leftClaw)
+        let rightClawJoint = Joints.createRightClawJoint(motor: ClawSprites.motor, rightClaw: ClawSprites.rightClaw)
+        let contactDetectorJoint = Joints.createContactDetectorJoint(motor: ClawSprites.motor, contactDetector: ClawSprites.contactDetector)
+        let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: ClawSprites.leftClaw, rightClaw: ClawSprites.rightClaw)
+        
+        scene.physicsWorld.add(leftClawJoint)
+        scene.physicsWorld.add(rightClawJoint)
+        scene.physicsWorld.add(contactDetectorJoint)
+        scene.physicsWorld.add(clawSpringJoint)
+    
         clawMachineCabinetContainerView.presentScene(scene)
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
+        
+        // Initiate movement
+        Claw.moveClaw(motor: ClawSprites.motor)
     }
     
     // Method used to draw claw machine boundaries
