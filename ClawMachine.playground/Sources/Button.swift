@@ -5,7 +5,7 @@ class Button: SKNode {
     var activeButton: SKSpriteNode
     var action: () -> Void
     
-    static var isBeingHeld = false
+    static var isBeingHeld = 2
     
     init(defaultButtonImage: String, activeButtonImage: String, buttonAction: @escaping () -> Void) {
         defaultButton = SKSpriteNode(imageNamed: defaultButtonImage)
@@ -31,7 +31,9 @@ class Button: SKNode {
         activeButton.isHidden = false
         defaultButton.isHidden = true
         
-        Button.isBeingHeld = true
+        
+        Button.isBeingHeld = 1
+//        Claw.moveClawRight()
         
         guard let touch = touches.first else {
             print("There is no touch object")
@@ -50,11 +52,10 @@ class Button: SKNode {
         activeButton.isHidden = true
         defaultButton.isHidden = false
         
-        Button.isBeingHeld = false
+        Button.isBeingHeld = 0
+//        Claw.removeClawActions()
+//        Claw.moveClawDown()
+//        Claw.returnClawHome()
     }
-    
-    // TODO: Check for continuous press
 }
-
-
 

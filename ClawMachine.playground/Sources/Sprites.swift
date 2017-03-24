@@ -17,7 +17,7 @@ public class Sprites {
         let motorTexture = SKTexture(image: UIImage(named: "/Users/schifano/claw-machine/ClawMachine.playground/Resources/claw-motor.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
         motor.size = CGSize(width: 28, height: 41)
-        motor.position = CGPoint(x: Container.gameWindowShape.frame.minX+60, y: Container.gameWindowShape.frame.maxY-40)
+        motor.position = CGPoint(x: Container.gameWindowShape.frame.minX+55, y: Container.gameWindowShape.frame.maxY-25)
         motor.physicsBody = SKPhysicsBody(texture: motorTexture, size: CGSize(width: 28, height: 41))
         motor.physicsBody?.affectedByGravity = false
         motor.physicsBody?.isDynamic = false

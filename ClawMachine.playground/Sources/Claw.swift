@@ -7,8 +7,8 @@ struct Actions {
     static let wait = SKAction.wait(forDuration: 1.5)
 }
 
-struct ClawSprites {
-    static let motor = Sprites.createMotorSprite()
+public struct ClawSprites {
+    public static let motor = Sprites.createMotorSprite()
     static let leftClaw = Sprites.createLeftClawSprite()
     static let rightClaw = Sprites.createRightClawSprite()
     static let contactDetector = Sprites.createContactDetectorSprite()
@@ -62,18 +62,36 @@ public class Claw {
         
     }
     
+    static var trackedActions = [SKAction]()
+    
     
     /// Method that continually moves claw right if button is held down
+    static let moveRight = SKAction.moveBy(x: 2.0, y: 0.0, duration: 0.5)
     static func moveClawRight() {
-            // ######## LEFT CLAW
-            // Experiment with force
-            let degreesInRadians = GLKMathDegreesToRadians(45)
-            // determine vector components and direction
-            let dx = cosf(degreesInRadians)
-            let dy = sinf(degreesInRadians)
-            // 5 represents scale of force
-            let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
-            let leftClawPoint = CGPoint(x: ClawSprites.leftClaw.position.x, y: ClawSprites.leftClaw.position.y)
-            ClawSprites.leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
+        if ClawSprites.motor.position.x < Container.gameWindowShape.frame.maxX-60 {
+            ClawSprites.motor.run(moveRight)
+            
+            trackedActions.append(moveRight)
+        }
+    }
+    
+    /// Method that moves the claw down
+    static let moveDown = SKAction.moveBy(x: 0.0, y: -2.0, duration: 0.5)
+    static func moveClawDown() {
+        if ClawSprites.motor.position.y > Container.gameWindowShape.frame.minY+60 {
+            ClawSprites.motor.run(moveDown)
+            
+            trackedActions.append(moveDown)
+        }
+    }
+    
+    static func removeClawActions() {
+        ClawSprites.motor.removeAllActions()
+    }
+    
+    static func returnClawHome() {
+        let sequence = SKAction.sequence(trackedActions)
+        ClawSprites.motor.run(sequence.reversed())
+        applyForceToOpen(leftClaw: ClawSprites.leftClaw, rightClaw: ClawSprites.rightClaw)
     }
 }
