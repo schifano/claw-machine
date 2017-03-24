@@ -17,6 +17,10 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
     // Method checks for existing springs to remove
     func update(_ currentTime: TimeInterval, for scene: SKScene) {
         
+        if Button.isBeingHeld {
+            Claw.moveClawRight()
+        }
+        
         if Claw.hasReturnedToStart {
             Claw.applyForceToOpen(leftClaw: ClawSprites.leftClaw, rightClaw: ClawSprites.rightClaw)
         }

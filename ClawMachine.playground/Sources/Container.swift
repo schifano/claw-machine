@@ -94,8 +94,8 @@ public class Container {
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
         
-        // Initiate movement
-        Claw.moveClaw(motor: ClawSprites.motor)
+        // FIXME: Initiate movement
+//        Claw.moveClaw(motor: ClawSprites.motor)
     }
     
     // Method used to draw claw machine boundaries

@@ -61,4 +61,19 @@ public class Claw {
         
         
     }
+    
+    
+    /// Method that continually moves claw right if button is held down
+    static func moveClawRight() {
+            // ######## LEFT CLAW
+            // Experiment with force
+            let degreesInRadians = GLKMathDegreesToRadians(45)
+            // determine vector components and direction
+            let dx = cosf(degreesInRadians)
+            let dy = sinf(degreesInRadians)
+            // 5 represents scale of force
+            let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
+            let leftClawPoint = CGPoint(x: ClawSprites.leftClaw.position.x, y: ClawSprites.leftClaw.position.y)
+            ClawSprites.leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
+    }
 }
