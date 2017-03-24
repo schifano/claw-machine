@@ -89,6 +89,8 @@ public class Claw {
         ClawSprites.motor.removeAllActions()
     }
     
+    
+    // this may need to be done by moving claw until it returns home
     static func returnClawHome() {
         let sequence = SKAction.sequence(trackedActions)
         ClawSprites.motor.run(sequence.reversed())

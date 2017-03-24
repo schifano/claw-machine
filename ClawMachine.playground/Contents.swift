@@ -11,7 +11,7 @@ Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), qua
 Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"), quantity: 5)
 
 // TODO: Customize strength of claw
-// TODO: Customize speed of claw
+// TODO: Customize speed of claw (duration in the repeating action)
 // TODO: Customize skin of machine
 
 

@@ -23,13 +23,13 @@ public class Container {
     
     static let cabinetWidth = 432  /// width 432 max is used for iPad Playgrounds
     static let cabinetHeight = 580
-    static let boundaryWidth = 392
+    static let boundaryWidth = 392 + 40
     static let boundaryHeight = 450
     
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
-    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 20, y: 300, width: boundaryWidth, height: 200))
+    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 300, width: boundaryWidth, height: 200))
     static let prizeShootShape = SKShapeNode(rect: CGRect(x: 40, y: 70, width: 70, height: 310))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width, height: prizeShootShape.frame.width))
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png", buttonAction: buttonIsPressed)
