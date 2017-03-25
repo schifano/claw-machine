@@ -31,9 +31,7 @@ class Button: SKNode {
         activeButton.isHidden = false
         defaultButton.isHidden = true
         
-        
-        Button.isBeingHeld = 1
-//        Claw.moveClawRight()
+        Claw.moveClawRight()
         
         guard let touch = touches.first else {
             print("There is no touch object")
@@ -52,10 +50,12 @@ class Button: SKNode {
         activeButton.isHidden = true
         defaultButton.isHidden = false
         
-        Button.isBeingHeld = 0
-//        Claw.removeClawActions()
-//        Claw.moveClawDown()
-//        Claw.returnClawHome()
+        
+        Claw.removeClawActions(contactMadeWithStuffedAnimal: false)
+        Claw.moveClawDown()
+        
+        // need to be in sequence
+        Claw.returnClawHome()
     }
 }
 
