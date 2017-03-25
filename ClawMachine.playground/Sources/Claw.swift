@@ -187,6 +187,7 @@ public class Claw {
                                 ClawSprites.motor.removeAction(forKey: "moveLeft")
 //                                    ClawSprites.motor.run(left)
                                 Container.button.isUserInteractionEnabled = true
+                                Collision.contactMade = false
                             }
                         }),
                         Actions.left
@@ -233,10 +234,10 @@ public class Claw {
                         
                         //Code you want to execute
                         // FIXME: if one has been hit, don't check the other
-                        if ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+                        if (ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
                             ClawSprites.motor.removeAction(forKey: "moveDown")
                             ClawSprites.motor.run(block1)
-                        } else if ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+                        } else if (ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
                             ClawSprites.motor.removeAction(forKey: "moveDown")
                             ClawSprites.motor.run(block1)
                         }

@@ -2,12 +2,15 @@ import SpriteKit
 
 class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
     
+    static var contactMade = false
+    
     static var counter = 0
     // ContactDelegate method is notified when there has been contact with sprites
     func didBegin(_ contact: SKPhysicsContact) {
         let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
         if (collision == (Category.contactDetectorCategory | Category.stuffedAnimalCategory)) {
             print("contact with stuffed animal")
+            Collision.contactMade = true
             
 //            if Collision.counter == 0 {
 //                Collision.counter+=1
