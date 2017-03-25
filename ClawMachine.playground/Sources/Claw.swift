@@ -71,7 +71,7 @@ public class Claw {
     
     
     /// Method that continually moves claw right if button is held down
-    static let right = SKAction.moveBy(x: 4.0, y: 0.0, duration: 0.1)
+    static let right = SKAction.moveBy(x: 6.0, y: 0.0, duration: 0.1)
     static let moveRight = SKAction.repeatForever(right)
     
     static func moveClawRight() {
@@ -81,7 +81,7 @@ public class Claw {
     }
     
     
-    static let left = SKAction.moveBy(x: -4.0, y: 0.0, duration: 0.1)
+    static let left = SKAction.moveBy(x: -6.0, y: 0.0, duration: 0.1)
     static let moveLeft = SKAction.repeatForever(left)
     
     static func moveClawLeft() {
@@ -95,7 +95,7 @@ public class Claw {
 //    trackedActions.append(moveRight)
     
     /// Method that moves the claw down
-    static let down = SKAction.moveBy(x: 0.0, y: -4.0, duration: 0.1)
+    static let down = SKAction.moveBy(x: 0.0, y: -6.0, duration: 0.1)
 //    static let moveDown = SKAction.repeatForever(down)
     
     
@@ -125,20 +125,53 @@ public class Claw {
         finished()
     }
 
-    static let up = SKAction.moveBy(x: 0.0, y: 4.0, duration: 0.1)
+    
+    
+//    static func moveClawDown() {
+//        print("down")
+//        
+//        while ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+//            ClawSprites.motor.run(<#T##action: SKAction##SKAction#>, completion: <#T##() -> Void#>)
+//        }
+//        ClawSprites.motor.run(
+//            SKAction.repeatForever (
+//                SKAction.sequence([
+//                    down,
+//                    SKAction.run({
+//                        //Code you want to execute
+//                        if ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+//                            ClawSprites.motor.removeAction(forKey: "moveDown")
+//                        }
+//                        
+//                        if ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+//                            ClawSprites.motor.removeAction(forKey: "moveDown")
+//                        }
+//                    })
+//                    ])
+//            ),
+//            withKey: "moveDown"
+//        )
+//        finished()
+//    }
+//    
+    
+    
+    
+    static let up = SKAction.moveBy(x: 0.0, y: 6.0, duration: 0.1)
     static let moveUp = SKAction.repeatForever(up)
     static func moveClawUp(finished: () -> Void) {
         print("up")
-        
+
+
         ClawSprites.motor.run(
             SKAction.repeatForever (
                 SKAction.sequence([
                     up,
                     SKAction.run({
                         //Code you want to execute
-//                        if ClawSprites.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
-//                            ClawSprites.motor.removeAction(forKey: "moveUp")
-//                        }
+                        if ClawSprites.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
+                            ClawSprites.motor.removeAction(forKey: "moveUp")
+                        }
                     })
                     ])
             ),
@@ -163,11 +196,120 @@ public class Claw {
     // this may need to be done by moving claw until it returns home
     static func returnClawHome() {
         print("return claw home")
-//        moveClawUp()
+
         
-//        let sequence = SKAction.sequence(trackedActions)
-//        ClawSprites.motor.run(sequence.reversed())
-//        applyForceToOpen(leftClaw: ClawSprites.leftClaw, rightClaw: ClawSprites.rightClaw)
+        let block2 = SKAction.run({
+            
+            ClawSprites.motor.run(
+                SKAction.repeatForever (
+                    SKAction.sequence([
+                        SKAction.run({
+                            //Code you want to execute
+                            if ClawSprites.leftClaw.position.x <= 50 {
+                                ClawSprites.motor.removeAction(forKey: "moveLeft")
+//                                    ClawSprites.motor.run(left)
+                            }
+                        }),
+                        left
+                        ])
+                ),
+                withKey: "moveLeft"
+            )
+            
+        })
+        
+        
+        let block1 = SKAction.run({
+            
+            ClawSprites.motor.run(
+                SKAction.repeatForever (
+                    SKAction.sequence([
+                        SKAction.run({
+                            //Code you want to execute
+                            if ClawSprites.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
+                                    print("made it up")
+                                    ClawSprites.motor.run(block2)
+                                ClawSprites.motor.removeAction(forKey: "moveUp")
+                                
+                            }
+                        }),
+                        up
+                        ])
+                ),
+                withKey: "moveUp"
+            )
+            
+        })
+        
+        
+        
+        
+        
+        let block0 = SKAction.run({
+            
+            ClawSprites.motor.run(
+            SKAction.repeatForever (
+                SKAction.sequence([
+                    SKAction.run({
+                        
+                        //Code you want to execute
+                        // FIXME: if one has been hit, don't check the other
+                        if ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+                            ClawSprites.motor.removeAction(forKey: "moveDown")
+                            ClawSprites.motor.run(block1)
+                        } else if ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+                            ClawSprites.motor.removeAction(forKey: "moveDown")
+                            ClawSprites.motor.run(block1)
+                        }
+                    }),
+                    down
+                    ])
+            ),
+            withKey: "moveDown"
+            )
+        })
+        
+
+
+        
+        
+        // MARK: METHODS
+
+        
+//        DispatchQueue.main.async {
+//            ClawSprites.motor.run(block0,
+//                completion: {() -> Void in
+//                    print("down")
+//                    DispatchQueue.main.async {
+//                        ClawSprites.motor.run(block1)
+//                        print("up")
+//                    }
+//            })
+//        }
+        
+        
+//        ClawSprites.motor.run(block0,
+//            completion: {() -> Void in
+//                print("down complete")
+//                ClawSprites.motor.run(block1,
+//                    completion: {() -> Void in
+//                        print("up complete")
+//                        ClawSprites.motor.run(block2,
+//                            completion: {() -> Void in
+//                                print("left complete")
+//                            })
+//                    })
+//            })
+//    
+
+        
+        let sequence = SKAction.sequence([block0])
+        ClawSprites.motor.run(sequence)
+    }
+    
+    
+    static func moveDown() {
+        
     }
     
     

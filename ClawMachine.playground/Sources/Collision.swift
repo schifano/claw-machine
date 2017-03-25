@@ -10,8 +10,8 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
             print("contact with stuffed animal")
             
 //            if Collision.counter == 0 {
-//                Claw.removeClawActions(contactMadeWithStuffedAnimal: true)
 //                Collision.counter+=1
+//                Claw.returnClawHome()
 //            }
         }
     }
