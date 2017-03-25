@@ -52,10 +52,16 @@ class Button: SKNode {
         
         
         Claw.removeClawActions(contactMadeWithStuffedAnimal: false)
-        Claw.moveClawDown()
+        Claw.moveClawDown {
+            print("move claw down finished")
+        }
         
+        Claw.moveClawUp {
+            print("move claw up finished")
+        }
+//        Claw.moveClawLeft()
         // need to be in sequence
-        Claw.returnClawHome()
+//        Claw.returnClawHome()
     }
 }
 

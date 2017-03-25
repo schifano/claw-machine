@@ -101,7 +101,7 @@ public class Claw {
     
     // FIXME: handle collision with glass
     
-    static func moveClawDown() {
+    static func moveClawDown(finished: () -> Void) {
         print("down")
 
         ClawSprites.motor.run(
@@ -110,7 +110,11 @@ public class Claw {
                     down,
                     SKAction.run({
                         //Code you want to execute
-                        if ClawSprites.motor.frame.minY <= Container.gameWindowShape.frame.minY+30 {
+                        if ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+                            ClawSprites.motor.removeAction(forKey: "moveDown")
+                        }
+                        
+                        if ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
                             ClawSprites.motor.removeAction(forKey: "moveDown")
                         }
                     })
@@ -118,11 +122,12 @@ public class Claw {
             ),
             withKey: "moveDown"
         )
+        finished()
     }
-    
+
     static let up = SKAction.moveBy(x: 0.0, y: 4.0, duration: 0.1)
     static let moveUp = SKAction.repeatForever(up)
-    static func moveClawUp() {
+    static func moveClawUp(finished: () -> Void) {
         print("up")
         
         ClawSprites.motor.run(
@@ -131,16 +136,15 @@ public class Claw {
                     up,
                     SKAction.run({
                         //Code you want to execute
-                        if ClawSprites.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-30 {
-                            ClawSprites.motor.removeAction(forKey: "moveUp")
-                        }
+//                        if ClawSprites.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
+//                            ClawSprites.motor.removeAction(forKey: "moveUp")
+//                        }
                     })
                     ])
             ),
             withKey: "moveUp"
         )
-        
-        moveClawLeft()
+        finished()
     }
 
     
@@ -159,7 +163,7 @@ public class Claw {
     // this may need to be done by moving claw until it returns home
     static func returnClawHome() {
         print("return claw home")
-        moveClawUp()
+//        moveClawUp()
         
 //        let sequence = SKAction.sequence(trackedActions)
 //        ClawSprites.motor.run(sequence.reversed())
