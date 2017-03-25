@@ -7,10 +7,25 @@ import PlaygroundSupport
 
 public class Container {
     
+    var buttonIsPressed = false
+    
     struct Colors {
         static let cyan = color(for: 0x98E3D4)  // soft cyan
         static let magenta = color(for: 0xd498e3)   // soft magenta
+        
+        static let waxFlower = color(for: 0xFFBBA4)
+        static let lightBlue = color(for: 0x80DEEA)
+        static let darkPurple = color(for: 0x7D3FFA)
+        static let aqua = color(for: 0x31D5C3)
+        static let lightGreen = color(for: 0x44FAAC)
+        static let lightPink = color(for: 0xFFCAFE)
+        static let tacao = color(for: 0xF5A87A)
+        static let sail = color(for: 0xB5DFFC)
+        static let voodoo = color(for: 0x45343D)
+        static let pink = color(for: 0xF280B3)
+        
         static let gray = UIColor.gray
+        
         
         /// Precede each hex int value with 0x
         static func color(for hex: Int) -> UIColor {
@@ -22,17 +37,18 @@ public class Container {
     }
     
     static let cabinetWidth = 432  /// width 432 max is used for iPad Playgrounds
-    static let cabinetHeight = 580
+    static let cabinetHeight = 500
     static let boundaryWidth = 392 + 40
     static let boundaryHeight = 450
     
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
-    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 300, width: boundaryWidth, height: 200))
-    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 40, y: 70, width: 70, height: 310))
-    static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width, height: prizeShootShape.frame.width))
-    static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png", buttonAction: buttonIsPressed)
+    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 200))
+    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 40, y: 70, width: 70, height: 220))
+    static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
+    static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png", buttonAction: triggerButtonAction)
+    static let panel = SKShapeNode(rect: CGRect(x: 120, y: 160, width: 100, height: 100))
     
     static let delegate = Collision()
     
@@ -42,7 +58,7 @@ public class Container {
         clawMachineCabinetContainerView.showsPhysics = true
         
         // Scene
-        scene.backgroundColor = Colors.magenta
+        scene.backgroundColor = Colors.tacao
         scene.scaleMode = SKSceneScaleMode.aspectFit
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         // the delegate must be owned by something
@@ -51,7 +67,8 @@ public class Container {
         scene.delegate = delegate
         
         // game window
-        gameWindowShape.fillColor = UIColor.blue
+        gameWindowShape.fillColor = Colors.sail
+        //gameWindowShape.position = CGPoint(x: 40, y: 400)
         scene.addChild(gameWindowShape)
         
         // prize shoot
@@ -60,12 +77,17 @@ public class Container {
         scene.addChild(prizeShootShape)
         
         // prize dispenser
-        prizeDispenser.fillColor = UIColor.black
+        prizeDispenser.fillColor = Colors.voodoo
         prizeDispenser.lineWidth = 0.0
         scene.addChild(prizeDispenser)
     
+        // panel
+        panel.fillColor = Colors.lightGreen
+        panel.lineWidth = 0.0
+        //scene.addChild(panel)
+        
         // button
-        button.position = CGPoint(x: 270, y: 210)
+        button.position = CGPoint(x: 250, y: 120)
         scene.addChild(button)
         
         // draw boundaries on scene
@@ -134,7 +156,7 @@ public class Container {
         return fullBoundary
     }
     
-    static func buttonIsPressed() {
-        print("Button pressed")
+    static func triggerButtonAction() {
+        
     }
 }
