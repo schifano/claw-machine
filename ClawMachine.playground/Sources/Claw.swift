@@ -102,17 +102,87 @@ public class Claw {
         finished()
     }
 
-
     
     
-//    static var counter = 0
-//    static func removeClawActions(contactMadeWithStuffedAnimal: Bool) {
-//        if contactMadeWithStuffedAnimal {
-//            returnClawHome()
-//        } else {
-//            Claw.motor.removeAllActions()
-//        }
-//    }
+    // MARK: Claw movement code blocks
+    static let moveLeftBlock = SKAction.run({
+        
+        Claw.motor.run(
+            SKAction.repeatForever (
+                SKAction.sequence([
+                    SKAction.run({
+                        //Code you want to execute
+                        if Claw.leftClaw.position.x <= 50 {
+                            Claw.motor.removeAction(forKey: "moveLeft")
+                            //                                    ClawSprites.motor.run(left)
+                            Container.button.isUserInteractionEnabled = true
+                            Collision.contactMade = false
+                        }
+                    }),
+                    Actions.left
+                    ])
+            ),
+            withKey: "moveLeft"
+        )
+        
+    })
+    
+    static let moveUpBlock = SKAction.run({
+        
+        Claw.motor.run(
+            SKAction.repeatForever (
+                SKAction.sequence([
+                    SKAction.run({
+                        //Code you want to execute
+                        if Claw.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
+                            print("made it up")
+                            Claw.motor.run(Claw.moveLeftBlock)
+                            Claw.motor.removeAction(forKey: "moveUp")
+                            
+                        }
+                    }),
+                    Actions.up
+                    ])
+            ),
+            withKey: "moveUp"
+        )
+        
+    })
+    
+    static let moveDownBlock = SKAction.run({
+        
+        Claw.motor.run(
+            SKAction.repeatForever (
+                SKAction.sequence([
+                    SKAction.run({
+                        
+                        //Code you want to execute
+                        // FIXME: if one has been hit, don't check the other
+                        if (Claw.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+                            Claw.motor.removeAction(forKey: "moveDown")
+                            Claw.motor.run(Actions.wait,
+                                           completion: {() -> Void in
+                                            let group = SKAction.group([Actions.repeatLeftForce, Claw.moveUpBlock])
+                                            Claw.motor.run(group,
+                                                           completion: {() -> Void in
+                                                            
+                                            })
+                            })
+                        } else if (Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+                            Claw.motor.removeAction(forKey: "moveDown")
+                            Claw.motor.run(Actions.wait,
+                                           completion: {() -> Void in
+                                            Claw.motor.run(Claw.moveUpBlock)
+                            })
+                        }
+                    }),
+                    Actions.down
+                    ])
+            ),
+            withKey: "moveDown"
+        )
+    })
+    
     
     
     // MARK: METHODS
@@ -123,93 +193,8 @@ public class Claw {
         // user must wait for claw to return to try again
         Container.button.isUserInteractionEnabled = false
         
-        let block2 = SKAction.run({
-            
-            Claw.motor.run(
-                SKAction.repeatForever (
-                    SKAction.sequence([
-                        SKAction.run({
-                            //Code you want to execute
-                            if Claw.leftClaw.position.x <= 50 {
-                                Claw.motor.removeAction(forKey: "moveLeft")
-//                                    ClawSprites.motor.run(left)
-                                Container.button.isUserInteractionEnabled = true
-                                Collision.contactMade = false
-                            }
-                        }),
-                        Actions.left
-                        ])
-                ),
-                withKey: "moveLeft"
-            )
-            
-        })
-        
-        
-        let block1 = SKAction.run({
-            
-            Claw.motor.run(
-                SKAction.repeatForever (
-                    SKAction.sequence([
-                        SKAction.run({
-                            //Code you want to execute
-                            if Claw.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
-                                    print("made it up")
-                                    Claw.motor.run(block2)
-                                Claw.motor.removeAction(forKey: "moveUp")
-                                
-                            }
-                        }),
-                        Actions.up
-                        ])
-                ),
-                withKey: "moveUp"
-            )
-            
-        })
-        
-        
-        
-        
-        
-        let block0 = SKAction.run({
-            
-            Claw.motor.run(
-            SKAction.repeatForever (
-                SKAction.sequence([
-                    SKAction.run({
-                        
-                        //Code you want to execute
-                        // FIXME: if one has been hit, don't check the other
-                        if (Claw.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            Claw.motor.removeAction(forKey: "moveDown")
-                            Claw.motor.run(Actions.wait,
-                                completion: {() -> Void in
-                                    let group = SKAction.group([Actions.repeatLeftForce, block1])
-                                    Claw.motor.run(group,
-                                        completion: {() -> Void in
-                                            
-                                        })
-                                })
-                        } else if (Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            Claw.motor.removeAction(forKey: "moveDown")
-                            Claw.motor.run(Actions.wait,
-                                                  completion: {() -> Void in
-                                                    Claw.motor.run(block1)
-                            })
-                        }
-                    }),
-                    Actions.down
-                    ])
-            ),
-            withKey: "moveDown"
-            )
-        })
-
-
-        
-        let sequence = SKAction.sequence([block0])
-        Claw.motor.run(sequence)
+        // FIXME: further decouple these methods
+        Claw.motor.run(moveDownBlock)
     }
     
     
@@ -217,7 +202,6 @@ public class Claw {
     
     /// Method moves claw right continuously until the button is released
     static let moveRightBlock = SKAction.run({
-        
         Claw.motor.run(
             SKAction.repeatForever (
                 SKAction.sequence([
