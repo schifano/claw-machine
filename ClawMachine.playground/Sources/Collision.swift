@@ -10,12 +10,12 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
         let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
         if (collision == (Category.contactDetectorCategory | Category.stuffedAnimalCategory)) {
             print("contact with stuffed animal")
-            Collision.contactMade = true
+//            Collision.contactMade = true
             
-//            if Collision.counter == 0 {
-//                Collision.counter+=1
-//                Claw.returnClawHome()
-//            }
+            if Collision.counter == 0 {
+                Collision.counter+=1
+                Collision.contactMade = true
+            }
         }
     }
     
@@ -36,19 +36,21 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
 //            Claw.applyForceToOpen(leftClaw: ClawSprites.leftClaw, rightClaw: ClawSprites.rightClaw)
 //        }
         
-        if Claw.hasReturnedToStart {
-            for spring in Joints.springs {
-                print("#####SPRING: \(spring)")
-                scene.physicsWorld.remove(spring)
-                if let index = Joints.springs.index(of: spring) {
-                    Joints.springs.remove(at: index)
-                    
-                    
-                }
-            }
-        }
+        // FIXME: May need this if I need to re-apply the spring later
+//        if Claw.hasReturnedToStart {
+//            for spring in Joints.springs {
+//                print("#####SPRING: \(spring)")
+//                scene.physicsWorld.remove(spring)
+//                if let index = Joints.springs.index(of: spring) {
+//                    Joints.springs.remove(at: index)
+//                    
+//                    
+//                }
+//            }
+//        }
     }
     
-    // TODO: Open claw state
-    // TODO: Closed claw state
+//    static func contact(hasMadeContact: Bool) -> Bool {
+//        return hasMadeContact
+//    }
 }

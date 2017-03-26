@@ -1,42 +1,50 @@
 import SpriteKit
 
+
+
+// TODO: Open claw state
+// TODO: Closed claw state
+// FIXME: handle collision with glass
+
 struct Actions {
     static let up = SKAction.moveBy(x: 0.0, y: 6.0, duration: 0.1)
     static let down = SKAction.moveBy(x: 0.0, y: -6.0, duration: 0.1)
     static let left = SKAction.moveBy(x: -6.0, y: 0.0, duration: 0.1)
+    
     static let right = SKAction.moveBy(x: 6.0, y: 0.0, duration: 0.1)
+    static let moveRight = SKAction.repeatForever(right)
+    
     
     static let wait = SKAction.wait(forDuration: 1.5)
-}
-
-// FIXME: handle collision with glass
-
-
-
-public struct ClawSprites {
-    public static let motor = Sprites.createMotorSprite()
-    static let leftClaw = Sprites.createLeftClawSprite()
-    static let rightClaw = Sprites.createRightClawSprite()
-    static let contactDetector = Sprites.createContactDetectorSprite()
+    
+    static let leftForce = SKAction.applyForce(leftClawForceVector(), at: leftClawForcePoint(), duration: 5.0)
+    static let repeatLeftForce = SKAction.repeatForever(leftForce)
+    
+    
+    // Utility methods
+    static func leftClawForceVector() -> CGVector {
+        let degreesInRadians = GLKMathDegreesToRadians(45)
+        // determine vector components and direction
+        let dx = cosf(degreesInRadians)
+        let dy = sinf(degreesInRadians)
+        // 5 represents scale of force
+        let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
+        return forceVector
+    }
+    
+    static func leftClawForcePoint() -> CGPoint {
+        let leftClawPoint = CGPoint(x: Claw.leftClaw.position.x, y: Claw.leftClaw.position.y)
+        return leftClawPoint
+    }
+    
 }
 
 public class Claw {
-
     
-    static var trackedActions = [SKAction]() // FIXME: Probably not needed
-    
-    public static var hasReturnedToStart = false
-    
-    public static func pauseMotorAction() {
-        ClawSprites.motor.removeAllActions()
-        hasReturnedToStart = true
-    }
-    
-//    public static func moveClaw(motor: SKSpriteNode) {
-//        let sequence = SKAction.sequence([Actions.moveMotorRight, Actions.moveMotorDown, Actions.wait, Actions.moveMotorDown.reversed(), Actions.moveMotorRight.reversed()])
-//        motor.run(sequence)
-//    }
-    
+    static let motor = Sprites.createMotorSprite()
+    static let leftClaw = Sprites.createLeftClawSprite()
+    static let rightClaw = Sprites.createRightClawSprite()
+    static let contactDetector = Sprites.createContactDetectorSprite()
     
     // MARK: Apply Force
     static func applyForceToOpen(leftClaw: SKSpriteNode, rightClaw: SKSpriteNode) {
@@ -52,7 +60,7 @@ public class Claw {
         let leftClawPoint = CGPoint(x: leftClaw.position.x, y: leftClaw.position.y)
         leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
         
-        
+    
         
         // ######## RIGHT CLAW
         // Experiment with force
@@ -77,24 +85,23 @@ public class Claw {
     
     
 
-    
 
     
     static func moveClawDown(finished: () -> Void) {
         print("down")
 
-        ClawSprites.motor.run(
+        Claw.motor.run(
             SKAction.repeatForever (
                 SKAction.sequence([
                     Actions.down,
                     SKAction.run({
                         //Code you want to execute
-                        if ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
-                            ClawSprites.motor.removeAction(forKey: "moveDown")
+                        if Claw.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+                            Claw.motor.removeAction(forKey: "moveDown")
                         }
                         
-                        if ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
-                            ClawSprites.motor.removeAction(forKey: "moveDown")
+                        if Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
+                            Claw.motor.removeAction(forKey: "moveDown")
                         }
                     })
                 ])
@@ -161,14 +168,14 @@ public class Claw {
     static var counter = 0
     static func removeClawActions(contactMadeWithStuffedAnimal: Bool) {
         if contactMadeWithStuffedAnimal {
-            closeClaw()
             returnClawHome()
         } else {
-            ClawSprites.motor.removeAllActions()
+            Claw.motor.removeAllActions()
         }
     }
     
     
+    // MARK: METHODS
     // this may need to be done by moving claw until it returns home
     static func returnClawHome() {
         print("return claw home")
@@ -178,13 +185,13 @@ public class Claw {
         
         let block2 = SKAction.run({
             
-            ClawSprites.motor.run(
+            Claw.motor.run(
                 SKAction.repeatForever (
                     SKAction.sequence([
                         SKAction.run({
                             //Code you want to execute
-                            if ClawSprites.leftClaw.position.x <= 50 {
-                                ClawSprites.motor.removeAction(forKey: "moveLeft")
+                            if Claw.leftClaw.position.x <= 50 {
+                                Claw.motor.removeAction(forKey: "moveLeft")
 //                                    ClawSprites.motor.run(left)
                                 Container.button.isUserInteractionEnabled = true
                                 Collision.contactMade = false
@@ -201,15 +208,15 @@ public class Claw {
         
         let block1 = SKAction.run({
             
-            ClawSprites.motor.run(
+            Claw.motor.run(
                 SKAction.repeatForever (
                     SKAction.sequence([
                         SKAction.run({
                             //Code you want to execute
-                            if ClawSprites.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
+                            if Claw.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
                                     print("made it up")
-                                    ClawSprites.motor.run(block2)
-                                ClawSprites.motor.removeAction(forKey: "moveUp")
+                                    Claw.motor.run(block2)
+                                Claw.motor.removeAction(forKey: "moveUp")
                                 
                             }
                         }),
@@ -227,19 +234,29 @@ public class Claw {
         
         let block0 = SKAction.run({
             
-            ClawSprites.motor.run(
+            Claw.motor.run(
             SKAction.repeatForever (
                 SKAction.sequence([
                     SKAction.run({
                         
                         //Code you want to execute
                         // FIXME: if one has been hit, don't check the other
-                        if (ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            ClawSprites.motor.removeAction(forKey: "moveDown")
-                            ClawSprites.motor.run(block1)
-                        } else if (ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            ClawSprites.motor.removeAction(forKey: "moveDown")
-                            ClawSprites.motor.run(block1)
+                        if (Claw.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+                            Claw.motor.removeAction(forKey: "moveDown")
+                            Claw.motor.run(Actions.wait,
+                                completion: {() -> Void in
+                                    let group = SKAction.group([Actions.repeatLeftForce, block1])
+                                    Claw.motor.run(group,
+                                        completion: {() -> Void in
+                                            
+                                        })
+                                })
+                        } else if (Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+                            Claw.motor.removeAction(forKey: "moveDown")
+                            Claw.motor.run(Actions.wait,
+                                                  completion: {() -> Void in
+                                                    Claw.motor.run(block1)
+                            })
                         }
                     }),
                     Actions.down
@@ -248,43 +265,11 @@ public class Claw {
             withKey: "moveDown"
             )
         })
-        
 
-
-        
-        
-        // MARK: METHODS
-
-        
-//        DispatchQueue.main.async {
-//            ClawSprites.motor.run(block0,
-//                completion: {() -> Void in
-//                    print("down")
-//                    DispatchQueue.main.async {
-//                        ClawSprites.motor.run(block1)
-//                        print("up")
-//                    }
-//            })
-//        }
-        
-        
-//        ClawSprites.motor.run(block0,
-//            completion: {() -> Void in
-//                print("down complete")
-//                ClawSprites.motor.run(block1,
-//                    completion: {() -> Void in
-//                        print("up complete")
-//                        ClawSprites.motor.run(block2,
-//                            completion: {() -> Void in
-//                                print("left complete")
-//                            })
-//                    })
-//            })
-//    
 
         
         let sequence = SKAction.sequence([block0])
-        ClawSprites.motor.run(sequence)
+        Claw.motor.run(sequence)
     }
     
     
@@ -312,22 +297,11 @@ public class Claw {
     
     
     
-    static let moveRight = SKAction.repeatForever(Actions.right)
+    
     static func moveClawRight() {
-        if ClawSprites.motor.position.x < Container.gameWindowShape.frame.maxX-60 && ClawSprites.motor.position.x > Container.gameWindowShape.frame.minX {
-            ClawSprites.motor.run(moveRight)
+        if Claw.motor.position.x < Container.gameWindowShape.frame.maxX-60 && Claw.motor.position.x > Container.gameWindowShape.frame.minX {
+            Claw.motor.run(Actions.moveRight)
         }
-    }
-    
-    
-    
-    static func moveDown() {
-        
-    }
-    
-    
-    static func closeClaw() {
-        
     }
     
 }

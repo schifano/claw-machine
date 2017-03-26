@@ -15,12 +15,11 @@ Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"), quan
 // TODO: Customize skin of machine
 
 
-print("claw position x: \(ClawSprites.motor.position.x)")
-print("claw position y: \(ClawSprites.motor.position.y)")
-
-
 //claw position x: 78.6500015258789
 //claw position y: 461.349975585938
+
+// FIXME: Contact with boundary should return home
+// FIXME: On contact, wait action, close claw action repeat
 
 
 

@@ -51,24 +51,9 @@ class Button: SKNode {
         defaultButton.isHidden = false
         
         
-        ClawSprites.motor.removeAllActions()
+        Claw.motor.removeAllActions()
         Claw.returnClawHome()
         
-//        DispatchQueue.main.async {
-//            Claw.moveClawDown {
-//                print("move claw down finished")
-//            }
-//        }
-//        
-//        DispatchQueue.main.async {
-//            Claw.moveClawUp {
-//                print("move claw up finished")
-//            }
-//        }
-//    
-//        Claw.moveClawLeft()
-        // need to be in sequence
-//        Claw.returnClawHome()
     }
 }
 

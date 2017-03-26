@@ -95,16 +95,16 @@ public class Container {
         scene.addChild(boundary)
         
         // MARK: Sprites - add before joints
-        scene.addChild(ClawSprites.motor)
-        scene.addChild(ClawSprites.leftClaw)
-        scene.addChild(ClawSprites.rightClaw)
-        scene.addChild(ClawSprites.contactDetector)
+        scene.addChild(Claw.motor)
+        scene.addChild(Claw.leftClaw)
+        scene.addChild(Claw.rightClaw)
+        scene.addChild(Claw.contactDetector)
         
         // SETUP joints
-        let leftClawJoint = Joints.createLeftClawJoint(motor: ClawSprites.motor, leftClaw: ClawSprites.leftClaw)
-        let rightClawJoint = Joints.createRightClawJoint(motor: ClawSprites.motor, rightClaw: ClawSprites.rightClaw)
-        let contactDetectorJoint = Joints.createContactDetectorJoint(motor: ClawSprites.motor, contactDetector: ClawSprites.contactDetector)
-        let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: ClawSprites.leftClaw, rightClaw: ClawSprites.rightClaw)
+        let leftClawJoint = Joints.createLeftClawJoint(motor: Claw.motor, leftClaw: Claw.leftClaw)
+        let rightClawJoint = Joints.createRightClawJoint(motor: Claw.motor, rightClaw: Claw.rightClaw)
+        let contactDetectorJoint = Joints.createContactDetectorJoint(motor: Claw.motor, contactDetector: Claw.contactDetector)
+        let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: Claw.leftClaw, rightClaw: Claw.rightClaw)
         
         scene.physicsWorld.add(leftClawJoint)
         scene.physicsWorld.add(rightClawJoint)
