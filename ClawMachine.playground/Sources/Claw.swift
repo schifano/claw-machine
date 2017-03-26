@@ -20,8 +20,12 @@ struct Actions {
     
     static let wait = SKAction.wait(forDuration: 1.5)
     
+    // FIXME: Test and find a better point to apply force for both claws
     static let leftForce = SKAction.applyForce(leftClawForceVector(), at: leftClawForcePoint(), duration: 5.0)
     static let repeatLeftForce = SKAction.repeatForever(leftForce)
+    
+    static let rightForce = SKAction.applyForce(leftClawForceVector(), at: rightClawForcePoint(), duration: 5.0)
+    static let repeatRightForce = SKAction.repeatForever(rightForce)
     
     
     // Utility methods
@@ -35,9 +39,16 @@ struct Actions {
         return forceVector
     }
     
+    /// Returns point at which the force is applied on the left claw
     static func leftClawForcePoint() -> CGPoint {
         let leftClawPoint = CGPoint(x: Claw.leftClaw.position.x, y: Claw.leftClaw.position.y)
         return leftClawPoint
+    }
+    
+    /// Returns point at which the force is applied on the right claw
+    static func rightClawForcePoint() -> CGPoint {
+        let rightClawPoint = CGPoint(x: Claw.rightClaw.position.x, y: Claw.rightClaw.position.y)
+        return rightClawPoint
     }
     
 }
@@ -113,10 +124,13 @@ public class Claw {
                     SKAction.run({
                         //Code you want to execute
                         if Claw.leftClaw.position.x <= 50 {
+                            
+                            print("moved left")
+                            
                             Claw.motor.removeAction(forKey: "moveLeft")
-                            //                                    ClawSprites.motor.run(left)
+                            
                             Container.button.isUserInteractionEnabled = true
-                            Collision.contactMade = false
+                            Collision.contactMade = false // reset
                         }
                     }),
                     Actions.left
@@ -138,7 +152,6 @@ public class Claw {
                             print("made it up")
                             Claw.motor.run(Claw.moveLeftBlock)
                             Claw.motor.removeAction(forKey: "moveUp")
-                            
                         }
                     }),
                     Actions.up
@@ -162,11 +175,7 @@ public class Claw {
                             Claw.motor.removeAction(forKey: "moveDown")
                             Claw.motor.run(Actions.wait,
                                            completion: {() -> Void in
-                                            let group = SKAction.group([Actions.repeatLeftForce, Claw.moveUpBlock])
-                                            Claw.motor.run(group,
-                                                           completion: {() -> Void in
-                                                            
-                                            })
+                                            Claw.motor.run(Claw.moveUpBlock)
                             })
                         } else if (Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
                             Claw.motor.removeAction(forKey: "moveDown")
@@ -177,7 +186,7 @@ public class Claw {
                         }
                     }),
                     Actions.down
-                    ])
+                ])
             ),
             withKey: "moveDown"
         )
@@ -185,8 +194,7 @@ public class Claw {
     
     
     
-    // MARK: METHODS
-    // this may need to be done by moving claw until it returns home
+    /// Method that handles claw sequence to return home
     static func returnClawHome() {
         print("return claw home")
 
@@ -194,11 +202,15 @@ public class Claw {
         Container.button.isUserInteractionEnabled = false
         
         // FIXME: further decouple these methods
+        let forceGroup = SKAction.group([Actions.leftForce, Actions.rightForce])
+        Claw.motor.run(forceGroup,
+            completion: {() -> Void in
+                print("finished force for some reason")
+        })
+        
         Claw.motor.run(moveDownBlock)
     }
     
-    
-
     
     /// Method moves claw right continuously until the button is released
     static let moveRightBlock = SKAction.run({
