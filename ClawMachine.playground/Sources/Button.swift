@@ -31,7 +31,7 @@ class Button: SKNode {
         activeButton.isHidden = false
         defaultButton.isHidden = true
         
-        Claw.moveClawRight()
+        Claw.motor.run(Claw.moveRightBlock)
         
         guard let touch = touches.first else {
             print("There is no touch object")

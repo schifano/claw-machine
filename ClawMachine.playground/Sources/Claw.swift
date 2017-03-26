@@ -8,7 +8,10 @@ import SpriteKit
 
 struct Actions {
     static let up = SKAction.moveBy(x: 0.0, y: 6.0, duration: 0.1)
+    
     static let down = SKAction.moveBy(x: 0.0, y: -6.0, duration: 0.1)
+    static let moveDown = SKAction.repeatForever(down)
+    
     static let left = SKAction.moveBy(x: -6.0, y: 0.0, duration: 0.1)
     
     static let right = SKAction.moveBy(x: 6.0, y: 0.0, duration: 0.1)
@@ -286,10 +289,55 @@ public class Claw {
     
     
     /// Method moves claw right continuously until the button is released
-    static func moveClawRight() {
-        if Claw.motor.position.x < Container.gameWindowShape.frame.maxX-60 && Claw.motor.position.x > Container.gameWindowShape.frame.minX {
-            Claw.motor.run(Actions.moveRight)
-        }
-    }
+    static let moveRightBlock = SKAction.run({
+        
+        Claw.motor.run(
+            SKAction.repeatForever (
+                SKAction.sequence([
+                    
+                    // first action - check logic
+                    SKAction.run({
+                        if Claw.rightClaw.frame.maxX >= Container.gameWindowShape.frame.maxX-10 {
+                            Claw.motor.removeAction(forKey: "moveRight")
+                        }
+                    }),
+                    
+                    // second action - execute movement
+                    Actions.right
+                ])
+            ),
+            withKey: "moveRight"
+        )
+    })
+        
+        
+        
+        
+
     
+    /// Method moves claw down continuously until a collision occurs
+    static func moveClawDown() {
+        
+        
+//        // FIXME: if one has been hit, don't check the other
+//        if (Claw.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+//            Claw.motor.removeAction(forKey: "moveDown")
+//            Claw.motor.run(Actions.wait,
+//                           completion: {() -> Void in
+//                            let group = SKAction.group([Actions.repeatLeftForce, block1])
+//                            Claw.motor.run(group,
+//                                           completion: {() -> Void in
+//                                            
+//                            })
+//            })
+//        } else if (Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+//            Claw.motor.removeAction(forKey: "moveDown")
+//            Claw.motor.run(Actions.wait,
+//                           completion: {() -> Void in
+//                            Claw.motor.run(block1)
+//            })
+//        }
+//    }
+//    
+    }
 }
