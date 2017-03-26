@@ -102,68 +102,17 @@ public class Claw {
         finished()
     }
 
-    
-    
-//    static func moveClawDown() {
-//        print("down")
-//        
-//        while ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
-//            ClawSprites.motor.run(<#T##action: SKAction##SKAction#>, completion: <#T##() -> Void#>)
-//        }
-//        ClawSprites.motor.run(
-//            SKAction.repeatForever (
-//                SKAction.sequence([
-//                    down,
-//                    SKAction.run({
-//                        //Code you want to execute
-//                        if ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
-//                            ClawSprites.motor.removeAction(forKey: "moveDown")
-//                        }
-//                        
-//                        if ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
-//                            ClawSprites.motor.removeAction(forKey: "moveDown")
-//                        }
-//                    })
-//                    ])
-//            ),
-//            withKey: "moveDown"
-//        )
-//        finished()
-//    }
-//
-    
-//    
-//    static func moveClawUp(finished: () -> Void) {
-//        print("up")
-//
-//
-//        ClawSprites.motor.run(
-//            SKAction.repeatForever (
-//                SKAction.sequence([
-//                    up,
-//                    SKAction.run({
-//                        //Code you want to execute
-//                        if ClawSprites.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
-//                            ClawSprites.motor.removeAction(forKey: "moveUp")
-//                        }
-//                    })
-//                    ])
-//            ),
-//            withKey: "moveUp"
-//        )
-//        finished()
-//    }
 
     
     
-    static var counter = 0
-    static func removeClawActions(contactMadeWithStuffedAnimal: Bool) {
-        if contactMadeWithStuffedAnimal {
-            returnClawHome()
-        } else {
-            Claw.motor.removeAllActions()
-        }
-    }
+//    static var counter = 0
+//    static func removeClawActions(contactMadeWithStuffedAnimal: Bool) {
+//        if contactMadeWithStuffedAnimal {
+//            returnClawHome()
+//        } else {
+//            Claw.motor.removeAllActions()
+//        }
+//    }
     
     
     // MARK: METHODS
@@ -265,28 +214,6 @@ public class Claw {
     
     
 
-//    ClawSprites.motor.run(
-//    SKAction.repeatForever (
-//    SKAction.sequence([
-//    SKAction.run({
-//    
-//    //Code you want to execute
-//    // FIXME: if one has been hit, don't check the other
-//    if ClawSprites.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
-//    ClawSprites.motor.removeAction(forKey: "moveDown")
-//    ClawSprites.motor.run(block1)
-//    } else if ClawSprites.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10 {
-//    ClawSprites.motor.removeAction(forKey: "moveDown")
-//    ClawSprites.motor.run(block1)
-//    }
-//    }),
-//    Actions.down
-//    ])
-//    ),
-//    withKey: "moveDown"
-//    )
-    
-    
     
     /// Method moves claw right continuously until the button is released
     static let moveRightBlock = SKAction.run({
