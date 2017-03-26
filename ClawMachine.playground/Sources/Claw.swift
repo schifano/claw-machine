@@ -75,18 +75,6 @@ public class Claw {
         
     }
 
-    
-//    static func moveClawLeft() {
-//        print("left")
-//        if ClawSprites.motor.position.x > Container.gameWindowShape.frame.minX+100 {
-//            ClawSprites.motor.run(moveLeft)
-//        }
-//    }
-    
-    
-
-
-    
     static func moveClawDown(finished: () -> Void) {
         print("down")
 
@@ -297,7 +285,7 @@ public class Claw {
     
     
     
-    
+    /// Method moves claw right continuously until the button is released
     static func moveClawRight() {
         if Claw.motor.position.x < Container.gameWindowShape.frame.maxX-60 && Claw.motor.position.x > Container.gameWindowShape.frame.minX {
             Claw.motor.run(Actions.moveRight)
