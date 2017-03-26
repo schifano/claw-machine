@@ -7,8 +7,8 @@ import PlaygroundSupport
 Container.setup()
 
 // create sprites
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 2)
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"), quantity: 5)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 1)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"), quantity: 1)
 
 // TODO: Customize strength of claw
 // TODO: Customize speed of claw (duration in the repeating action)
