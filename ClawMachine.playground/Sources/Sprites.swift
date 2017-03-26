@@ -71,7 +71,7 @@ public class Sprites {
         let motor = ClawSprites.motor
         let contactDetector = SKShapeNode(rectOf: CGSize(width: motor.frame.width/2+5, height: 5))
         contactDetector.fillColor = UIColor.clear
-        contactDetector.position = CGPoint(x: motor.position.x, y: motor.position.y-20)
+        contactDetector.position = CGPoint(x: motor.position.x, y: motor.position.y-15)
         contactDetector.name = "detector"
         
         contactDetector.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: contactDetector.frame.width, height: contactDetector.frame.height))
