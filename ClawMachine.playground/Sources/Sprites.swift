@@ -41,7 +41,7 @@ public class Sprites {
         
         leftClaw.physicsBody?.categoryBitMask = Category.clawCategory
         leftClaw.physicsBody?.contactTestBitMask = Category.stuffedAnimalCategory
-        leftClaw.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory | Category.groundCategory
+        leftClaw.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory
         
         return leftClaw
     }
@@ -94,6 +94,7 @@ public class Sprites {
         let stuffedAnimalTexture = SKTexture(image: image)
         for _ in 1 ... quantity {
             let stuffedAnimal = SKSpriteNode(texture: stuffedAnimalTexture)
+            stuffedAnimal.zPosition = 0
             // TODO: Can we make this the size of the image?
             stuffedAnimal.size = stuffedAnimalSize
             // FIXME: Generate animals in the correct space

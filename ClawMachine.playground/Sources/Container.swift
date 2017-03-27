@@ -20,7 +20,8 @@ public class Container {
         static let lightGreen = color(for: 0x44FAAC)
         static let lightPink = color(for: 0xFFCAFE)
         static let tacao = color(for: 0xF5A87A)
-        static let sail = color(for: 0xB5DFFC)
+//        static let sail = color(for: 0xB5DFFC)
+        static let sail = UIColor(red: 0, green: 0.5, blue: 0.9, alpha: 0.2)
         static let voodoo = color(for: 0x45343D)
         static let pink = color(for: 0xF280B3)
         
@@ -51,6 +52,8 @@ public class Container {
     static let panel = SKShapeNode(rect: CGRect(x: 120, y: 160, width: 100, height: 100))
     
     static let delegate = Collision()
+
+    static let backgroundNode = SKNode()
     
     public static func setup() {
         clawMachineCabinetContainerView.backgroundColor = Colors.gray
@@ -66,20 +69,22 @@ public class Container {
         scene.physicsWorld.contactDelegate = delegate
         scene.delegate = delegate
         
+        let cabinetNode = SKNode()
+        
         // game window
         gameWindowShape.fillColor = Colors.sail
         //gameWindowShape.position = CGPoint(x: 40, y: 400)
-        scene.addChild(gameWindowShape)
+//        scene.addChild(gameWindowShape)
         
         // prize shoot
         prizeShootShape.fillColor = UIColor.clear
         prizeShootShape.lineWidth = 0.0
-        scene.addChild(prizeShootShape)
+//        scene.addChild(prizeShootShape)
         
         // prize dispenser
         prizeDispenser.fillColor = Colors.voodoo
         prizeDispenser.lineWidth = 0.0
-        scene.addChild(prizeDispenser)
+//        scene.addChild(prizeDispenser)
     
         // panel
         panel.fillColor = Colors.lightGreen
@@ -88,11 +93,24 @@ public class Container {
         
         // button
         button.position = CGPoint(x: 250, y: 120)
-        scene.addChild(button)
+//        scene.addChild(button)
+        
         
         // draw boundaries on scene
         let boundary = drawBoundaries()
         scene.addChild(boundary)
+        
+        
+        
+        
+        cabinetNode.addChild(gameWindowShape)
+        cabinetNode.addChild(prizeShootShape)
+        cabinetNode.addChild(prizeDispenser)
+        cabinetNode.addChild(button)
+        
+        
+        
+        
         
         // MARK: Sprites - add before joints
         scene.addChild(Claw.motor)
@@ -109,9 +127,13 @@ public class Container {
         scene.physicsWorld.add(leftClawJoint)
         scene.physicsWorld.add(rightClawJoint)
         scene.physicsWorld.add(contactDetectorJoint)
-//        scene.physicsWorld.add(clawSpringJoint)
+        scene.physicsWorld.add(clawSpringJoint)
     
         clawMachineCabinetContainerView.presentScene(scene)
+        
+//        scene.addChild(backgroundNode)
+        cabinetNode.zPosition = 100
+        scene.addChild(cabinetNode)
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
@@ -149,7 +171,8 @@ public class Container {
         
         let fullBoundary = SKNode()
         fullBoundary.physicsBody = SKPhysicsBody(edgeLoopFrom: path)
-        
+        fullBoundary.physicsBody?.categoryBitMask = Category.groundCategory
+        fullBoundary.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory
         return fullBoundary
     }
     

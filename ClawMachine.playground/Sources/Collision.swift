@@ -2,31 +2,32 @@ import SpriteKit
 
 class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
     
-    static var contactMade = true
+    static var contactMade = false
     
-    static let leftVector = CGVector(dx: 10, dy: 0)
-    static let rightVector = CGVector(dx: -10, dy: 0)
-    
-    static var counter = 0
     // ContactDelegate method is notified when there has been contact with sprites
     func didBegin(_ contact: SKPhysicsContact) {
         let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
         if (collision == (Category.contactDetectorCategory | Category.stuffedAnimalCategory)) {
             print("contact with stuffed animal")
             
-            Claw.leftClaw.physicsBody?.applyForce(Collision.leftVector)
-            Claw.rightClaw.physicsBody?.applyForce(Collision.rightVector)
-            
+
             Collision.contactMade = true
             
         }
-//        Collision.contactMade = false
-        Collision.counter = 0
     }
     
     // SceneDelegate method checks scene and makes given updates
     // Method checks for existing springs to remove
     func update(_ currentTime: TimeInterval, for scene: SKScene) {
+        
+        
+        if Claw.isOpen {
+            print("Claw is open")
+            Claw.openClaw()
+        } else {
+            Claw.closeClaw()
+        }
+        
         
         
         
