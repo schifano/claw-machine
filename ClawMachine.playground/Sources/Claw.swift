@@ -98,10 +98,10 @@ public class Claw {
     // try an action
     static func closeClaw() {
         // determine vector components and direction
-        let dx1: CGFloat = -1000
+        let dx1: CGFloat = -50
         let dy: CGFloat = 0
         
-        let dx2: CGFloat = 1000
+        let dx2: CGFloat = 50
         
         // 5 represents scale of force
         // FIXME: rename
