@@ -17,13 +17,27 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
                 Collision.contactMade = true
             }
         }
+        Collision.contactMade = false
+        Collision.counter = 0
     }
     
     // SceneDelegate method checks scene and makes given updates
     // Method checks for existing springs to remove
     func update(_ currentTime: TimeInterval, for scene: SKScene) {
         
+        print("update")
 
+        
+        // If contact has been made, close claw
+        if Collision.contactMade {
+            let forceGroup = SKAction.group([Actions.repeatLeftForce, Actions.repeatRightForce])
+            Claw.motor.run(forceGroup)
+        }
+        
+        //        Claw.applyForceToOpen()
+//        Claw.motor.run(Actions.repeatLeftForce)
+
+        
 //        if Button.isBeingHeld == 1 {
 //            Claw.moveClawRight()
 //        } else if Button.isBeingHeld == 0 {

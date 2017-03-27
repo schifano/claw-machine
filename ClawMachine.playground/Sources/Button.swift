@@ -50,6 +50,8 @@ class Button: SKNode {
         activeButton.isHidden = true
         defaultButton.isHidden = false
         
+
+//        Claw.applyForceToOpen()
         
         Claw.motor.removeAllActions()
         Claw.returnClawHome()

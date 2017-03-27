@@ -21,23 +21,43 @@ struct Actions {
     static let wait = SKAction.wait(forDuration: 1.5)
     
     // FIXME: Test and find a better point to apply force for both claws
-    static let leftForce = SKAction.applyForce(leftClawForceVector(), at: leftClawForcePoint(), duration: 5.0)
+    static let leftForce = SKAction.applyForce(leftClawForceVector(), at: leftClawForcePoint(), duration: 10.0)
     static let repeatLeftForce = SKAction.repeatForever(leftForce)
     
-    static let rightForce = SKAction.applyForce(leftClawForceVector(), at: rightClawForcePoint(), duration: 5.0)
+    static let rightForce = SKAction.applyForce(rightClawForceVector(), at: rightClawForcePoint(), duration: 10.0)
     static let repeatRightForce = SKAction.repeatForever(rightForce)
     
     
     // Utility methods
     static func leftClawForceVector() -> CGVector {
-        let degreesInRadians = GLKMathDegreesToRadians(45)
+//        let degreesInRadians = GLKMathDegreesToRadians(-45)
+//        // determine vector components and direction
+//        let dx = cosf(degreesInRadians)
+//        let dy = sinf(degreesInRadians)
+//        // 5 represents scale of force
+//        let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
+//        return forceVector
+        
+        
+        
         // determine vector components and direction
-        let dx = cosf(degreesInRadians)
-        let dy = sinf(degreesInRadians)
+        let dx: CGFloat = 10
+        let dy: CGFloat = 0
         // 5 represents scale of force
-        let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
+        let forceVector = CGVector(dx: dx, dy: dy)
         return forceVector
     }
+    
+    
+    static func rightClawForceVector() -> CGVector {
+        // determine vector components and direction
+        let dx: CGFloat = -10
+        let dy: CGFloat = 0
+        // 5 represents scale of force
+        let forceVector = CGVector(dx: dx, dy: dy)
+        return forceVector
+    }
+    
     
     /// Returns point at which the force is applied on the left claw
     static func leftClawForcePoint() -> CGPoint {
@@ -61,32 +81,62 @@ public class Claw {
     static let contactDetector = Sprites.createContactDetectorSprite()
     
     // MARK: Apply Force
-    static func applyForceToOpen(leftClaw: SKSpriteNode, rightClaw: SKSpriteNode) {
+    static func applyForceToOpen() {
+        
+//        // KEEPS CLAW OPEN
+//        // ######## LEFT CLAW
+//        // Experiment with force
+//        let degreesInRadians = GLKMathDegreesToRadians(45)
+//        // determine vector components and direction
+//        let dx = cosf(degreesInRadians)
+//        let dy = sinf(degreesInRadians)
+//        // 5 represents scale of force
+//        let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
+//        let leftClawPoint = CGPoint(x: Claw.leftClaw.position.x, y: Claw.leftClaw.position.y)
+//        Claw.leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
+//        
+//    
+//        
+//        // ######## RIGHT CLAW
+//        // Experiment with force
+//        let degreesInRadians2 = GLKMathDegreesToRadians(45)
+//        // determine vector components and direction
+//        let dx2 = cosf(degreesInRadians2)
+//        let dy2 = sinf(degreesInRadians2)
+//        // 5 represents scale of force
+//        let forceVector2 = CGVector(dx: CGFloat(dx2*500), dy: CGFloat(dy2*500))
+//        let rightClawPoint = CGPoint(x: Claw.rightClaw.position.x, y: Claw.rightClaw.position.y)
+//        Claw.rightClaw.physicsBody?.applyForce(forceVector2, at: rightClawPoint)
+        
+        
+        
+        
+        
+        // FIXME: How to keep claw closed?
         
         // ######## LEFT CLAW
         // Experiment with force
-        let degreesInRadians = GLKMathDegreesToRadians(45)
+        let degreesInRadians = GLKMathDegreesToRadians(-135)
         // determine vector components and direction
         let dx = cosf(degreesInRadians)
         let dy = sinf(degreesInRadians)
         // 5 represents scale of force
         let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
-        let leftClawPoint = CGPoint(x: leftClaw.position.x, y: leftClaw.position.y)
-        leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
+        let leftClawPoint = CGPoint(x: Claw.leftClaw.position.x, y: Claw.leftClaw.position.y)
+        Claw.leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
         
-    
+        
         
         // ######## RIGHT CLAW
         // Experiment with force
-        let degreesInRadians2 = GLKMathDegreesToRadians(45)
+        let degreesInRadians2 = GLKMathDegreesToRadians(-225)
         // determine vector components and direction
         let dx2 = cosf(degreesInRadians2)
         let dy2 = sinf(degreesInRadians2)
         // 5 represents scale of force
         let forceVector2 = CGVector(dx: CGFloat(dx2*500), dy: CGFloat(dy2*500))
-        let rightClawPoint = CGPoint(x: rightClaw.position.x, y: rightClaw.position.y)
-        rightClaw.physicsBody?.applyForce(forceVector2, at: rightClawPoint)
-        
+        let rightClawPoint = CGPoint(x: Claw.rightClaw.position.x, y: Claw.rightClaw.position.y)
+        Claw.rightClaw.physicsBody?.applyForce(forceVector2, at: rightClawPoint)
     }
 
     static func moveClawDown(finished: () -> Void) {
@@ -202,11 +252,15 @@ public class Claw {
         Container.button.isUserInteractionEnabled = false
         
         // FIXME: further decouple these methods
-        let forceGroup = SKAction.group([Actions.leftForce, Actions.rightForce])
-        Claw.motor.run(forceGroup,
-            completion: {() -> Void in
-                print("finished force for some reason")
-        })
+//        let clawGroup = SKAction.group([Actions.repeatLeftForce, Actions.repeatRightForce, moveDownBlock])
+//        Claw.motor.run(clawGroup,
+//            completion: {() -> Void in
+//                print("claw returned home")
+//                Claw.motor.removeAllActions() // is this needed?
+//        })
+
+        
+//        Claw.motor.run(Actions.repeatLeftForce)
         
         Claw.motor.run(moveDownBlock)
     }
