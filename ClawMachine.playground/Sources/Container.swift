@@ -98,7 +98,7 @@ public class Container {
         scene.addChild(Claw.motor)
         scene.addChild(Claw.leftClaw)
         scene.addChild(Claw.rightClaw)
-        scene.addChild(Claw.contactDetector)
+//        scene.addChild(Claw.contactDetector)
         
         // SETUP joints
         let leftClawJoint = Joints.createLeftClawJoint(motor: Claw.motor, leftClaw: Claw.leftClaw)
@@ -108,8 +108,8 @@ public class Container {
         
         scene.physicsWorld.add(leftClawJoint)
         scene.physicsWorld.add(rightClawJoint)
-        scene.physicsWorld.add(contactDetectorJoint)
-//        scene.physicsWorld.add(clawSpringJoint)
+//        scene.physicsWorld.add(contactDetectorJoint)
+        scene.physicsWorld.add(clawSpringJoint)
     
         clawMachineCabinetContainerView.presentScene(scene)
         

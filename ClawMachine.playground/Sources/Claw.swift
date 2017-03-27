@@ -5,7 +5,7 @@ import SpriteKit
 // FIXME: handle collision with glass
 
 struct Actions {
-    static let up = SKAction.moveBy(x: 0.0, y: 6.0, duration: 0.1)
+    static let up = SKAction.moveBy(x: 0.0, y: 4.0, duration: 0.1)
     
     static let down = SKAction.moveBy(x: 0.0, y: -4.0, duration: 0.1)
     static let moveDown = SKAction.repeatForever(down)
@@ -67,6 +67,10 @@ struct Actions {
         return rightClawPoint
     }
     
+    
+    
+    
+
 }
 
 public class Claw {
@@ -75,6 +79,63 @@ public class Claw {
     static let leftClaw = Sprites.createLeftClawSprite()
     static let rightClaw = Sprites.createRightClawSprite()
     static let contactDetector = Sprites.createContactDetectorSprite()
+    
+    
+    
+    
+    
+    // Partial - DOWN
+    
+    
+    
+    
+    // Closed - UP/LEFT
+    
+    
+    // Open - End of sequence
+    
+    
+    // try an action
+    static func closeClaw() {
+        // determine vector components and direction
+        let dx1: CGFloat = -1000
+        let dy: CGFloat = 0
+        
+        let dx2: CGFloat = 1000
+        
+        // 5 represents scale of force
+        // FIXME: rename
+        let forceMovingLeftVector = CGVector(dx: dx1, dy: dy)
+        let forceMovingRightVector = CGVector(dx: dx2, dy: dy)
+        
+        let leftClawPoint = CGPoint(x: Claw.leftClaw.frame.minX, y: Claw.leftClaw.frame.minY)
+        let rightClawPoint = CGPoint(x: Claw.rightClaw.frame.minX, y: Claw.rightClaw.frame.minY)
+        
+        Claw.leftClaw.physicsBody?.applyForce(forceMovingRightVector, at: leftClawPoint)
+        Claw.rightClaw.physicsBody?.applyForce(forceMovingLeftVector, at: rightClawPoint)
+    }
+    
+    
+    static func openClaw() {
+        // determine vector components and direction
+        let dx1: CGFloat = -100
+        let dy: CGFloat = 0
+        
+        let dx2: CGFloat = 100
+        
+        // 5 represents scale of force
+        // FIXME: rename
+        let forceMovingLeftVector = CGVector(dx: dx1, dy: dy)
+        let forceMovingRightVector = CGVector(dx: dx2, dy: dy)
+        
+        let leftClawPoint = CGPoint(x: Claw.leftClaw.frame.minX, y: Claw.leftClaw.frame.minY)
+        let rightClawPoint = CGPoint(x: Claw.rightClaw.frame.minX, y: Claw.rightClaw.frame.minY)
+        
+        Claw.leftClaw.physicsBody?.applyForce(forceMovingLeftVector, at: leftClawPoint)
+        Claw.rightClaw.physicsBody?.applyForce(forceMovingRightVector, at: rightClawPoint)
+    }
+    
+    
     
     // MARK: Claw movement code blocks
     static let moveLeftBlock = SKAction.run({
@@ -91,33 +152,7 @@ public class Claw {
                             
                             
                             
-//                            let degreesInRadians = GLKMathDegreesToRadians(45)
-//                            // determine vector components and direction
-//                            let dx = cosf(degreesInRadians)
-//                            let dy = sinf(degreesInRadians)
-//                            // 5 represents scale of force
-//                            let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
-//                            let leftClawPoint = CGPoint(x: Claw.leftClaw.frame.minX, y: Claw.leftClaw.frame.minY)
-//                            
-//                            
-//                            let rightClawPoint = CGPoint(x: Claw.rightClaw.position.x, y: Claw.rightClaw.position.y)
-//                            
-//                            Claw.leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
-//                            Claw.rightClaw.physicsBody?.applyForce(forceVector, at: rightClawPoint)
-//                            
-
-                            
-                            
-                            
-                            
-                            
-//                            Claw.motor.run(Actions.openClaw,
-//                                completion: {() -> Void in
-//                                
-//                                print("open completed")
-//                                Container.button.isUserInteractionEnabled = true
-//                                Collision.contactMade = false // reset
-//                            })
+                            Claw.openClaw()
 
                             Container.button.isUserInteractionEnabled = true
                             Collision.contactMade = false // reset
@@ -137,6 +172,10 @@ public class Claw {
             SKAction.repeatForever (
                 SKAction.sequence([
                     SKAction.run({
+                        Claw.closeClaw()
+                    }),
+                    
+                    SKAction.run({
                         //Code you want to execute
                         if Claw.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
                             print("made it up")
@@ -144,6 +183,7 @@ public class Claw {
                             Claw.motor.removeAction(forKey: "moveUp")
                         }
                     }),
+                    
                     Actions.up
                     ])
             ),
@@ -167,8 +207,7 @@ public class Claw {
                             
                             Claw.motor.run(Actions.wait,
                                            completion: {() -> Void in
-                                            let forceGroup = SKAction.group([Actions.repeatLeftForce, Actions.repeatRightForce, moveUpBlock])
-//                                            Claw.motor.run(forceGroup)
+                                            
                                             Claw.motor.run(Claw.moveUpBlock)
                             })
                         } else if (Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {

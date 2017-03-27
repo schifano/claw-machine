@@ -37,26 +37,6 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
         }
         
         
-
-        // determine vector components and direction
-        let dx1: CGFloat = -1000
-        let dy: CGFloat = 0
-        
-        let dx2: CGFloat = 1000
-        
-        // 5 represents scale of force
-        // FIXME: rename
-        let forceMovingLeftVector = CGVector(dx: dx1, dy: dy)
-        let forceMovingRightVector = CGVector(dx: dx2, dy: dy)
-        
-        let leftClawPoint = CGPoint(x: Claw.leftClaw.frame.minX, y: Claw.leftClaw.frame.minY)
-
-
-        let rightClawPoint = CGPoint(x: Claw.rightClaw.frame.minX, y: Claw.rightClaw.frame.minY)
-
-        Claw.leftClaw.physicsBody?.applyForce(forceMovingLeftVector, at: leftClawPoint)
-        Claw.rightClaw.physicsBody?.applyForce(forceMovingRightVector, at: rightClawPoint)
-        
         
         
         
