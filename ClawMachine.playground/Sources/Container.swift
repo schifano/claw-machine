@@ -109,7 +109,7 @@ public class Container {
         scene.physicsWorld.add(leftClawJoint)
         scene.physicsWorld.add(rightClawJoint)
         scene.physicsWorld.add(contactDetectorJoint)
-        scene.physicsWorld.add(clawSpringJoint)
+//        scene.physicsWorld.add(clawSpringJoint)
     
         clawMachineCabinetContainerView.presentScene(scene)
         

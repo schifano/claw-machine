@@ -5,8 +5,6 @@ class Button: SKNode {
     var activeButton: SKSpriteNode
     var action: () -> Void
     
-    static var isBeingHeld = 2
-    
     init(defaultButtonImage: String, activeButtonImage: String, buttonAction: @escaping () -> Void) {
         defaultButton = SKSpriteNode(imageNamed: defaultButtonImage)
         activeButton = SKSpriteNode(imageNamed: activeButtonImage)
@@ -50,8 +48,8 @@ class Button: SKNode {
         activeButton.isHidden = true
         defaultButton.isHidden = false
         
-
-//        Claw.applyForceToOpen()
+//        let forceGroup = SKAction.group([Actions.repeatLeftForce, Actions.repeatRightForce])
+//        Claw.motor.run(forceGroup)
         
         Claw.motor.removeAllActions()
         Claw.returnClawHome()

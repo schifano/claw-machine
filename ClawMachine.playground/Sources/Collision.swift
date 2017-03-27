@@ -2,7 +2,10 @@ import SpriteKit
 
 class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
     
-    static var contactMade = false
+    static var contactMade = true
+    
+    static let leftVector = CGVector(dx: 10, dy: 0)
+    static let rightVector = CGVector(dx: -10, dy: 0)
     
     static var counter = 0
     // ContactDelegate method is notified when there has been contact with sprites
@@ -10,14 +13,14 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
         let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
         if (collision == (Category.contactDetectorCategory | Category.stuffedAnimalCategory)) {
             print("contact with stuffed animal")
-//            Collision.contactMade = true
             
-            if Collision.counter == 0 {
-                Collision.counter+=1
-                Collision.contactMade = true
-            }
+            Claw.leftClaw.physicsBody?.applyForce(Collision.leftVector)
+            Claw.rightClaw.physicsBody?.applyForce(Collision.rightVector)
+            
+            Collision.contactMade = true
+            
         }
-        Collision.contactMade = false
+//        Collision.contactMade = false
         Collision.counter = 0
     }
     
@@ -25,14 +28,53 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
     // Method checks for existing springs to remove
     func update(_ currentTime: TimeInterval, for scene: SKScene) {
         
-        print("update")
-
+        
         
         // If contact has been made, close claw
         if Collision.contactMade {
             let forceGroup = SKAction.group([Actions.repeatLeftForce, Actions.repeatRightForce])
             Claw.motor.run(forceGroup)
         }
+        
+        
+
+        // determine vector components and direction
+        let dx1: CGFloat = -1000
+        let dy: CGFloat = 0
+        
+        let dx2: CGFloat = 1000
+        
+        // 5 represents scale of force
+        // FIXME: rename
+        let forceMovingLeftVector = CGVector(dx: dx1, dy: dy)
+        let forceMovingRightVector = CGVector(dx: dx2, dy: dy)
+        
+        let leftClawPoint = CGPoint(x: Claw.leftClaw.frame.minX, y: Claw.leftClaw.frame.minY)
+
+
+        let rightClawPoint = CGPoint(x: Claw.rightClaw.frame.minX, y: Claw.rightClaw.frame.minY)
+
+        Claw.leftClaw.physicsBody?.applyForce(forceMovingLeftVector, at: leftClawPoint)
+        Claw.rightClaw.physicsBody?.applyForce(forceMovingRightVector, at: rightClawPoint)
+        
+        
+        
+        
+//        let degreesInRadians = GLKMathDegreesToRadians(45)
+//        // determine vector components and direction
+//        let dx = cosf(degreesInRadians)
+//        let dy = sinf(degreesInRadians)
+//        // 5 represents scale of force
+//        let forceVector = CGVector(dx: CGFloat(dx*500), dy: CGFloat(dy*500))
+//        let leftClawPoint = CGPoint(x: Claw.leftClaw.position.x, y: Claw.leftClaw.position.y)
+//        
+//        
+//        let rightClawPoint = CGPoint(x: Claw.rightClaw.position.x, y: Claw.rightClaw.position.y)
+//        
+//        Claw.leftClaw.physicsBody?.applyForce(forceVector, at: leftClawPoint)
+//        Claw.rightClaw.physicsBody?.applyForce(forceVector, at: rightClawPoint)
+        
+        
         
         //        Claw.applyForceToOpen()
 //        Claw.motor.run(Actions.repeatLeftForce)

@@ -9,7 +9,7 @@ struct Joints {
 
         
         leftClawJoint.shouldEnableLimits = true
-        leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(10)) // change 0 to 5 for a shakier claw
+        leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(0)) // change 0 to 5 for a shakier claw
         leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-45))
         
         
@@ -22,7 +22,7 @@ struct Joints {
                                                      anchor: CGPoint(x: rightClaw.frame.minX, y: motor.frame.minY))
         rightClawJoint.shouldEnableLimits = true
         rightClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(45))
-        rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-10))
+        rightClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(0))
         return rightClawJoint
         
     }
