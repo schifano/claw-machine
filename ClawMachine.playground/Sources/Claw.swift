@@ -64,14 +64,14 @@ public class Claw {
             SKAction.repeatForever (
                 SKAction.sequence([
                     SKAction.run({
-                        if Claw.leftClaw.frame.maxX <= Container.gameWindowShape.frame.minX+65 {
+                        if Claw.leftClaw.frame.maxX <= ClawMachine.gameWindowShape.frame.minX+65 {
                             
                             print("moved left")
                             Claw.motor.removeAction(forKey: "moveLeft")
                             
                             Claw.isOpen = true
 
-                            Container.button.isUserInteractionEnabled = true
+                            ClawMachine.button.isUserInteractionEnabled = true
                             Collision.contactMade = false // reset
                         }
                     }),
@@ -100,7 +100,7 @@ public class Claw {
                         }),
                         
                         SKAction.run({
-                            if Claw.motor.frame.maxY >= Container.gameWindowShape.frame.maxY-10 {
+                            if Claw.motor.frame.maxY >= ClawMachine.gameWindowShape.frame.maxY-10 {
                                 print("made it up")
                                 Claw.motor.run(Claw.moveLeftBlock)
                                 Claw.motor.removeAction(forKey: "moveUp")
@@ -125,7 +125,7 @@ public class Claw {
                     SKAction.run({
                         
                         // FIXME: if one has been hit, don't check the other
-                        if (Claw.leftClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+                        if (Claw.leftClaw.frame.minY <= ClawMachine.gameWindowShape.frame.minY+10) || Collision.contactMade {
                             print("contactMade?: \(Collision.contactMade)") // TEST
                             Claw.motor.removeAction(forKey: "moveDown")
                             
@@ -134,7 +134,7 @@ public class Claw {
                                             
                                             Claw.motor.run(Claw.moveUpBlock)
                             })
-                        } else if (Claw.rightClaw.frame.minY <= Container.gameWindowShape.frame.minY+10) || Collision.contactMade {
+                        } else if (Claw.rightClaw.frame.minY <= ClawMachine.gameWindowShape.frame.minY+10) || Collision.contactMade {
                             print("contactMade?: \(Collision.contactMade)") // TEST
                             Claw.motor.removeAction(forKey: "moveDown")
                             Claw.motor.run(Actions.wait,
@@ -159,7 +159,7 @@ public class Claw {
                     
                     // first action - check logic
                     SKAction.run({
-                        if Claw.rightClaw.frame.maxX >= Container.gameWindowShape.frame.maxX-10 {
+                        if Claw.rightClaw.frame.maxX >= ClawMachine.gameWindowShape.frame.maxX-10 {
                             Claw.motor.removeAction(forKey: "moveRight")
                         }
                     }),
@@ -177,7 +177,7 @@ public class Claw {
         print("return claw home")
         
         // user must wait for claw to return to try again
-        Container.button.isUserInteractionEnabled = false
+        ClawMachine.button.isUserInteractionEnabled = false
         Claw.motor.run(moveDownBlock)
     }
 }

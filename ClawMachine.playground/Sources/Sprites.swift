@@ -16,7 +16,7 @@ public class Sprites {
         let motorTexture = SKTexture(image: UIImage(named: "claw-motor.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
         motor.size = CGSize(width: 28, height: 41)
-        motor.position = CGPoint(x: Container.gameWindowShape.frame.minX+65, y: Container.gameWindowShape.frame.maxY-23)
+        motor.position = CGPoint(x: ClawMachine.gameWindowShape.frame.minX+65, y: ClawMachine.gameWindowShape.frame.maxY-23)
         motor.physicsBody = SKPhysicsBody(texture: motorTexture, size: CGSize(width: 28, height: 41))
         motor.physicsBody?.affectedByGravity = false
         motor.physicsBody?.isDynamic = false
@@ -96,14 +96,17 @@ public class Sprites {
             stuffedAnimal.zPosition = 0
             // TODO: Can we make this the size of the image?
             stuffedAnimal.size = stuffedAnimalSize
+            
             // FIXME: Generate animals in the correct space
-//            stuffedAnimal.position = CGPoint(
-//                x: Int(arc4random_uniform(UInt32(151)+150)),
-//                y: Int(arc4random_uniform(UInt32(Container.gameWindowShape.frame.maxY)-60)))
-            // TODO: make relative to the window
             stuffedAnimal.position = CGPoint(
-                x: 250,
-                y: 380)
+                x: Int(arc4random_uniform(UInt32(151)+150)),
+                y: Int(arc4random_uniform(UInt32(ClawMachine.gameWindowShape.frame.maxY)-60)))
+
+            // TODO: make relative to the window
+            
+//            stuffedAnimal.position = CGPoint(
+//                x: 250,
+//                y: 380)
             
             stuffedAnimal.name = "stuffedAnimal"
             
@@ -114,7 +117,7 @@ public class Sprites {
             stuffedAnimal.physicsBody?.contactTestBitMask = Category.contactDetectorCategory
             stuffedAnimal.physicsBody?.collisionBitMask = Category.boundaryCategory | Category.clawCategory
             
-            Container.scene.addChild(stuffedAnimal)
+            ClawMachine.scene.addChild(stuffedAnimal)
         }
     }
 }

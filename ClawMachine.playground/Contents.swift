@@ -4,11 +4,11 @@ import UIKit
 import SpriteKit
 import PlaygroundSupport
 
-Container.setup()
+ClawMachine.setup()
 
 // create sprites
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 1)
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"), quantity: 1)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 10)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "duck.png"), quantity: 10)
 
 // TODO: Customize strength of claw
 // TODO: Customize speed of claw (duration in the repeating action)

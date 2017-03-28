@@ -5,7 +5,7 @@ import PlaygroundSupport
 // TODO: Add gamePanel
 // TODO: consider making a blurry transparent background for window effect
 
-public class Container {
+public class ClawMachine {
     
     var buttonIsPressed = false
     
