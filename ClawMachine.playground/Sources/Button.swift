@@ -3,13 +3,11 @@ import SpriteKit
 class Button: SKNode {
     var defaultButton: SKSpriteNode
     var activeButton: SKSpriteNode
-    var action: () -> Void
     
-    init(defaultButtonImage: String, activeButtonImage: String, buttonAction: @escaping () -> Void) {
+    init(defaultButtonImage: String, activeButtonImage: String) {
         defaultButton = SKSpriteNode(imageNamed: defaultButtonImage)
         activeButton = SKSpriteNode(imageNamed: activeButtonImage)
         activeButton.isHidden = true
-        action = buttonAction
         
         // button container can now have access to methods inherited by SKNode
         super.init()
@@ -30,16 +28,6 @@ class Button: SKNode {
         defaultButton.isHidden = true
         
         Claw.motor.run(Claw.moveRightBlock)
-        
-        guard let touch = touches.first else {
-            print("There is no touch object")
-            return
-        }
-        
-        let location: CGPoint = touch.location(in: self)
-        if defaultButton.contains(location) {
-            action() // begin action
-        }
         
         print("touches began")
     }
