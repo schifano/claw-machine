@@ -87,6 +87,24 @@ public class Sprites {
         return contactDetector
     }
     
+    static let minX: Int = Int(ClawMachine.prizeShootShape.frame.maxX)+10
+    static let maxX: Int = Int(ClawMachine.gameWindowShape.frame.maxX)-20
+    
+    static let minY: Int = Int(ClawMachine.gameWindowShape.frame.minY)+20
+    static let maxY: Int = Int(ClawMachine.gameWindowShape.frame.maxY)-20
+    
+    static func randomNumberX(range: ClosedRange<Int> = minX...maxX) -> Int {
+        let min = range.lowerBound
+        let max = range.upperBound
+        return Int(arc4random_uniform(UInt32(1 + max - min))) + min
+    }
+    
+    static func randomNumberY(range: ClosedRange<Int> = minY...maxY) -> Int {
+        let min = range.lowerBound
+        let max = range.upperBound
+        return Int(arc4random_uniform(UInt32(1 + max - min))) + min
+    }
+    
     /// Methods used to create stuffed animal sprites
     public static func createStuffedAnimal(image: UIImage, quantity: Int) {
         let stuffedAnimalSize = CGSize(width: 50, height: 50)
@@ -98,15 +116,21 @@ public class Sprites {
             stuffedAnimal.size = stuffedAnimalSize
             
             // FIXME: Generate animals in the correct space
-            stuffedAnimal.position = CGPoint(
-                x: Int(arc4random_uniform(UInt32(151)+150)),
-                y: Int(arc4random_uniform(UInt32(ClawMachine.gameWindowShape.frame.maxY)-60)))
+            
+            let point = CGPoint(
+                x: randomNumberX(),
+                y: randomNumberY())
+            
+            print("x: \(point.x), y: \(point.y)")
+            
+            stuffedAnimal.position = point
 
             // TODO: make relative to the window
             
 //            stuffedAnimal.position = CGPoint(
 //                x: 250,
 //                y: 380)
+            
             
             stuffedAnimal.name = "stuffedAnimal"
             
