@@ -46,7 +46,7 @@ public class Container {
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
     static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 200))
-    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 40, y: 70, width: 70, height: 220))
+    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 220))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png", buttonAction: triggerButtonAction)
     static let panel = SKShapeNode(rect: CGRect(x: 120, y: 160, width: 100, height: 100))
@@ -105,7 +105,7 @@ public class Container {
         
         cabinetNode.addChild(gameWindowShape)
         cabinetNode.addChild(prizeShootShape)
-        cabinetNode.addChild(prizeDispenser)
+        scene.addChild(prizeDispenser)
         cabinetNode.addChild(button)
         
         

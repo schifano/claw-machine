@@ -117,7 +117,7 @@ public class Claw {
     
     static func openClaw() {
         // determine vector components and direction
-        let dx1: CGFloat = -40
+        let dx1: CGFloat = -50
         let dy: CGFloat = 0
         
         let dx2: CGFloat = -dx1

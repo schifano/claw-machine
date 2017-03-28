@@ -9,10 +9,8 @@ struct Joints {
 
         
         leftClawJoint.shouldEnableLimits = true
-        leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(15)) // change 0 to 5 for a shakier claw
+        leftClawJoint.upperAngleLimit = CGFloat(GLKMathDegreesToRadians(15))
         leftClawJoint.lowerAngleLimit = CGFloat(GLKMathDegreesToRadians(-45))
-        
-        
         
         return leftClawJoint
     }
