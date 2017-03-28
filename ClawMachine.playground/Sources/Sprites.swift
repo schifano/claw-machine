@@ -12,7 +12,6 @@ public class Sprites {
     
     /// Methods used for creating sprites that make up the entire claw
     // Motor
-    // TODO: CHECK THE PATH OF THESE IMAGES
     static func createMotorSprite() -> SKSpriteNode {
         let motorTexture = SKTexture(image: UIImage(named: "claw-motor.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
