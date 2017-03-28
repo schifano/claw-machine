@@ -101,10 +101,10 @@ public class Sprites {
 //            stuffedAnimal.position = CGPoint(
 //                x: Int(arc4random_uniform(UInt32(151)+150)),
 //                y: Int(arc4random_uniform(UInt32(Container.gameWindowShape.frame.maxY)-60)))
-            
+            // TODO: make relative to the window
             stuffedAnimal.position = CGPoint(
                 x: 250,
-                y: 400)
+                y: 380)
             
             stuffedAnimal.name = "stuffedAnimal"
             
