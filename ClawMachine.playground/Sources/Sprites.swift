@@ -61,7 +61,7 @@ public class Sprites {
         
         rightClaw.physicsBody?.categoryBitMask = Category.clawCategory
         rightClaw.physicsBody?.contactTestBitMask = Category.stuffedAnimalCategory
-        rightClaw.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory | Category.groundCategory
+        rightClaw.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory
         
         return rightClaw
     }
