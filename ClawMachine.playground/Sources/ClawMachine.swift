@@ -2,9 +2,6 @@ import UIKit
 import SpriteKit
 import PlaygroundSupport
 
-// TODO: Add gamePanel
-// TODO: consider making a blurry transparent background for window effect
-
 public class ClawMachine {
     
     var buttonIsPressed = false
@@ -21,7 +18,8 @@ public class ClawMachine {
         static let lightPink = color(for: 0xFFCAFE)
         static let tacao = color(for: 0xF5A87A)
 //        static let sail = color(for: 0xB5DFFC)
-        static let sail = UIColor(red: 0, green: 0.5, blue: 0.9, alpha: 0.2)
+        static let sail = UIColor(red: 181/255, green: 223/255, blue: 252/255, alpha: 0.2)
+//        static let sail = UIColor(red: 0, green: 0.5, blue: 0.9, alpha: 0.2)
         static let voodoo = color(for: 0x45343D)
         static let pink = color(for: 0xF280B3)
         
@@ -37,7 +35,7 @@ public class ClawMachine {
         }
     }
     
-    static let cabinetWidth = 432  /// width 432 max is used for iPad Playgrounds
+    static let cabinetWidth = 400  /// width 432 max is used for iPad Playgrounds
     static let cabinetHeight = 500
     static let boundaryWidth = 392 + 40
     static let boundaryHeight = 450
@@ -48,7 +46,7 @@ public class ClawMachine {
     static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 175))
     static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 220))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
-    static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png", buttonAction: triggerButtonAction)
+    static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
     static let panel = SKShapeNode(rect: CGRect(x: 120, y: 160, width: 100, height: 100))
     
     static let delegate = Collision()
@@ -74,17 +72,14 @@ public class ClawMachine {
         // game window
         gameWindowShape.fillColor = Colors.sail
         //gameWindowShape.position = CGPoint(x: 40, y: 400)
-//        scene.addChild(gameWindowShape)
         
         // prize shoot
         prizeShootShape.fillColor = UIColor.clear
         prizeShootShape.lineWidth = 0.0
-//        scene.addChild(prizeShootShape)
         
         // prize dispenser
         prizeDispenser.fillColor = Colors.voodoo
         prizeDispenser.lineWidth = 0.0
-//        scene.addChild(prizeDispenser)
     
         // panel
         panel.fillColor = Colors.lightGreen
@@ -93,8 +88,6 @@ public class ClawMachine {
         
         // button
         button.position = CGPoint(x: 250, y: 120)
-//        scene.addChild(button)
-        
         
         // draw boundaries on scene
         let boundary = drawBoundaries()
@@ -103,9 +96,9 @@ public class ClawMachine {
         
         
         
+        scene.addChild(prizeDispenser)
         cabinetNode.addChild(gameWindowShape)
         cabinetNode.addChild(prizeShootShape)
-        scene.addChild(prizeDispenser)
         cabinetNode.addChild(button)
         
         
@@ -160,8 +153,17 @@ public class ClawMachine {
             CGPoint(x: prizeMaxX+5, y: windowMinY),
             CGPoint(x: prizeMaxX+5, y: prizeMaxY),
             CGPoint(x: prizeMaxX, y: prizeMaxY),
-            CGPoint(x: prizeMaxX, y: prizeMinY),
-            CGPoint(x: prizeMinX, y: prizeMinY),
+            
+            // ### border around dispenser
+            CGPoint(x: prizeMaxX, y: prizeMinY+ClawMachine.prizeDispenser.frame.height),
+            CGPoint(x: ClawMachine.prizeDispenser.frame.maxX, y: ClawMachine.prizeDispenser.frame.maxY),
+            CGPoint(x: ClawMachine.prizeDispenser.frame.maxX, y: ClawMachine.prizeDispenser.frame.minY),
+            CGPoint(x: ClawMachine.prizeDispenser.frame.minX, y: ClawMachine.prizeDispenser.frame.minY),
+            CGPoint(x: ClawMachine.prizeDispenser.frame.minX, y: ClawMachine.prizeDispenser.frame.maxY),
+            CGPoint(x: prizeMinX, y: prizeMinY+ClawMachine.prizeDispenser.frame.height),
+            
+//            CGPoint(x: prizeMaxX, y: prizeMinY),
+//            CGPoint(x: prizeMinX, y: prizeMinY),
             CGPoint(x: prizeMinX, y: prizeMaxY),
             CGPoint(x: prizeMinX-5, y: prizeMaxY),
             CGPoint(x: prizeMinX-5, y: windowMinY),
@@ -174,9 +176,5 @@ public class ClawMachine {
         fullBoundary.physicsBody?.categoryBitMask = Category.boundaryCategory
         fullBoundary.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory
         return fullBoundary
-    }
-    
-    static func triggerButtonAction() {
-        
     }
 }

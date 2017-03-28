@@ -124,7 +124,6 @@ public class Claw {
                 SKAction.sequence([
                     SKAction.run({
                         
-                        // FIXME: if one has been hit, don't check the other
                         if (Claw.leftClaw.frame.minY <= ClawMachine.gameWindowShape.frame.minY+10) || Collision.contactMade {
                             print("contactMade?: \(Collision.contactMade)") // TEST
                             Claw.motor.removeAction(forKey: "moveDown")
