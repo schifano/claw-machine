@@ -2,6 +2,7 @@ import SpriteKit
 
 struct Joints {
     
+    // TODO: possibly remove this if never used
     static var springs = [SKPhysicsJointSpring]()
     
     static func createLeftClawJoint(motor: SKSpriteNode, leftClaw: SKSpriteNode) -> SKPhysicsJointPin {

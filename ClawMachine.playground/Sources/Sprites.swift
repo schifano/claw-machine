@@ -9,7 +9,6 @@ public struct Category {
 }
 
 public class Sprites {
-    
     /// Methods used for creating sprites that make up the entire claw
     // Motor
     static func createMotorSprite() -> SKSpriteNode {

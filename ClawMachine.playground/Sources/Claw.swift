@@ -15,18 +15,22 @@ struct Actions {
 }
 
 public class Claw {
-    public static let motor = Sprites.createMotorSprite()
+    static let motor = Sprites.createMotorSprite()
     static let leftClaw = Sprites.createLeftClawSprite()
     static let rightClaw = Sprites.createRightClawSprite()
     static let contactDetector = Sprites.createContactDetectorSprite()
-    
+
     static var isOpen = true
     
+    public static var openStrength = 70
+    public static var closeStrength = 100
+    
+    
     /// Method applies force to close claw
-    static func closeClaw() {
+    public static func closeClaw() {
         // determine vector components and direction
-        let dx1: CGFloat = -100
-        let dx2: CGFloat = -dx1
+        let dx1: Int = -(closeStrength)
+        let dx2: Int = -dx1
 
         // left is a negative force, right is positive on a coord system
         let forceMovingLeftVector = CGVector(dx: dx1, dy: 0)
@@ -40,10 +44,10 @@ public class Claw {
     }
     
     /// Method applies force to open claw
-    static func openClaw() {
+    public static func openClaw() {
         // determine vector components and direction
-        let dx1: CGFloat = -70
-        let dx2: CGFloat = -dx1
+        let dx1: Int = -(openStrength)
+        let dx2: Int = -dx1
         
         // left is a negative force, right is positive on a coord system
         let forceMovingLeftVector = CGVector(dx: dx1, dy: 0)
