@@ -48,12 +48,8 @@ class Button: SKNode {
         activeButton.isHidden = true
         defaultButton.isHidden = false
         
-//        let forceGroup = SKAction.group([Actions.repeatLeftForce, Actions.repeatRightForce])
-//        Claw.motor.run(forceGroup)
-        
         Claw.motor.removeAllActions()
         Claw.returnClawHome()
-        
     }
 }
 

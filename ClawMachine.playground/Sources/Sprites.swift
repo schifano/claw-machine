@@ -17,7 +17,7 @@ public class Sprites {
         let motorTexture = SKTexture(image: UIImage(named: "claw-motor.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
         motor.size = CGSize(width: 28, height: 41)
-        motor.position = CGPoint(x: Container.gameWindowShape.frame.minX+55, y: Container.gameWindowShape.frame.maxY-25)
+        motor.position = CGPoint(x: Container.gameWindowShape.frame.minX+65, y: Container.gameWindowShape.frame.maxY-23)
         motor.physicsBody = SKPhysicsBody(texture: motorTexture, size: CGSize(width: 28, height: 41))
         motor.physicsBody?.affectedByGravity = false
         motor.physicsBody?.isDynamic = false
@@ -71,7 +71,7 @@ public class Sprites {
         let motor = Claw.motor
         let contactDetector = SKShapeNode(rectOf: CGSize(width: motor.frame.width/2+5, height: 5))
         contactDetector.fillColor = UIColor.clear
-        contactDetector.position = CGPoint(x: motor.position.x, y: motor.position.y-20)
+        contactDetector.position = CGPoint(x: motor.position.x, y: motor.position.y-18)
         contactDetector.name = "detector"
         
         contactDetector.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: contactDetector.frame.width, height: contactDetector.frame.height))
