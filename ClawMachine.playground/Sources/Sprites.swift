@@ -5,7 +5,7 @@ public struct Category {
     static let clawCategory: UInt32 = 0x1 << 2
     static let contactDetectorCategory: UInt32 =  0x1 << 0
     static let stuffedAnimalCategory: UInt32 =  0x1 << 1
-    static let groundCategory: UInt32 = 0x1 << 3
+    static let boundaryCategory: UInt32 = 0x1 << 3
 }
 
 public class Sprites {
@@ -113,7 +113,7 @@ public class Sprites {
             stuffedAnimal.physicsBody?.isDynamic = true
             stuffedAnimal.physicsBody?.categoryBitMask = Category.stuffedAnimalCategory
             stuffedAnimal.physicsBody?.contactTestBitMask = Category.contactDetectorCategory
-            stuffedAnimal.physicsBody?.collisionBitMask = Category.groundCategory | Category.clawCategory
+            stuffedAnimal.physicsBody?.collisionBitMask = Category.boundaryCategory | Category.clawCategory
             
             Container.scene.addChild(stuffedAnimal)
         }

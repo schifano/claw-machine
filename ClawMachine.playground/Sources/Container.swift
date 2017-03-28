@@ -171,7 +171,7 @@ public class Container {
         
         let fullBoundary = SKNode()
         fullBoundary.physicsBody = SKPhysicsBody(edgeLoopFrom: path)
-        fullBoundary.physicsBody?.categoryBitMask = Category.groundCategory
+        fullBoundary.physicsBody?.categoryBitMask = Category.boundaryCategory
         fullBoundary.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory
         return fullBoundary
     }
