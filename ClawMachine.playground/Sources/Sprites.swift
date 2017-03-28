@@ -16,7 +16,7 @@ public class Sprites {
         let motorTexture = SKTexture(image: UIImage(named: "claw-motor.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
         motor.size = CGSize(width: 28, height: 41)
-        motor.position = CGPoint(x: ClawMachine.gameWindowShape.frame.minX+65, y: ClawMachine.gameWindowShape.frame.maxY-23)
+        motor.position = CGPoint(x: ClawMachine.gameWindowShape.frame.minX+65, y: ClawMachine.gameWindowShape.frame.maxY-20)
         motor.physicsBody = SKPhysicsBody(texture: motorTexture, size: CGSize(width: 28, height: 41))
         motor.physicsBody?.affectedByGravity = false
         motor.physicsBody?.isDynamic = false
@@ -112,25 +112,13 @@ public class Sprites {
         for _ in 1 ... quantity {
             let stuffedAnimal = SKSpriteNode(texture: stuffedAnimalTexture)
             stuffedAnimal.zPosition = 0
-            // TODO: Can we make this the size of the image?
             stuffedAnimal.size = stuffedAnimalSize
-            
-            // FIXME: Generate animals in the correct space
             
             let point = CGPoint(
                 x: randomNumberX(),
                 y: randomNumberY())
-            
-            print("x: \(point.x), y: \(point.y)")
-            
+            print("x: \(point.x), y: \(point.y)") // TEST
             stuffedAnimal.position = point
-
-            // TODO: make relative to the window
-            
-//            stuffedAnimal.position = CGPoint(
-//                x: 250,
-//                y: 380)
-            
             
             stuffedAnimal.name = "stuffedAnimal"
             

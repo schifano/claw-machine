@@ -43,8 +43,8 @@ public class ClawMachine {
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
-    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 175))
-    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 220))
+    public static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 175))
+    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 220))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
     static let panel = SKShapeNode(rect: CGRect(x: 120, y: 160, width: 100, height: 100))

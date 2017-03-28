@@ -15,7 +15,7 @@ struct Actions {
 }
 
 public class Claw {
-    static let motor = Sprites.createMotorSprite()
+    public static let motor = Sprites.createMotorSprite()
     static let leftClaw = Sprites.createLeftClawSprite()
     static let rightClaw = Sprites.createRightClawSprite()
     static let contactDetector = Sprites.createContactDetectorSprite()
@@ -64,9 +64,10 @@ public class Claw {
             SKAction.repeatForever (
                 SKAction.sequence([
                     SKAction.run({
-                        if Claw.leftClaw.frame.maxX <= ClawMachine.gameWindowShape.frame.minX+65 {
+                        if Claw.leftClaw.frame.maxX <= ClawMachine.gameWindowShape.frame.minX+75 {
                             
                             print("moved left")
+
                             Claw.motor.removeAction(forKey: "moveLeft")
                             
                             Claw.isOpen = true
@@ -100,7 +101,7 @@ public class Claw {
                         }),
                         
                         SKAction.run({
-                            if Claw.motor.frame.maxY >= ClawMachine.gameWindowShape.frame.maxY-10 {
+                            if Claw.motor.frame.maxY >= ClawMachine.gameWindowShape.frame.maxY-7 {
                                 print("made it up")
                                 Claw.motor.run(Claw.moveLeftBlock)
                                 Claw.motor.removeAction(forKey: "moveUp")
