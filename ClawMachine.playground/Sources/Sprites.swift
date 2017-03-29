@@ -24,6 +24,25 @@ public class Sprites {
         return motor
     }
     
+    // TODO: Make the sizes the actual sprite sizes?
+    
+    // Bar
+    static func createBarSprite() -> SKSpriteNode {
+        let motor = Claw.motor
+        let barTexture = SKTexture(image: UIImage(named: "claw-bar-gray.png")!)
+        let bar = SKSpriteNode(texture: barTexture)
+        bar.size = CGSize(width: 10, height: 100)
+        bar.position = CGPoint(x: motor.frame.midX, y: motor.frame.maxY+50)
+        bar.physicsBody = SKPhysicsBody(texture: barTexture, size: CGSize(width: 10, height: 100))
+        bar.physicsBody?.affectedByGravity = false
+        bar.physicsBody?.isDynamic = true
+        bar.physicsBody?.collisionBitMask = 0
+        bar.zPosition = -50
+        bar.physicsBody?.categoryBitMask = Category.clawCategory
+        return bar
+    }
+    
+    
     // Left claw
     static func createLeftClawSprite() -> SKSpriteNode {
         let motor = Claw.motor

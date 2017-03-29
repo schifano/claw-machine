@@ -134,6 +134,7 @@ public class ClawMachine {
         gameWindowShape.fillColor = Colors.sail
         gameWindowShape.lineWidth = 5.0
         gameWindowShape.strokeColor = Colors.color(for: 0x112549)
+        gameWindowShape.addChild(Claw.bar)
         //gameWindowShape.position = CGPoint(x: 40, y: 400)
         
         // prize shoot
@@ -191,6 +192,7 @@ public class ClawMachine {
         
         // MARK: Sprites - add before joints
         scene.addChild(Claw.motor)
+//        scene.addChild(Claw.bar)
         scene.addChild(Claw.leftClaw)
         scene.addChild(Claw.rightClaw)
         scene.addChild(Claw.contactDetector)
@@ -198,11 +200,13 @@ public class ClawMachine {
         // SETUP joints
         let leftClawJoint = Joints.createLeftClawJoint(motor: Claw.motor, leftClaw: Claw.leftClaw)
         let rightClawJoint = Joints.createRightClawJoint(motor: Claw.motor, rightClaw: Claw.rightClaw)
+        let barJoint = Joints.createBarJoint(motor: Claw.motor, bar: Claw.bar)
         let contactDetectorJoint = Joints.createContactDetectorJoint(motor: Claw.motor, contactDetector: Claw.contactDetector)
         let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: Claw.leftClaw, rightClaw: Claw.rightClaw)
         
         scene.physicsWorld.add(leftClawJoint)
         scene.physicsWorld.add(rightClawJoint)
+        scene.physicsWorld.add(barJoint)
         scene.physicsWorld.add(contactDetectorJoint)
         scene.physicsWorld.add(clawSpringJoint)
     
