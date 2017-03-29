@@ -4,6 +4,8 @@ class Button: SKNode {
     var defaultButton: SKSpriteNode
     var activeButton: SKSpriteNode
     
+    static var buttonIsPressed = false
+    
     init(defaultButtonImage: String, activeButtonImage: String) {
         defaultButton = SKSpriteNode(imageNamed: defaultButtonImage)
         activeButton = SKSpriteNode(imageNamed: activeButtonImage)
@@ -27,6 +29,8 @@ class Button: SKNode {
         activeButton.isHidden = false
         defaultButton.isHidden = true
         
+        
+        Button.buttonIsPressed = true
         Claw.motor.run(Claw.moveRightBlock)
         
         print("touches began")
@@ -36,6 +40,8 @@ class Button: SKNode {
         activeButton.isHidden = true
         defaultButton.isHidden = false
         
+        
+        Button.buttonIsPressed = false
         Claw.motor.removeAllActions()
         Claw.returnClawHome()
     }

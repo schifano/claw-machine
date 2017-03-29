@@ -12,7 +12,7 @@ public class Sprites {
     /// Methods used for creating sprites that make up the entire claw
     // Motor
     static func createMotorSprite() -> SKSpriteNode {
-        let motorTexture = SKTexture(image: UIImage(named: "claw-motor.png")!)
+        let motorTexture = SKTexture(image: UIImage(named: "claw-motor-gray.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
         motor.size = CGSize(width: 28, height: 41)
         motor.position = CGPoint(x: ClawMachine.gameWindowShape.frame.minX+65, y: ClawMachine.gameWindowShape.frame.maxY-20)
@@ -27,7 +27,7 @@ public class Sprites {
     // Left claw
     static func createLeftClawSprite() -> SKSpriteNode {
         let motor = Claw.motor
-        let leftClawTexture = SKTexture(image: UIImage(named: "claw-left.png")!)
+        let leftClawTexture = SKTexture(image: UIImage(named: "claw-left-gray.png")!)
         let leftClaw = SKSpriteNode(texture: leftClawTexture)
         
         leftClaw.size = CGSize(width: 26, height: 47)
@@ -47,7 +47,7 @@ public class Sprites {
     // Right claw
     static func createRightClawSprite() -> SKSpriteNode {
         let motor = Claw.motor
-        let rightClawTexture = SKTexture(image: UIImage(named: "claw-right.png")!)
+        let rightClawTexture = SKTexture(image: UIImage(named: "claw-right-gray.png")!)
         let rightClaw = SKSpriteNode(texture: rightClawTexture)
         
         rightClaw.size = CGSize(width: 26, height: 47)
@@ -106,7 +106,7 @@ public class Sprites {
     
     /// Methods used to create stuffed animal sprites
     public static func createStuffedAnimal(image: UIImage, quantity: Int) {
-        let stuffedAnimalSize = CGSize(width: 50, height: 50)
+        let stuffedAnimalSize = CGSize(width: image.size.width/2, height: image.size.height/2)
         let stuffedAnimalTexture = SKTexture(image: image)
         for _ in 1 ... quantity {
             let stuffedAnimal = SKSpriteNode(texture: stuffedAnimalTexture)

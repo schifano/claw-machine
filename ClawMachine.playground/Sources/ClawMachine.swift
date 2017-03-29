@@ -21,10 +21,13 @@ public class ClawMachine {
         static let lightGreen = color(for: 0x44FAAC)
         static let lightPink = color(for: 0xFFCAFE)
         static let tacao = color(for: 0xF5A87A)
-//        static let sail = color(for: 0xB5DFFC)
-        static let sail = UIColor(red: 181/255, green: 223/255, blue: 252/255, alpha: 0.4)
+//        static let sail = color(for: 0x46AAAC)
+        static let sail = UIColor(red: 181/255, green: 223/255, blue: 252/255, alpha: 1.0)
+        
+//        static let sail = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
+        
 //        static let sail = UIColor(red: 0, green: 0.5, blue: 0.9, alpha: 0.2)
-        static let voodoo = color(for: 0x45343D)
+        static let voodoo = color(for: 0x915842)
         static let pink = color(for: 0xF280B3)
         
         static let gray = UIColor.gray
@@ -40,7 +43,7 @@ public class ClawMachine {
     }
     
     static let cabinetWidth = 350  /// width 432 max is used for iPad Playgrounds
-    static let cabinetHeight = 500
+    static let cabinetHeight = 450
     static let boundaryWidth = 350
 //    static let boundaryWidth = 392 + 40 (= 432)
     static let boundaryHeight = 450
@@ -48,15 +51,30 @@ public class ClawMachine {
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
-    public static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 160))
-    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 200))
+    public static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
+    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 210))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
-    static let panel = SKShapeNode(rect: CGRect(x: 120, y: 160, width: 100, height: 100))
+    
+    
+    public static var name = ""
     
     static let delegate = Collision()
 
     static let backgroundNode = SKNode()
+    
+    let title = SKLabelNode(text: "\(name)'s Skill Crane")
+    
+    public static func set(name: String) {
+        self.name = name
+    }
+    
+    
+    static let panel = SKShapeNode(rect: CGRect(x: button.position.x+50, y: button.position.y-50, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
+    static let numberOfRetriesLabel = SKLabelNode(text: "12")
+    
+//    public static let numberOfRetriesLabel = SKLabelNode(text: "12")  
+    
     
     public static func setup() {
         clawMachineCabinetContainerView.backgroundColor = Colors.gray
@@ -64,7 +82,7 @@ public class ClawMachine {
         clawMachineCabinetContainerView.showsPhysics = true
         
         // Scene
-        scene.backgroundColor = Colors.tan
+        scene.backgroundColor = Colors.color(for: 0x625AB0)
         scene.scaleMode = SKSceneScaleMode.aspectFit
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         // the delegate must be owned by something
@@ -73,21 +91,40 @@ public class ClawMachine {
         scene.delegate = delegate
         
         // Background image
-        let color1 = CIColor(red: 110/255, green: 242/255, blue: 212/255)
-        let color2 = CIColor(red: 153/255, green: 248/255, blue: 195/255)
+        let color1 = CIColor(color: Colors.color(for: 0xE56A6F)) // bottom
+        let color2 = CIColor(color: Colors.color(for: 0xE56A6F)) // top
+        
+        
+//        let color1 = CIColor(color: Colors.color(for: 0xecafb5)) // bottom
+//        let color2 = CIColor(color: Colors.color(for: 0xf7ccb8)) // top
+//        let color1 = CIColor(color: Colors.color(for: 0xfa7e81))
+//        let color2 = CIColor(color: Colors.color(for: 0xfda197))
+        
+//        let color1 = CIColor(red: 110/255, green: 242/255, blue: 212/255)
+//        let color2 = CIColor(red: 153/255, green: 248/255, blue: 195/255)
         
         let backgroundGradient = SKTexture(size: clawMachineCabinetContainerView.frame.size, color1: color1, color2: color2)
         let backgroundGradientNode = SKSpriteNode(texture: backgroundGradient)
         backgroundGradientNode.size = clawMachineCabinetContainerView.frame.size
         backgroundGradientNode.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY)
-        scene.addChild(backgroundGradientNode)
+//        scene.addChild(backgroundGradientNode)
         
         
         
         let background = SKSpriteNode(imageNamed: "naked-bear")
         background.size = CGSize(width: clawMachineCabinetContainerView.frame.width-10, height: clawMachineCabinetContainerView.frame.height-20)
         background.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY)
-        scene.addChild(background)
+//        scene.addChild(background)
+        
+        
+//        title.color = UIColor.white
+//        title.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.maxY-25)
+////        title.fontName = "BanglaSangamMN-Bold"
+//        title.fontSize = 25.0
+//        title.horizontalAlignmentMode = .center;
+//        title.verticalAlignmentMode = .center
+//        title.fontName = "MarkerFelt-Thin"
+//        scene.addChild(title)
         
         
         
@@ -95,6 +132,8 @@ public class ClawMachine {
         
         // game window
         gameWindowShape.fillColor = Colors.sail
+        gameWindowShape.lineWidth = 5.0
+        gameWindowShape.strokeColor = Colors.color(for: 0x112549)
         //gameWindowShape.position = CGPoint(x: 40, y: 400)
         
         // prize shoot
@@ -102,17 +141,36 @@ public class ClawMachine {
         prizeShootShape.lineWidth = 0.0
         
         // prize dispenser
-        prizeDispenser.fillColor = Colors.voodoo
-        prizeDispenser.lineWidth = 0.0
-    
+        prizeDispenser.fillColor = Colors.color(for: 0x46AAAC)
+        prizeDispenser.lineWidth = 5.0
+        prizeDispenser.strokeColor = Colors.color(for: 0x112549)
+        
+        // button
+//        button.position = CGPoint(x: 210, y: 120)
+        button.position = CGPoint(x: boundaryWidth/2, y: 120)
+        
+        print("button x \(button.position.x)")
+        print("button y \(button.position.y)")
+        
+        
         // panel
         panel.fillColor = Colors.lightGreen
         panel.lineWidth = 0.0
         //scene.addChild(panel)
         
-        // button
-//        button.position = CGPoint(x: 210, y: 120)
-        button.position = CGPoint(x: boundaryWidth/2, y: 120)
+        
+        // panel label
+        numberOfRetriesLabel.fontSize = 80.0
+        numberOfRetriesLabel.fontName = "Courier-Bold"
+        numberOfRetriesLabel.fontColor = UIColor.red
+//        numberOfRetriesLabel.horizontalAlignmentMode = .center
+//        numberOfRetriesLabel.verticalAlignmentMode = .center
+        panel.addChild(numberOfRetriesLabel)
+        numberOfRetriesLabel.position = CGPoint(x: 270, y: 100)
+        print("panel x \(panel.position.x)")
+        print("panel y \(panel.position.y)")
+        
+        
         
         // draw boundaries on scene
         let boundary = drawBoundaries()
@@ -122,10 +180,11 @@ public class ClawMachine {
         
         
         scene.addChild(prizeDispenser)
-        cabinetNode.addChild(gameWindowShape)
+        scene.addChild(gameWindowShape)
+        // FIXME: add a tinted window on top with cabinet Node
         cabinetNode.addChild(prizeShootShape)
         cabinetNode.addChild(button)
-        
+        cabinetNode.addChild(panel)
         
         
         
