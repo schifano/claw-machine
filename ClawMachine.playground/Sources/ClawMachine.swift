@@ -1,5 +1,6 @@
 import UIKit
 import SpriteKit
+import CoreImage
 import PlaygroundSupport
 
 public class ClawMachine {
@@ -10,6 +11,9 @@ public class ClawMachine {
         static let cyan = color(for: 0x98E3D4)  // soft cyan
         static let magenta = color(for: 0xd498e3)   // soft magenta
         
+        
+//        static let tan = color(for: 0x615aae)
+        static let tan = color(for: 0x522f46)
         static let waxFlower = color(for: 0xFFBBA4)
         static let lightBlue = color(for: 0x80DEEA)
         static let darkPurple = color(for: 0x7D3FFA)
@@ -18,7 +22,7 @@ public class ClawMachine {
         static let lightPink = color(for: 0xFFCAFE)
         static let tacao = color(for: 0xF5A87A)
 //        static let sail = color(for: 0xB5DFFC)
-        static let sail = UIColor(red: 181/255, green: 223/255, blue: 252/255, alpha: 0.2)
+        static let sail = UIColor(red: 181/255, green: 223/255, blue: 252/255, alpha: 0.4)
 //        static let sail = UIColor(red: 0, green: 0.5, blue: 0.9, alpha: 0.2)
         static let voodoo = color(for: 0x45343D)
         static let pink = color(for: 0xF280B3)
@@ -35,16 +39,17 @@ public class ClawMachine {
         }
     }
     
-    static let cabinetWidth = 400  /// width 432 max is used for iPad Playgrounds
+    static let cabinetWidth = 350  /// width 432 max is used for iPad Playgrounds
     static let cabinetHeight = 500
-    static let boundaryWidth = 392 + 40
+    static let boundaryWidth = 350
+//    static let boundaryWidth = 392 + 40 (= 432)
     static let boundaryHeight = 450
     
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
-    public static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 175))
-    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 220))
+    public static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 225, width: boundaryWidth, height: 160))
+    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 200))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
     static let panel = SKShapeNode(rect: CGRect(x: 120, y: 160, width: 100, height: 100))
@@ -59,13 +64,32 @@ public class ClawMachine {
         clawMachineCabinetContainerView.showsPhysics = true
         
         // Scene
-        scene.backgroundColor = Colors.tacao
+        scene.backgroundColor = Colors.tan
         scene.scaleMode = SKSceneScaleMode.aspectFit
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         // the delegate must be owned by something
         // setting contactDelegate = Collision() will not work without first creating a variable
         scene.physicsWorld.contactDelegate = delegate
         scene.delegate = delegate
+        
+        // Background image
+        let color1 = CIColor(red: 110/255, green: 242/255, blue: 212/255)
+        let color2 = CIColor(red: 153/255, green: 248/255, blue: 195/255)
+        
+        let backgroundGradient = SKTexture(size: clawMachineCabinetContainerView.frame.size, color1: color1, color2: color2)
+        let backgroundGradientNode = SKSpriteNode(texture: backgroundGradient)
+        backgroundGradientNode.size = clawMachineCabinetContainerView.frame.size
+        backgroundGradientNode.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY)
+        scene.addChild(backgroundGradientNode)
+        
+        
+        
+        let background = SKSpriteNode(imageNamed: "naked-bear")
+        background.size = CGSize(width: clawMachineCabinetContainerView.frame.width-10, height: clawMachineCabinetContainerView.frame.height-20)
+        background.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY)
+        scene.addChild(background)
+        
+        
         
         let cabinetNode = SKNode()
         
@@ -87,7 +111,8 @@ public class ClawMachine {
         //scene.addChild(panel)
         
         // button
-        button.position = CGPoint(x: 250, y: 120)
+//        button.position = CGPoint(x: 210, y: 120)
+        button.position = CGPoint(x: boundaryWidth/2, y: 120)
         
         // draw boundaries on scene
         let boundary = drawBoundaries()
@@ -176,5 +201,25 @@ public class ClawMachine {
         fullBoundary.physicsBody?.categoryBitMask = Category.boundaryCategory
         fullBoundary.physicsBody?.collisionBitMask = Category.stuffedAnimalCategory
         return fullBoundary
+    }
+}
+
+extension SKTexture {
+    convenience init(size: CGSize, color1: CIColor, color2: CIColor) {
+        let coreImageContext = CIContext(options: nil)
+        let gradientFilter = CIFilter(name: "CILinearGradient")
+        gradientFilter?.setDefaults()
+        var startVector:CIVector
+        var endVector:CIVector
+
+        startVector = CIVector(x: size.width/2, y: 0)
+        endVector = CIVector(x: size.width/2, y: size.height)
+        
+        gradientFilter?.setValue(startVector, forKey: "inputPoint0")
+        gradientFilter?.setValue(endVector, forKey: "inputPoint1")
+        gradientFilter?.setValue(color1, forKey: "inputColor0")
+        gradientFilter?.setValue(color2, forKey: "inputColor1")
+        let cgimg = coreImageContext.createCGImage((gradientFilter?.outputImage)!, from: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        self.init(cgImage: cgimg!)
     }
 }
