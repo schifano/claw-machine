@@ -101,7 +101,8 @@ public class ClawMachine {
 //        let color2 = CIColor(color: Colors.color(for: 0xE56A6F)) // top
         
         
-        let color1 = CIColor(color: Colors.color(for: 0xecafb5)) // bottom
+        let color1 = CIColor(color: Colors.color(for: 0xe79aa2)) // bottom
+//        let color1 = CIColor(color: Colors.color(for: 0xecafb5)) // bottom
         let color2 = CIColor(color: Colors.color(for: 0xf7ccb8)) // top
 //        let color1 = CIColor(color: Colors.color(for: 0xfa7e81))
 //        let color2 = CIColor(color: Colors.color(for: 0xfda197))
