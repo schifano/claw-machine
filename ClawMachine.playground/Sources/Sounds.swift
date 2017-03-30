@@ -21,7 +21,7 @@ struct Sounds {
     
     static func playMelody() {
         guard let melody = Sounds.melody else {
-            print("no audio was set up")
+            print("No audio was set up")
             return
         }
         melody.play()
@@ -29,7 +29,7 @@ struct Sounds {
     
     static func pauseMelody() {
         guard let melody = Sounds.melody else {
-            print("no audio was set up")
+            print("No audio was set up")
             return
         }
         melody.pause()

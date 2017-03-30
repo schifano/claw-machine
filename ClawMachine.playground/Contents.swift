@@ -25,8 +25,5 @@ Claw.closeStrength = 100
 // TODO: Sound of stuffed animal at bottom??
 
 
-//ClawMachine.name = "Michelle"
+//ClawMachine.name = "Rachel"
 
-
-//print(ClawMachine.numberOfRetriesLabel.position.x)
-//print(ClawMachine.numberOfRetriesLabel.position.y)

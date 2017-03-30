@@ -23,9 +23,7 @@ public class Sprites {
         
         return motor
     }
-    
-    // TODO: Make the sizes the actual sprite sizes?
-    
+
     // Bar
     static func createBarSprite() -> SKSpriteNode {
         let motor = Claw.motor
@@ -40,7 +38,6 @@ public class Sprites {
         bar.physicsBody?.categoryBitMask = Category.clawCategory
         return bar
     }
-    
     
     // Left claw
     static func createLeftClawSprite() -> SKSpriteNode {
@@ -105,6 +102,7 @@ public class Sprites {
         return contactDetector
     }
     
+    // Methods used to generate random values for x and y components
     static let minX: Int = Int(ClawMachine.prizeShootShape.frame.maxX)+10
     static let maxX: Int = Int(ClawMachine.gameWindowShape.frame.maxX)-20
     
@@ -129,13 +127,11 @@ public class Sprites {
         let stuffedAnimalTexture = SKTexture(image: image)
         for _ in 1 ... quantity {
             let stuffedAnimal = SKSpriteNode(texture: stuffedAnimalTexture)
-//            stuffedAnimal.zPosition = 0
             stuffedAnimal.size = stuffedAnimalSize
             
             let point = CGPoint(
                 x: randomNumberX(),
                 y: randomNumberY())
-            print("x: \(point.x), y: \(point.y)") // TEST
             stuffedAnimal.position = point
             
             stuffedAnimal.name = "stuffedAnimal"

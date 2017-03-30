@@ -164,10 +164,6 @@ public class ClawMachine {
 //        button.position = CGPoint(x: 210, y: 120)
         button.position = CGPoint(x: boundaryWidth/2, y: 120)
         
-        print("button x \(button.position.x)")
-        print("button y \(button.position.y)")
-        
-        
         // panel
         panel.fillColor = Colors.lightGreen
         panel.lineWidth = 0.0
@@ -182,8 +178,9 @@ public class ClawMachine {
 //        numberOfRetriesLabel.verticalAlignmentMode = .center
         panel.addChild(numberOfRetriesLabel)
         numberOfRetriesLabel.position = CGPoint(x: 270, y: 100)
-        print("panel x \(panel.position.x)")
-        print("panel y \(panel.position.y)")
+
+//        print("panel x \(panel.position.x)")
+//        print("panel y \(panel.position.y)")
         
         
         
