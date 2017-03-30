@@ -52,7 +52,11 @@ public class ClawMachine {
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
     public static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
-    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 210))
+    static let gameWindowGlassShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
+    
+    
+    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 215))
+    public static let prizeShootGlassShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 80, height: 50))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
     
@@ -78,8 +82,9 @@ public class ClawMachine {
     
     public static func setup() {
         clawMachineCabinetContainerView.backgroundColor = Colors.gray
-        clawMachineCabinetContainerView.showsFields = true
-        clawMachineCabinetContainerView.showsPhysics = true
+        
+//        clawMachineCabinetContainerView.showsFields = true
+//        clawMachineCabinetContainerView.showsPhysics = true
         
         // Scene
         scene.backgroundColor = Colors.color(for: 0x625AB0)
@@ -134,12 +139,22 @@ public class ClawMachine {
         gameWindowShape.fillColor = Colors.sail
         gameWindowShape.lineWidth = 5.0
         gameWindowShape.strokeColor = Colors.color(for: 0x112549)
-        gameWindowShape.addChild(Claw.bar)
         //gameWindowShape.position = CGPoint(x: 40, y: 400)
+        
+        
+        // game window glass
+        gameWindowGlassShape.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.2)
+        gameWindowGlassShape.lineWidth = 0.0
         
         // prize shoot
         prizeShootShape.fillColor = UIColor.clear
         prizeShootShape.lineWidth = 0.0
+        
+        // prize shoot glass
+        prizeShootGlassShape.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        prizeShootGlassShape.lineWidth = 0.0
+        prizeShootGlassShape.position = CGPoint(x: gameWindowShape.frame.minX, y: gameWindowShape.frame.minY-65)
+        
         
         // prize dispenser
         prizeDispenser.fillColor = Colors.color(for: 0x46AAAC)
@@ -186,13 +201,15 @@ public class ClawMachine {
         cabinetNode.addChild(prizeShootShape)
         cabinetNode.addChild(button)
         cabinetNode.addChild(panel)
+        cabinetNode.addChild(gameWindowGlassShape)
+        cabinetNode.addChild(prizeShootGlassShape)
         
         
         
         
         // MARK: Sprites - add before joints
         scene.addChild(Claw.motor)
-//        scene.addChild(Claw.bar)
+        scene.addChild(Claw.bar)
         scene.addChild(Claw.leftClaw)
         scene.addChild(Claw.rightClaw)
         scene.addChild(Claw.contactDetector)
@@ -213,7 +230,7 @@ public class ClawMachine {
         clawMachineCabinetContainerView.presentScene(scene)
         
 //        scene.addChild(backgroundNode)
-        cabinetNode.zPosition = 100
+        cabinetNode.zPosition = 150
         scene.addChild(cabinetNode)
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView

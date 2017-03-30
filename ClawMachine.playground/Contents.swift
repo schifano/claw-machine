@@ -10,9 +10,9 @@ ClawMachine.setup()
 // size?
 Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 1)
 Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bunny-sprite.png"), quantity: 1)
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "ooni-sprite.png"), quantity: 1)
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "giraffee-sprite.png"), quantity: 1)
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "oinky-sprite.png"), quantity: 1)
+//Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "ooni-sprite.png"), quantity: 1)
+//Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "giraffee-sprite.png"), quantity: 1)
+//Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "oinky-sprite.png"), quantity: 1)
 
 // Experiment with the strength of the claw by adjusting force used to open and close it
 Claw.openStrength = 60
