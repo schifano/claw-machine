@@ -16,6 +16,7 @@ struct Actions {
 
 public class Claw {
     static let motor = Sprites.createMotorSprite()
+    static let bar = Sprites.createBarSprite()
     static let leftClaw = Sprites.createLeftClawSprite()
     static let rightClaw = Sprites.createRightClawSprite()
     static let contactDetector = Sprites.createContactDetectorSprite()

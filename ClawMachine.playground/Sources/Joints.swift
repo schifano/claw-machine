@@ -26,6 +26,15 @@ struct Joints {
         
     }
     
+    static func createBarJoint(motor: SKSpriteNode, bar: SKSpriteNode) -> SKPhysicsJointPin {
+        let barJoint = SKPhysicsJointPin.joint(withBodyA: motor.physicsBody!, bodyB: bar.physicsBody!,
+                                                     anchor: CGPoint(x: bar.frame.midX, y: motor.frame.maxY))
+        barJoint.shouldEnableLimits = true
+        barJoint.upperAngleLimit = 0
+        barJoint.lowerAngleLimit = 0
+        return barJoint
+    }
+    
     static func createClawSpringJoint(leftClaw: SKSpriteNode, rightClaw: SKSpriteNode) -> SKPhysicsJointSpring {
         let clawSpringJoint = SKPhysicsJointSpring.joint(withBodyA: leftClaw.physicsBody!, bodyB: rightClaw.physicsBody!, anchorA: CGPoint(x: leftClaw.position.x+25, y: leftClaw.position.y-15), anchorB: CGPoint(x: rightClaw.position.x-25, y: rightClaw.position.y-15))
         clawSpringJoint.frequency = 5.0
