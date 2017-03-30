@@ -141,7 +141,7 @@ public class ClawMachine {
         
         
         // game window glass
-        gameWindowGlassShape.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha: 0.4)
+        gameWindowGlassShape.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha: 0.3)
         gameWindowGlassShape.lineWidth = 0.0
         
         // prize shoot
