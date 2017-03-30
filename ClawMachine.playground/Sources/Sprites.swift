@@ -37,7 +37,6 @@ public class Sprites {
         bar.physicsBody?.affectedByGravity = false
         bar.physicsBody?.isDynamic = true
         bar.physicsBody?.collisionBitMask = 0
-        bar.zPosition = -50
         bar.physicsBody?.categoryBitMask = Category.clawCategory
         return bar
     }
