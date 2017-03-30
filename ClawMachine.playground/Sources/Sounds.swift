@@ -1,6 +1,6 @@
 import AVFoundation
 
-class Sounds {
+struct Sounds {
     
     static var melody: AVAudioPlayer?
     
