@@ -32,6 +32,7 @@ class Sounds {
             return
         }
         melody.pause()
+        melody.currentTime = 0
     }
 }
 
