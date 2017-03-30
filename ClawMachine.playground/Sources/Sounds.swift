@@ -11,7 +11,8 @@ class Sounds {
             do {
                 melody = try AVAudioPlayer(contentsOf: url)
                 melody?.numberOfLoops = -1
-                melody?.play()
+                melody?.volume = 0.5
+                melody?.prepareToPlay()
             } catch {
                 print("Could not play melody")
             }
