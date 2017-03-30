@@ -12,7 +12,7 @@ public class Sprites {
     /// Methods used for creating sprites that make up the entire claw
     // Motor
     static func createMotorSprite() -> SKSpriteNode {
-        let motorTexture = SKTexture(image: UIImage(named: "claw-motor-gray.png")!)
+        let motorTexture = SKTexture(image: UIImage(named: "claw-motor.png")!)
         let motor = SKSpriteNode(texture: motorTexture)
         motor.size = CGSize(width: 28, height: 41)
         motor.position = CGPoint(x: ClawMachine.gameWindowShape.frame.minX+65, y: ClawMachine.gameWindowShape.frame.maxY-25)
@@ -29,7 +29,7 @@ public class Sprites {
     // Bar
     static func createBarSprite() -> SKSpriteNode {
         let motor = Claw.motor
-        let barTexture = SKTexture(image: UIImage(named: "claw-bar-gray.png")!)
+        let barTexture = SKTexture(image: UIImage(named: "claw-bar.png")!)
         let bar = SKSpriteNode(texture: barTexture)
         bar.size = CGSize(width: 10, height: 100)
         bar.position = CGPoint(x: motor.frame.midX, y: motor.frame.maxY+50)
@@ -45,7 +45,7 @@ public class Sprites {
     // Left claw
     static func createLeftClawSprite() -> SKSpriteNode {
         let motor = Claw.motor
-        let leftClawTexture = SKTexture(image: UIImage(named: "claw-left-gray.png")!)
+        let leftClawTexture = SKTexture(image: UIImage(named: "claw-left2.png")!)
         let leftClaw = SKSpriteNode(texture: leftClawTexture)
         
         leftClaw.size = CGSize(width: 26, height: 47)
@@ -65,7 +65,7 @@ public class Sprites {
     // Right claw
     static func createRightClawSprite() -> SKSpriteNode {
         let motor = Claw.motor
-        let rightClawTexture = SKTexture(image: UIImage(named: "claw-right-gray.png")!)
+        let rightClawTexture = SKTexture(image: UIImage(named: "claw-right2.png")!)
         let rightClaw = SKSpriteNode(texture: rightClawTexture)
         
         rightClaw.size = CGSize(width: 26, height: 47)

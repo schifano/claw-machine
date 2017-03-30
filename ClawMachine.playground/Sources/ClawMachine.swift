@@ -104,7 +104,7 @@ public class ClawMachine {
         
         
         
-        let background = SKSpriteNode(imageNamed: "naked-bear")
+        let background = SKSpriteNode(imageNamed: "background-bear")
         background.size = CGSize(width: clawMachineCabinetContainerView.frame.width-10, height: clawMachineCabinetContainerView.frame.height-50)
         background.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY-50)
         scene.addChild(background)
