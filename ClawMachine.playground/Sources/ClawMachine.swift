@@ -246,6 +246,8 @@ public class ClawMachine {
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true
+        
+        Sounds.setupAudio()
     }
     
     // Method used to draw claw machine boundaries

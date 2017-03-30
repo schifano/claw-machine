@@ -29,17 +29,10 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
             Claw.closeClaw()
         }
         
-        
         if Button.buttonIsPressed {
-            let sound = SKAction.playSoundFileNamed("melody.m4a", waitForCompletion: true)
-            ClawMachine.scene.run(sound,
-                completion: {()-> Void in
-                
-                })
+            Sounds.playMelody()
+        } else {
+            Sounds.pauseMelody()
         }
-        
-//        if ClawMachine.title.frame.width >= CGFloat(ClawMachine.cabinetWidth) {
-//            ClawMachine.title.fontSize -= 2.0
-//        }
     }
 }

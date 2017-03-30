@@ -7,7 +7,6 @@ import PlaygroundSupport
 ClawMachine.setup()
 
 // Create your own stuffed animal sprites
-// size?
 Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 1)
 Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bunny-sprite.png"), quantity: 1)
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "ooni-sprite.png"), quantity: 1)
@@ -26,7 +25,7 @@ Claw.closeStrength = 100
 // TODO: Sound of stuffed animal at bottom??
 
 
-ClawMachine.name = "Michelle"
+//ClawMachine.name = "Michelle"
 
 
 //print(ClawMachine.numberOfRetriesLabel.position.x)
