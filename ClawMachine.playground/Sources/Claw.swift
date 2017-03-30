@@ -167,7 +167,7 @@ public class Claw {
                     
                     // first action - check logic
                     SKAction.run({
-                        if Claw.rightClaw.frame.maxX >= ClawMachine.gameWindowShape.frame.maxX-10 {
+                        if Claw.rightClaw.frame.maxX >= ClawMachine.gameWindowShape.frame.maxX-5 {
                             Claw.motor.removeAction(forKey: "moveRight")
                         }
                     }),
