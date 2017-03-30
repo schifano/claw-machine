@@ -5,8 +5,6 @@ import PlaygroundSupport
 
 public class ClawMachine {
     
-    var buttonIsPressed = false
-    
     struct Colors {
         static let lightGreen = color(for: 0x44FAAC)
         static let sail = color(for: 0xB3D7F7)
@@ -19,6 +17,8 @@ public class ClawMachine {
         }
     }
     
+    static let delegate = Collision()
+    
     static let cabinetWidth = 350  /// width 432 max is used for iPad Playgrounds
     static let cabinetHeight = 450
     static let boundaryWidth = 350
@@ -28,23 +28,17 @@ public class ClawMachine {
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
-    public static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
+    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
     static let gameWindowGlassShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
     
-    
-    public static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 215))
-    public static let prizeShootGlassShape = SKShapeNode(rect: CGRect(x: 27, y: 65, width: 80, height: 50))
+    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 215))
+    static let prizeShootGlassShape = SKShapeNode(rect: CGRect(x: 27, y: 65, width: 80, height: 50))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
+    
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
-    
-    
-    static let delegate = Collision()
 
     static let panel = SKShapeNode(rect: CGRect(x: button.position.x+50, y: button.position.y-50, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
     static let numberOfRetriesLabel = SKLabelNode(text: "12")
-    
-//    public static let numberOfRetriesLabel = SKLabelNode(text: "12")  
-    
     
     public static func setup() {
 //        clawMachineCabinetContainerView.showsFields = true    // DEBUG
@@ -158,11 +152,11 @@ public class ClawMachine {
         let clawSpringJoint = Joints.createClawSpringJoint(leftClaw: Claw.leftClaw, rightClaw: Claw.rightClaw)
         
         
+        // MARK: Scene Node - add children
         scene.addChild(boundary)
         
         scene.addChild(gameWindowShape)
         scene.addChild(prizeDispenser)
-        
         
         // MARK: Sprites - add to scene before joints
         scene.addChild(Claw.motor)
@@ -179,6 +173,7 @@ public class ClawMachine {
     
         clawMachineCabinetContainerView.presentScene(scene)
 
+        // MARK: Cabinet Node - add children
         let cabinetNode = SKNode()
         cabinetNode.zPosition = 100
         
@@ -192,6 +187,7 @@ public class ClawMachine {
         
         scene.addChild(cabinetNode)
         
+        // MARK: Audio setup
         Sounds.setupAudio()
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView

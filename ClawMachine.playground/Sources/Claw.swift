@@ -134,7 +134,7 @@ public class Claw {
                     SKAction.run({
                         
                         if (Claw.leftClaw.frame.minY <= ClawMachine.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            print("contactMade?: \(Collision.contactMade)") // TEST
+                            print("contactMade?: \(Collision.contactMade)") // DEBUG
                             Claw.motor.removeAction(forKey: "moveDown")
                             
                             Claw.motor.run(Actions.wait,
@@ -143,7 +143,7 @@ public class Claw {
                                             Claw.motor.run(Claw.moveUpBlock)
                             })
                         } else if (Claw.rightClaw.frame.minY <= ClawMachine.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            print("contactMade?: \(Collision.contactMade)") // TEST
+                            print("contactMade?: \(Collision.contactMade)") // DEBUG
                             Claw.motor.removeAction(forKey: "moveDown")
                             Claw.motor.run(Actions.wait,
                                            completion: {() -> Void in

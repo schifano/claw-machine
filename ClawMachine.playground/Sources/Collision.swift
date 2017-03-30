@@ -9,10 +9,8 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
         let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
         
         if (collision == (Category.contactDetectorCategory | Category.stuffedAnimalCategory)) {
-            
-            print("contact with stuffed animal")
+            print("contact with stuffed animal") // DEBUG
             Collision.contactMade = true
-            
         }
     }
     
@@ -29,6 +27,7 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
             Claw.closeClaw()
         }
         
+        // audio playback when user is pressing the button or the claw is returning
         if Button.buttonIsPressed || Claw.isReturning {
             Sounds.playMelody()
         } else {

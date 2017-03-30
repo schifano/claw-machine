@@ -6,7 +6,7 @@ import PlaygroundSupport
 
 ClawMachine.setup()
 
-// Create your own stuffed animal sprites
+// Create stuffed animal sprites
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "bear3.png"), quantity: 1)
 Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-goldi.png"), quantity: 1)
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-giraffee.png"), quantity: 1)
