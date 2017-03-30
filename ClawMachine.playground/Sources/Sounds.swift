@@ -4,8 +4,8 @@ struct Sounds {
     
     static var melody: AVAudioPlayer?
     
+    /// Configures the audio player
     static func setupAudio() {
-        // Configure audio
         if let path = Bundle.main.path(forResource: "melody", ofType: "m4a") {
             let url = URL(fileURLWithPath: path)
             do {
@@ -19,6 +19,7 @@ struct Sounds {
         }
     }
     
+    /// Toggles playback for the audio
     static func playMelody() {
         guard let melody = Sounds.melody else {
             print("No audio was set up")
@@ -27,6 +28,7 @@ struct Sounds {
         melody.play()
     }
     
+    /// Pauses the audio
     static func pauseMelody() {
         guard let melody = Sounds.melody else {
             print("No audio was set up")
