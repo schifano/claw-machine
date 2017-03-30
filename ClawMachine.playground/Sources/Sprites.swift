@@ -129,7 +129,7 @@ public class Sprites {
         let stuffedAnimalTexture = SKTexture(image: image)
         for _ in 1 ... quantity {
             let stuffedAnimal = SKSpriteNode(texture: stuffedAnimalTexture)
-            stuffedAnimal.zPosition = 0
+//            stuffedAnimal.zPosition = 0
             stuffedAnimal.size = stuffedAnimalSize
             
             let point = CGPoint(

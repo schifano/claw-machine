@@ -16,13 +16,14 @@ public class ClawMachine {
         static let tan = color(for: 0x522f46)
         static let waxFlower = color(for: 0xFFBBA4)
         static let lightBlue = color(for: 0x80DEEA)
-        static let darkPurple = color(for: 0x7D3FFA)
+        static let darkPurple = color(for: 0x5d336b)
         static let aqua = color(for: 0x31D5C3)
         static let lightGreen = color(for: 0x44FAAC)
         static let lightPink = color(for: 0xFFCAFE)
         static let tacao = color(for: 0xF5A87A)
-//        static let sail = color(for: 0x46AAAC)
-        static let sail = UIColor(red: 181/255, green: 223/255, blue: 252/255, alpha: 1.0)
+        static let sail = color(for: 0xB3D7F7)
+        
+//        static let sail = UIColor(red: 181/255, green: 223/255, blue: 252/255, alpha: 1.0)
         
 //        static let sail = UIColor(red: 1, green: 1, blue: 1, alpha: 0.2)
         
@@ -61,17 +62,11 @@ public class ClawMachine {
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
     
     
-    public static var name = ""
     
     static let delegate = Collision()
 
     static let backgroundNode = SKNode()
-    
-    let title = SKLabelNode(text: "\(name)'s Skill Crane")
-    
-    public static func set(name: String) {
-        self.name = name
-    }
+
     
     
     static let panel = SKShapeNode(rect: CGRect(x: button.position.x+50, y: button.position.y-50, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
@@ -97,18 +92,9 @@ public class ClawMachine {
         scene.delegate = delegate
         
         // Background image
-//        let color1 = CIColor(color: Colors.color(for: 0xE56A6F)) // bottom
-//        let color2 = CIColor(color: Colors.color(for: 0xE56A6F)) // top
-        
-        
-        let color1 = CIColor(color: Colors.color(for: 0xe79aa2)) // bottom
-//        let color1 = CIColor(color: Colors.color(for: 0xecafb5)) // bottom
+        let color1 = CIColor(color: Colors.color(for: 0xecafb5)) // bottom
+//        let color1 = CIColor(color: Colors.color(for: 0xe79aa2)) // bottom darker
         let color2 = CIColor(color: Colors.color(for: 0xf7ccb8)) // top
-//        let color1 = CIColor(color: Colors.color(for: 0xfa7e81))
-//        let color2 = CIColor(color: Colors.color(for: 0xfda197))
-        
-//        let color1 = CIColor(red: 110/255, green: 242/255, blue: 212/255)
-//        let color2 = CIColor(red: 153/255, green: 248/255, blue: 195/255)
         
         let backgroundGradient = SKTexture(size: clawMachineCabinetContainerView.frame.size, color1: color1, color2: color2)
         let backgroundGradientNode = SKSpriteNode(texture: backgroundGradient)
@@ -124,23 +110,28 @@ public class ClawMachine {
         scene.addChild(background)
         
         
-//        title.color = UIColor.white
-//        title.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.maxY-25)
-////        title.fontName = "BanglaSangamMN-Bold"
-//        title.fontSize = 25.0
+        // header
+        let header = SKShapeNode(rect: CGRect(x: 0, y: Int(gameWindowShape.frame.maxY), width: cabinetWidth, height: 50))
+        header.fillColor = Colors.color(for: 0xecafb5)
+        
+
+        // header title
+        let name = "Stuffy"
+        let title = SKLabelNode(text: "Stuffy Time")
+        title.position = CGPoint(x: header.frame.midX, y: gameWindowShape.frame.maxY+15)
+//        title.position = CGPoint(x: 100, y: 100)
+        title.fontName = "AvenirNextCondensed-Bold"
+        title.fontSize = 25.0
+        title.fontColor = UIColor(red:0.76, green:0.44, blue:0.40, alpha:1.00)
 //        title.horizontalAlignmentMode = .center;
 //        title.verticalAlignmentMode = .center
 //        title.fontName = "MarkerFelt-Thin"
-//        scene.addChild(title)
         
         
         
         let cabinetNode = SKNode()
         
-        
-        // header
-        let header = SKShapeNode(rect: CGRect(x: 0, y: Int(gameWindowShape.frame.maxY), width: cabinetWidth, height: Int(CGFloat(cabinetHeight)-(gameWindowShape.position.y+gameWindowShape.frame.height))))
-        header.fillColor = Colors.color(for: 0xecafb5)
+    
         
         // game window
         gameWindowShape.fillColor = UIColor.clear
@@ -150,7 +141,7 @@ public class ClawMachine {
         
         
         // game window glass
-        gameWindowGlassShape.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.2)
+        gameWindowGlassShape.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha: 0.4)
         gameWindowGlassShape.lineWidth = 0.0
         
         // prize shoot
@@ -165,9 +156,9 @@ public class ClawMachine {
         
         
         // prize dispenser
-        prizeDispenser.fillColor = UIColor(red: 1.0, green: 1.0, blue: 0.8, alpha: 0.5)
+        prizeDispenser.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha:0.5)
         prizeDispenser.lineWidth = 5.0
-        prizeDispenser.strokeColor = Colors.color(for: 0x112549)
+        prizeDispenser.strokeColor = UIColor(red:0.17, green:0.85, blue:0.56, alpha:1.00)
         
         // button
 //        button.position = CGPoint(x: 210, y: 120)
@@ -243,11 +234,13 @@ public class ClawMachine {
 //        prizeShootShape.zPosition = 0   // like stuffed animal
         
         cabinetNode.addChild(header)
+        cabinetNode.addChild(title)
         cabinetNode.addChild(prizeShootShape)
         cabinetNode.addChild(button)
 //        cabinetNode.addChild(panel)
-        cabinetNode.addChild(gameWindowGlassShape)
         cabinetNode.addChild(prizeShootGlassShape)
+        cabinetNode.addChild(gameWindowGlassShape)
+        cabinetNode.zPosition = 100
         
         scene.addChild(cabinetNode)
         
