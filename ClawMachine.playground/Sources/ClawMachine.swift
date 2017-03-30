@@ -83,7 +83,7 @@ public class ClawMachine {
         
         // Scene
 //        scene.backgroundColor = Colors.color(for: 0x625AB0)
-                scene.backgroundColor = Colors.tan
+                scene.backgroundColor = Colors.color(for: 0xecafb5)
         scene.scaleMode = SKSceneScaleMode.aspectFit
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         // the delegate must be owned by something
@@ -100,7 +100,7 @@ public class ClawMachine {
         let backgroundGradientNode = SKSpriteNode(texture: backgroundGradient)
         backgroundGradientNode.size = clawMachineCabinetContainerView.frame.size
         backgroundGradientNode.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY)
-        scene.addChild(backgroundGradientNode)
+//        scene.addChild(backgroundGradientNode)
         
         
         
@@ -113,15 +113,15 @@ public class ClawMachine {
         // header
         let header = SKShapeNode(rect: CGRect(x: 0, y: Int(gameWindowShape.frame.maxY), width: cabinetWidth, height: 50))
         header.fillColor = Colors.color(for: 0xecafb5)
+        header.lineWidth = 0.0
         
 
         // header title
-        let name = "Stuffy"
         let title = SKLabelNode(text: "Stuffy Time")
-        title.position = CGPoint(x: header.frame.midX, y: gameWindowShape.frame.maxY+15)
+        title.position = CGPoint(x: header.frame.midX, y: gameWindowShape.frame.maxY+10)
 //        title.position = CGPoint(x: 100, y: 100)
         title.fontName = "AvenirNextCondensed-Bold"
-        title.fontSize = 25.0
+        title.fontSize = 32.0
         title.fontColor = UIColor(red:0.76, green:0.44, blue:0.40, alpha:1.00)
 //        title.horizontalAlignmentMode = .center;
 //        title.verticalAlignmentMode = .center
