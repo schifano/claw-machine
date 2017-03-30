@@ -22,6 +22,7 @@ public class Claw {
     static let contactDetector = Sprites.createContactDetectorSprite()
 
     static var isOpen = true
+    static var isReturning = false
     
     public static var openStrength = 70
     public static var closeStrength = 100
@@ -75,6 +76,7 @@ public class Claw {
 
                             Claw.motor.removeAction(forKey: "moveLeft")
                             
+                            Claw.isReturning = false
                             Claw.isOpen = true
 
                             ClawMachine.button.isUserInteractionEnabled = true
@@ -103,6 +105,7 @@ public class Claw {
                     SKAction.sequence([
                         SKAction.run({
                             Claw.isOpen = false
+                            Claw.isReturning = true
                         }),
                         
                         SKAction.run({

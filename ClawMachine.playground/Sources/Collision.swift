@@ -29,7 +29,7 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
             Claw.closeClaw()
         }
         
-        if Button.buttonIsPressed {
+        if Button.buttonIsPressed || Claw.isReturning {
             Sounds.playMelody()
         } else {
             Sounds.pauseMelody()
