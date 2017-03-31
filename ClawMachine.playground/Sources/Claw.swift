@@ -72,7 +72,7 @@ public class Claw {
                     SKAction.run({
                         if Claw.leftClaw.frame.maxX <= ClawMachine.gameWindowShape.frame.minX+75 {
                             
-                            print("moved left")
+//                            print("moved left") // DEBUG
 
                             Claw.motor.removeAction(forKey: "moveLeft")
                             
@@ -110,7 +110,7 @@ public class Claw {
                         
                         SKAction.run({
                             if Claw.motor.frame.maxY >= ClawMachine.gameWindowShape.frame.maxY-7 {
-                                print("made it up")
+//                                print("made it up") // DEBUG
                                 Claw.motor.run(Claw.moveLeftBlock)
                                 Claw.motor.removeAction(forKey: "moveUp")
                             }
@@ -134,7 +134,7 @@ public class Claw {
                     SKAction.run({
                         
                         if (Claw.leftClaw.frame.minY <= ClawMachine.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            print("contactMade?: \(Collision.contactMade)") // DEBUG
+//                            print("contactMade?: \(Collision.contactMade)") // DEBUG
                             Claw.motor.removeAction(forKey: "moveDown")
                             
                             Claw.motor.run(Actions.wait,
@@ -143,7 +143,7 @@ public class Claw {
                                             Claw.motor.run(Claw.moveUpBlock)
                             })
                         } else if (Claw.rightClaw.frame.minY <= ClawMachine.gameWindowShape.frame.minY+10) || Collision.contactMade {
-                            print("contactMade?: \(Collision.contactMade)") // DEBUG
+//                            print("contactMade?: \(Collision.contactMade)") // DEBUG
                             Claw.motor.removeAction(forKey: "moveDown")
                             Claw.motor.run(Actions.wait,
                                            completion: {() -> Void in
@@ -182,7 +182,7 @@ public class Claw {
     
     /// Method that handles claw sequence to return home
     static func returnClawHome() {
-        print("return claw home")
+//        print("return claw home") // DEBUG
         
         // user must wait for claw to return to try again
         ClawMachine.button.isUserInteractionEnabled = false

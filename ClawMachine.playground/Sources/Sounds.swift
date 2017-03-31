@@ -14,7 +14,7 @@ struct Sounds {
                 melody?.volume = 0.5
                 melody?.prepareToPlay()
             } catch {
-                print("Could not play melody")
+                print("Could not play melody") // DEBUG
             }
         }
     }
@@ -22,7 +22,7 @@ struct Sounds {
     /// Toggles playback for the audio
     static func playMelody() {
         guard let melody = Sounds.melody else {
-            print("No audio was set up")
+            print("No audio was set up") // DEBUG
             return
         }
         melody.play()
@@ -31,7 +31,7 @@ struct Sounds {
     /// Pauses the audio
     static func pauseMelody() {
         guard let melody = Sounds.melody else {
-            print("No audio was set up")
+            print("No audio was set up") // DEBUG
             return
         }
         melody.pause()

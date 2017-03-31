@@ -23,6 +23,3 @@ Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bunny.png
 // Adjust force used to open and close it
 Claw.openStrength = 60
 Claw.closeStrength = 100
-
-// Change shape of claw
-

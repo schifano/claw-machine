@@ -55,8 +55,8 @@ public class ClawMachine {
         scene.delegate = delegate
         
         // MARK: Background Gradient
+        // Use later if interested
         let color1 = CIColor(color: Colors.color(for: 0xecafb5)) // bottom
-//        let color1 = CIColor(color: Colors.color(for: 0xe79aa2)) // bottom darker
         let color2 = CIColor(color: Colors.color(for: 0xf7ccb8)) // top
         
         let backgroundGradient = SKTexture(size: clawMachineCabinetContainerView.frame.size, color1: color1, color2: color2)
@@ -65,13 +65,6 @@ public class ClawMachine {
         backgroundGradientNode.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY)
 //        scene.addChild(backgroundGradientNode)
         
-        
-        // MARK: Background Image
-//        let background = SKSpriteNode(imageNamed: "background-bear")
-//        background.size = CGSize(width: clawMachineCabinetContainerView.frame.width-10, height: clawMachineCabinetContainerView.frame.height-50)
-//        background.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY-50)
-//        scene.addChild(background)
-
         
         // MARK: Cabinet Header
         let header = SKShapeNode(rect: CGRect(x: 0, y: Int(gameWindowShape.frame.maxY), width: cabinetWidth, height: 50))
@@ -89,41 +82,30 @@ public class ClawMachine {
         footer.fillColor = Colors.color(for: 0xecafb5)
         footer.lineWidth = 0.0
         
-        
         let backgroundTop = SKSpriteNode(imageNamed: "background-top")
         backgroundTop.size = CGSize(width: gameWindowShape.frame.width, height: gameWindowShape.frame.height)
         backgroundTop.position = CGPoint(x: gameWindowShape.frame.midX, y: gameWindowShape.frame.midY)
         scene.addChild(backgroundTop)
         
-        
         let backgroundMiddle = SKSpriteNode(imageNamed: "background-middle")
         backgroundMiddle.size = CGSize(width: middle.frame.width, height: middle.frame.height)
         backgroundMiddle.position = CGPoint(x: middle.frame.midX, y: middle.frame.midY)
-        
         
         let backgroundBottom = SKSpriteNode(imageNamed: "background-bottom")
         backgroundBottom.size = CGSize(width: footer.frame.width, height: footer.frame.height)
         backgroundBottom.position = CGPoint(x: footer.frame.midX, y: footer.frame.midY)
         
-        
-
         // MARK: Header Label
         let title = SKLabelNode(text: "Stuffy Time")
         title.position = CGPoint(x: header.frame.midX, y: gameWindowShape.frame.maxY+10)
-//        title.position = CGPoint(x: 100, y: 100)
         title.fontName = "AvenirNextCondensed-Bold"
         title.fontSize = 32.0
         title.fontColor = UIColor(red:0.76, green:0.44, blue:0.40, alpha:1.00)
-//        title.horizontalAlignmentMode = .center;
-//        title.verticalAlignmentMode = .center
-        
         
         // MARK: Game Window
         gameWindowShape.fillColor = UIColor.clear
         gameWindowShape.lineWidth = 0.0
         gameWindowShape.strokeColor = Colors.color(for: 0x112549)
-        //gameWindowShape.position = CGPoint(x: 40, y: 400)
-        
         
         // MARK: Game Window Glass
         gameWindowGlassShape.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha: 0.3)
@@ -136,15 +118,10 @@ public class ClawMachine {
         // MARK: Prize Shoot Glass
         prizeShootGlassShape.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
         prizeShootGlassShape.lineWidth = 0.0
-//        prizeShootGlassShape.strokeColor = Colors.color(for: 0x112549)
         prizeShootGlassShape.position = CGPoint(x: gameWindowShape.frame.minX, y: gameWindowShape.frame.minY-65)
-        
         
         // MARK: Prize Dispenser
         prizeDispenser.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha:0.5)
-//        prizeDispenser.lineWidth = 3.0
-//        prizeDispenser.strokeColor = UIColor(red:0.17, green:0.85, blue:0.56, alpha:1.00)
-        
         
         let prizeDispenserBorder = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-17, y: prizeShootShape.frame.minY-2, width: prizeDispenser.frame.width-1, height: prizeDispenser.frame.width-2), cornerRadius: 10)
         prizeDispenserBorder.fillColor = UIColor.clear
@@ -153,32 +130,22 @@ public class ClawMachine {
         prizeDispenserBorder.zPosition = 150
         
         // MARK: Button
-//        button.position = CGPoint(x: 210, y: 120)
         button.position = CGPoint(x: boundaryWidth/2, y: 120)
         
-        
         // MARK: Panel
-        // TODO: If time, integrate retry count
+        // TODO: When more time later, integrate retry count
         panel.fillColor = Colors.lightGreen
         panel.lineWidth = 0.0
         //scene.addChild(panel)
-        
-        
-        // MARK: Panel Label
+    
         numberOfRetriesLabel.fontSize = 80.0
         numberOfRetriesLabel.fontName = "Courier-Bold"
         numberOfRetriesLabel.fontColor = UIColor.red
-//        numberOfRetriesLabel.horizontalAlignmentMode = .center
-//        numberOfRetriesLabel.verticalAlignmentMode = .center
         panel.addChild(numberOfRetriesLabel)
         numberOfRetriesLabel.position = CGPoint(x: 270, y: 100)
-//        print("panel x \(panel.position.x)")
-//        print("panel y \(panel.position.y)")
-        
         
         // draw boundaries on scene
         let boundary = drawBoundaries()
-        
         
         // MARK: Joints
         let leftClawJoint = Joints.createLeftClawJoint(motor: Claw.motor, leftClaw: Claw.leftClaw)
@@ -190,9 +157,7 @@ public class ClawMachine {
         
         // MARK: Scene Node - add children
         scene.addChild(boundary)
-        
         scene.addChild(gameWindowShape)
-//        scene.addChild(prizeDispenser)
         
         // MARK: Sprites - add to scene before joints
         scene.addChild(Claw.motor)
@@ -215,7 +180,6 @@ public class ClawMachine {
         cabinetNode.addChild(header)
         cabinetNode.addChild(title)
         
-        
         cabinetNode.addChild(footer)
         cabinetNode.addChild(backgroundBottom)
         
@@ -226,7 +190,6 @@ public class ClawMachine {
         cabinetNode.addChild(prizeDispenserBorder)
         
         cabinetNode.addChild(prizeShootShape)
-//        cabinetNode.addChild(panel)
         cabinetNode.addChild(prizeShootGlassShape)
         cabinetNode.addChild(gameWindowGlassShape)
         cabinetNode.addChild(button)
@@ -235,20 +198,6 @@ public class ClawMachine {
         
         // MARK: Audio setup
         Sounds.setupAudio()
-        
-        
-        
-        // DEBUG
-        print("gameWindow width: \(gameWindowShape.frame.width)")
-        print("gameWindow height: \(gameWindowShape.frame.height)")
-        
-        print("middle width: \(middle.frame.width)")
-        print("middle height: \(middle.frame.height)")
-        
-        print("footer width: \(footer.frame.width)")
-        print("footer height: \(footer.frame.height)")
-        
-        
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true

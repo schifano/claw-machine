@@ -33,7 +33,7 @@ class Button: SKNode {
         Button.buttonIsPressed = true
         Claw.motor.run(Claw.moveRightBlock)
         
-        print("touches began")
+//        print("touches began") // DEBUG
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {

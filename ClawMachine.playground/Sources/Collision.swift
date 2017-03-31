@@ -9,7 +9,7 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
         let collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask)
         
         if (collision == (Category.contactDetectorCategory | Category.stuffedAnimalCategory)) {
-            print("contact with stuffed animal") // DEBUG
+//            print("contact with stuffed animal") // DEBUG
             Collision.contactMade = true
         }
     }
@@ -21,7 +21,7 @@ class Collision: NSObject, SKPhysicsContactDelegate, SKSceneDelegate {
         // apply constant force to keep claw open
         // reverse force to keep it closed
         if Claw.isOpen {
-            print("Claw is open")
+//            print("Claw is open")
             Claw.openClaw()
         } else {
             Claw.closeClaw()
