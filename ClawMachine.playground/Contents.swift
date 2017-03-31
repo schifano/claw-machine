@@ -7,15 +7,17 @@ import PlaygroundSupport
 ClawMachine.setup()
 
 // Create stuffed animal sprites
-//Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bunny.png"), quantity: 3)
-//Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-giraffee.png"), quantity: 2)
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bully.png"), quantity: 5)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bunny.png"), quantity: 2)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-giraffee.png"), quantity: 2)
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bully.png"), quantity: 2)
 
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-oinky.png"), quantity: 1)
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-beary.png"), quantity: 1)
+
 
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-goldi.png"), quantity: 1)
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-toffee.png"), quantity: 1)
+
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-beary.png"), quantity: 1)
 
 // Experiment with the strength of the claw
 // Adjust force used to open and close it

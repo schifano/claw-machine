@@ -20,7 +20,7 @@ public class ClawMachine {
     static let delegate = Collision()
     
     static let cabinetWidth = 350  /// width 432 max is used for iPad Playgrounds
-    static let cabinetHeight = 450
+    static let cabinetHeight = 470
     static let boundaryWidth = 350
 //    static let boundaryWidth = 392 + 40 (= 432)
     static let boundaryHeight = 450
@@ -28,11 +28,11 @@ public class ClawMachine {
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
     
-    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
-    static let gameWindowGlassShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 160))
+    static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 180))
+    static let gameWindowGlassShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 180))
     
-    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 215))
-    static let prizeShootGlassShape = SKShapeNode(rect: CGRect(x: 27, y: 65, width: 80, height: 50))
+    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 225))
+    static let prizeShootGlassShape = SKShapeNode(rect: CGRect(x: 27, y: 65, width: 80, height: 65))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
     
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")

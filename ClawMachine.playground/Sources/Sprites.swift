@@ -27,11 +27,12 @@ public class Sprites {
     // Bar
     static func createBarSprite() -> SKSpriteNode {
         let motor = Claw.motor
-        let barTexture = SKTexture(image: UIImage(named: "claw-bar.png")!)
+        let barImage = UIImage(named: "claw-bar.png")!
+        let barTexture = SKTexture(image: barImage)
         let bar = SKSpriteNode(texture: barTexture)
-        bar.size = CGSize(width: 10, height: 100)
-        bar.position = CGPoint(x: motor.frame.midX, y: motor.frame.maxY+50)
-        bar.physicsBody = SKPhysicsBody(texture: barTexture, size: CGSize(width: 10, height: 100))
+        bar.size = CGSize(width: 10, height: barImage.size.height)
+        bar.position = CGPoint(x: motor.frame.midX, y: motor.frame.maxY+100)
+        bar.physicsBody = SKPhysicsBody(texture: barTexture, size: CGSize(width: 10, height: barImage.size.height))
         bar.physicsBody?.affectedByGravity = false
         bar.physicsBody?.isDynamic = true
         bar.physicsBody?.collisionBitMask = 0
