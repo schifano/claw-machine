@@ -27,6 +27,7 @@ public class ClawMachine {
     
     static let clawMachineCabinetContainerView = SKView(frame: CGRect(x: 0, y: 0, width: cabinetWidth, height: cabinetHeight))
     static let scene = SKScene(size: CGSize(width: cabinetWidth, height: cabinetHeight))
+    static let cabinetNode = SKNode()
     
     static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 180))
     static let gameWindowGlassShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 180))
@@ -66,16 +67,44 @@ public class ClawMachine {
         
         
         // MARK: Background Image
-        let background = SKSpriteNode(imageNamed: "background-bear")
-        background.size = CGSize(width: clawMachineCabinetContainerView.frame.width-10, height: clawMachineCabinetContainerView.frame.height-50)
-        background.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY-50)
-        scene.addChild(background)
-        
+//        let background = SKSpriteNode(imageNamed: "background-bear")
+//        background.size = CGSize(width: clawMachineCabinetContainerView.frame.width-10, height: clawMachineCabinetContainerView.frame.height-50)
+//        background.position = CGPoint(x: clawMachineCabinetContainerView.frame.midX, y: clawMachineCabinetContainerView.frame.midY-50)
+//        scene.addChild(background)
+
         
         // MARK: Cabinet Header
         let header = SKShapeNode(rect: CGRect(x: 0, y: Int(gameWindowShape.frame.maxY), width: cabinetWidth, height: 50))
         header.fillColor = Colors.color(for: 0xecafb5)
         header.lineWidth = 0.0
+        
+        // MARK: Cabinet Middle
+        let middle = SKShapeNode(rect: CGRect(x: 0, y: Int(prizeDispenser.frame.maxY), width: cabinetWidth, height: Int(gameWindowShape.frame.minY-prizeDispenser.frame.maxY+2)))
+        middle.fillColor = Colors.color(for: 0xecafb5)
+        middle.lineWidth = 0.0
+        middle.zPosition = 100
+        
+        // MARK: Cabinet Footer
+        let footer = SKShapeNode(rect: CGRect(x: 0, y: 0, width: cabinetWidth, height: Int(middle.frame.minY)))
+        footer.fillColor = Colors.color(for: 0xecafb5)
+        footer.lineWidth = 0.0
+        
+        
+        let backgroundTop = SKSpriteNode(imageNamed: "background-top")
+        backgroundTop.size = CGSize(width: gameWindowShape.frame.width, height: gameWindowShape.frame.height)
+        backgroundTop.position = CGPoint(x: gameWindowShape.frame.midX, y: gameWindowShape.frame.midY)
+        scene.addChild(backgroundTop)
+        
+        
+        let backgroundMiddle = SKSpriteNode(imageNamed: "background-middle")
+        backgroundMiddle.size = CGSize(width: middle.frame.width, height: middle.frame.height)
+        backgroundMiddle.position = CGPoint(x: middle.frame.midX, y: middle.frame.midY)
+        
+        
+        let backgroundBottom = SKSpriteNode(imageNamed: "background-bottom")
+        backgroundBottom.size = CGSize(width: footer.frame.width, height: footer.frame.height)
+        backgroundBottom.position = CGPoint(x: footer.frame.midX, y: footer.frame.midY)
+        
         
 
         // MARK: Header Label
@@ -113,7 +142,7 @@ public class ClawMachine {
         
         // MARK: Prize Dispenser
         prizeDispenser.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha:0.5)
-        prizeDispenser.lineWidth = 5.0
+        prizeDispenser.lineWidth = 3.0
         prizeDispenser.strokeColor = UIColor(red:0.17, green:0.85, blue:0.56, alpha:1.00)
         
         // MARK: Button
@@ -156,7 +185,7 @@ public class ClawMachine {
         scene.addChild(boundary)
         
         scene.addChild(gameWindowShape)
-        scene.addChild(prizeDispenser)
+//        scene.addChild(prizeDispenser)
         
         // MARK: Sprites - add to scene before joints
         scene.addChild(Claw.motor)
@@ -174,11 +203,20 @@ public class ClawMachine {
         clawMachineCabinetContainerView.presentScene(scene)
 
         // MARK: Cabinet Node - add children
-        let cabinetNode = SKNode()
         cabinetNode.zPosition = 100
         
         cabinetNode.addChild(header)
         cabinetNode.addChild(title)
+        
+        
+        cabinetNode.addChild(footer)
+        cabinetNode.addChild(backgroundBottom)
+        
+        footer.addChild(middle)
+        middle.addChild(backgroundMiddle)
+        
+        cabinetNode.addChild(prizeDispenser)
+        
         cabinetNode.addChild(prizeShootShape)
 //        cabinetNode.addChild(panel)
         cabinetNode.addChild(prizeShootGlassShape)
@@ -189,6 +227,20 @@ public class ClawMachine {
         
         // MARK: Audio setup
         Sounds.setupAudio()
+        
+        
+        
+        // DEBUG
+        print("gameWindow width: \(gameWindowShape.frame.width)")
+        print("gameWindow height: \(gameWindowShape.frame.height)")
+        
+        print("middle width: \(middle.frame.width)")
+        print("middle height: \(middle.frame.height)")
+        
+        print("footer width: \(footer.frame.width)")
+        print("footer height: \(footer.frame.height)")
+        
+        
         
         PlaygroundPage.current.liveView = clawMachineCabinetContainerView
         PlaygroundPage.current.needsIndefiniteExecution = true

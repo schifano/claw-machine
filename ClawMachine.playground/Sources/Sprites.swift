@@ -144,7 +144,7 @@ public class Sprites {
             stuffedAnimal.physicsBody?.contactTestBitMask = Category.contactDetectorCategory
             stuffedAnimal.physicsBody?.collisionBitMask = Category.boundaryCategory | Category.clawCategory | Category.stuffedAnimalCategory
             
-            ClawMachine.scene.addChild(stuffedAnimal)
+            ClawMachine.cabinetNode.addChild(stuffedAnimal)
         }
     }
 }
