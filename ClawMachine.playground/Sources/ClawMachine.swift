@@ -142,8 +142,15 @@ public class ClawMachine {
         
         // MARK: Prize Dispenser
         prizeDispenser.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha:0.5)
-        prizeDispenser.lineWidth = 3.0
-        prizeDispenser.strokeColor = UIColor(red:0.17, green:0.85, blue:0.56, alpha:1.00)
+//        prizeDispenser.lineWidth = 3.0
+//        prizeDispenser.strokeColor = UIColor(red:0.17, green:0.85, blue:0.56, alpha:1.00)
+        
+        
+        let prizeDispenserBorder = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-17, y: prizeShootShape.frame.minY-2, width: prizeDispenser.frame.width-1, height: prizeDispenser.frame.width-2), cornerRadius: 10)
+        prizeDispenserBorder.fillColor = UIColor.clear
+        prizeDispenserBorder.lineWidth = 3.0
+        prizeDispenserBorder.strokeColor = UIColor(red:0.17, green:0.85, blue:0.56, alpha:1.00)
+        prizeDispenserBorder.zPosition = 150
         
         // MARK: Button
 //        button.position = CGPoint(x: 210, y: 120)
@@ -216,6 +223,7 @@ public class ClawMachine {
         middle.addChild(backgroundMiddle)
         
         cabinetNode.addChild(prizeDispenser)
+        cabinetNode.addChild(prizeDispenserBorder)
         
         cabinetNode.addChild(prizeShootShape)
 //        cabinetNode.addChild(panel)

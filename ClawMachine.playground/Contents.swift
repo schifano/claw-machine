@@ -8,7 +8,7 @@ ClawMachine.setup()
 
 // Create stuffed animal sprites
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-giraffee.png"), quantity: 2) // Giraffee
-Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bunny.png"), quantity: 6) // Bunny
+Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bunny.png"), quantity: 4) // Bunny
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-bully.png"), quantity: 2) // Bully
 
 //Sprites.createStuffedAnimal(image: #imageLiteral(resourceName: "sprite-oinky.png"), quantity: 1)
