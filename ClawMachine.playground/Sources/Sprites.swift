@@ -141,7 +141,7 @@ public class Sprites {
             stuffedAnimal.physicsBody?.isDynamic = true
             stuffedAnimal.physicsBody?.categoryBitMask = Category.stuffedAnimalCategory
             stuffedAnimal.physicsBody?.contactTestBitMask = Category.contactDetectorCategory
-            stuffedAnimal.physicsBody?.collisionBitMask = Category.boundaryCategory | Category.clawCategory
+            stuffedAnimal.physicsBody?.collisionBitMask = Category.boundaryCategory | Category.clawCategory | Category.stuffedAnimalCategory
             
             ClawMachine.scene.addChild(stuffedAnimal)
         }

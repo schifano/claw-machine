@@ -180,10 +180,10 @@ public class ClawMachine {
         cabinetNode.addChild(header)
         cabinetNode.addChild(title)
         cabinetNode.addChild(prizeShootShape)
-        cabinetNode.addChild(button)
 //        cabinetNode.addChild(panel)
         cabinetNode.addChild(prizeShootGlassShape)
         cabinetNode.addChild(gameWindowGlassShape)
+        cabinetNode.addChild(button)
         
         scene.addChild(cabinetNode)
         
