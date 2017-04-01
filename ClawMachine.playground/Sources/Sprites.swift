@@ -104,7 +104,7 @@ public class Sprites {
     }
     
     // Methods used to generate random values for x and y components
-    static let minX: Int = Int(ClawMachine.prizeShootShape.frame.maxX)+10
+    static let minX: Int = Int(ClawMachine.prizeChuteShape.frame.maxX)+10
     static let maxX: Int = Int(ClawMachine.gameWindowShape.frame.maxX)-20
     
     static let minY: Int = Int(ClawMachine.gameWindowShape.frame.minY)+20

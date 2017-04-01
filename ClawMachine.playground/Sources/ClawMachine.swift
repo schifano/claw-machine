@@ -32,13 +32,13 @@ public class ClawMachine {
     static let gameWindowShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 180))
     static let gameWindowGlassShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 180))
     
-    static let prizeShootShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 225))
+    static let prizeChuteShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 225))
     static let prizeShootGlassShape = SKShapeNode(rect: CGRect(x: 27, y: 65, width: 80, height: 65))
-    static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-15, y: prizeShootShape.frame.minY, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
+    static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeChuteShape.frame.minX-15, y: prizeChuteShape.frame.minY, width: prizeChuteShape.frame.width+30, height: prizeChuteShape.frame.width+30), cornerRadius: 10)
     
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
 
-    static let panel = SKShapeNode(rect: CGRect(x: button.position.x+50, y: button.position.y-50, width: prizeShootShape.frame.width+30, height: prizeShootShape.frame.width+30), cornerRadius: 10)
+    static let panel = SKShapeNode(rect: CGRect(x: button.position.x+50, y: button.position.y-50, width: prizeChuteShape.frame.width+30, height: prizeChuteShape.frame.width+30), cornerRadius: 10)
     static let numberOfRetriesLabel = SKLabelNode(text: "12")
     
     public static func setup() {
@@ -112,8 +112,8 @@ public class ClawMachine {
         gameWindowGlassShape.lineWidth = 0.0
         
         // MARK: Prize Shoot
-        prizeShootShape.fillColor = UIColor.clear
-        prizeShootShape.lineWidth = 0.0
+        prizeChuteShape.fillColor = UIColor.clear
+        prizeChuteShape.lineWidth = 0.0
         
         // MARK: Prize Shoot Glass
         prizeShootGlassShape.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
@@ -123,7 +123,7 @@ public class ClawMachine {
         // MARK: Prize Dispenser
         prizeDispenser.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha:0.5)
         
-        let prizeDispenserBorder = SKShapeNode(rect: CGRect(x: prizeShootShape.frame.minX-17, y: prizeShootShape.frame.minY-2, width: prizeDispenser.frame.width-1, height: prizeDispenser.frame.width-2), cornerRadius: 10)
+        let prizeDispenserBorder = SKShapeNode(rect: CGRect(x: prizeChuteShape.frame.minX-17, y: prizeChuteShape.frame.minY-2, width: prizeDispenser.frame.width-1, height: prizeDispenser.frame.width-2), cornerRadius: 10)
         prizeDispenserBorder.fillColor = UIColor.clear
         prizeDispenserBorder.lineWidth = 3.0
         prizeDispenserBorder.strokeColor = UIColor(red:0.17, green:0.85, blue:0.56, alpha:1.00)
@@ -189,7 +189,7 @@ public class ClawMachine {
         cabinetNode.addChild(prizeDispenser)
         cabinetNode.addChild(prizeDispenserBorder)
         
-        cabinetNode.addChild(prizeShootShape)
+        cabinetNode.addChild(prizeChuteShape)
         cabinetNode.addChild(prizeShootGlassShape)
         cabinetNode.addChild(gameWindowGlassShape)
         cabinetNode.addChild(button)
@@ -210,10 +210,10 @@ public class ClawMachine {
         let windowMaxY = gameWindowShape.frame.maxY
         let windowMinY = gameWindowShape.frame.minY
         
-        let prizeMinX = prizeShootShape.frame.minX
-        let prizeMaxX = prizeShootShape.frame.maxX
-        let prizeMinY = prizeShootShape.frame.minY
-        let prizeMaxY = prizeShootShape.frame.maxY
+        let prizeMinX = prizeChuteShape.frame.minX
+        let prizeMaxX = prizeChuteShape.frame.maxX
+        let prizeMinY = prizeChuteShape.frame.minY
+        let prizeMaxY = prizeChuteShape.frame.maxY
         
         let path = CGMutablePath()
         path.addLines(between: [
