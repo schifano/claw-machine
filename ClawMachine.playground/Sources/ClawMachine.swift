@@ -33,7 +33,7 @@ public class ClawMachine {
     static let gameWindowGlassShape = SKShapeNode(rect: CGRect(x: 0, y: 240, width: boundaryWidth, height: 180))
     
     static let prizeChuteShape = SKShapeNode(rect: CGRect(x: 30, y: 70, width: 70, height: 225))
-    static let prizeShootGlassShape = SKShapeNode(rect: CGRect(x: 27, y: 65, width: 80, height: 65))
+    static let prizeChuteGlassShape = SKShapeNode(rect: CGRect(x: 27, y: 65, width: 80, height: 65))
     static let prizeDispenser = SKShapeNode(rect: CGRect(x: prizeChuteShape.frame.minX-15, y: prizeChuteShape.frame.minY, width: prizeChuteShape.frame.width+30, height: prizeChuteShape.frame.width+30), cornerRadius: 10)
     
     static let button = Button.init(defaultButtonImage: "button-default.png", activeButtonImage: "button-active.png")
@@ -111,14 +111,14 @@ public class ClawMachine {
         gameWindowGlassShape.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha: 0.3)
         gameWindowGlassShape.lineWidth = 0.0
         
-        // MARK: Prize Shoot
+        // MARK: Prize Chute
         prizeChuteShape.fillColor = UIColor.clear
         prizeChuteShape.lineWidth = 0.0
         
-        // MARK: Prize Shoot Glass
-        prizeShootGlassShape.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
-        prizeShootGlassShape.lineWidth = 0.0
-        prizeShootGlassShape.position = CGPoint(x: gameWindowShape.frame.minX, y: gameWindowShape.frame.minY-65)
+        // MARK: Prize Chute Glass
+        prizeChuteGlassShape.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
+        prizeChuteGlassShape.lineWidth = 0.0
+        prizeChuteGlassShape.position = CGPoint(x: gameWindowShape.frame.minX, y: gameWindowShape.frame.minY-65)
         
         // MARK: Prize Dispenser
         prizeDispenser.fillColor = UIColor(red:0.70, green:0.84, blue:0.97, alpha:0.5)
@@ -190,7 +190,7 @@ public class ClawMachine {
         cabinetNode.addChild(prizeDispenserBorder)
         
         cabinetNode.addChild(prizeChuteShape)
-        cabinetNode.addChild(prizeShootGlassShape)
+        cabinetNode.addChild(prizeChuteGlassShape)
         cabinetNode.addChild(gameWindowGlassShape)
         cabinetNode.addChild(button)
         
